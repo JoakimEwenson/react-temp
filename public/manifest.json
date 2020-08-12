@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "temperatur.nu React-style",
+  "name": "temperatur.nu-klient skriven i React med Bootstrap",
   "icons": [
     {
       "src": "favicon.ico",
