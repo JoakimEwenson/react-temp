@@ -24,12 +24,10 @@ export default function LocationData() {
     maxTime: null,
   });
 
-  console.log(platsId);
   // Get a list of locations
-
   async function getLocationData(loc) {
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&dc=true&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();

@@ -9,7 +9,7 @@ export default function LocationList() {
   // Get a list of locations
   async function getLocationList() {
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?verbose=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?verbose=true&dc=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();
