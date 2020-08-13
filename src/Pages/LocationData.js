@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getRandomCli } from "../Utils/Common";
-import { Card } from "react-bootstrap";
+import { Card, Alert } from "react-bootstrap";
 
 export default function LocationData() {
   const { platsId } = useParams();
+  const [hasErrors, setErrors] = useState(null);
   const [locationData, setLocationData] = useState({
     title: null,
     id: null,
@@ -32,7 +33,10 @@ export default function LocationData() {
 
     let parser = new DOMParser();
 
-    fetch(APIURL)
+    fetch(APIURL, {
+      cors: "no-cors",
+      headers: { "Content-Type": "text/xml; charset=iso-8859-1" },
+    })
       .then((response) => response.text())
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
@@ -72,25 +76,28 @@ export default function LocationData() {
             ? items[0].getElementsByTagName("ammRange")[0].innerHTML
             : null,
           average: items[0].getElementsByTagName("average")[0].innerHTML
-          ? items[0].getElementsByTagName("average")[0].innerHTML
-          : null,
+            ? items[0].getElementsByTagName("average")[0].innerHTML
+            : null,
           min: items[0].getElementsByTagName("min")[0].innerHTML
-          ? items[0].getElementsByTagName("min")[0].innerHTML
-          : null,
+            ? items[0].getElementsByTagName("min")[0].innerHTML
+            : null,
           minTime: items[0].getElementsByTagName("minTime")[0].innerHTML
-          ? items[0].getElementsByTagName("minTime")[0].innerHTML
-          : null,
+            ? items[0].getElementsByTagName("minTime")[0].innerHTML
+            : null,
           max: items[0].getElementsByTagName("max")[0].innerHTML
-          ? items[0].getElementsByTagName("max")[0].innerHTML
-          : null,
+            ? items[0].getElementsByTagName("max")[0].innerHTML
+            : null,
           maxTime: items[0].getElementsByTagName("maxTime")[0].innerHTML
-          ? items[0].getElementsByTagName("maxTime")[0].innerHTML
-          : null,
+            ? items[0].getElementsByTagName("maxTime")[0].innerHTML
+            : null,
         };
         console.log(location);
         setLocationData(location);
       })
-      .catch((err) => console.error(`Error: ${err}`));
+      .catch((err) => {
+        console.error(`Error: ${err}`);
+        setErrors(err);
+      });
   }
 
   useEffect(() => {
@@ -98,7 +105,8 @@ export default function LocationData() {
   }, [platsId]);
 
   return (
-    <div>
+    <>
+      {hasErrors && (<Alert variant="danger">{hasErrors.message}</Alert>)}
       {locationData && (
         <Card className="my-3">
           <Card.Body>
@@ -120,6 +128,6 @@ export default function LocationData() {
           </Card.Body>
         </Card>
       )}
-    </div>
+    </>
   );
 }
