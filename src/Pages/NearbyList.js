@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli, colorTemperature } from "../Utils/Common";
+import { getRandomCli } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function NearbyList() {
@@ -91,10 +91,12 @@ export default function NearbyList() {
               {locations.map((row) => (
                 <tr key={row.id}>
                   <td>
-                    <Link to={`/plats/${row.id}`} className="text-muted">{row.title}</Link>
+                    <Link to={`/plats/${row.id}`} className="text-muted">
+                      {row.title}
+                    </Link>
                   </td>
                   <td>{row.dist && row.dist} km</td>
-                  <td style={{ color: colorTemperature(row.temp)}}>{row.temp}&deg;C</td>
+                  <td>{row.temp}&deg;C</td>
                 </tr>
               ))}
             </tbody>

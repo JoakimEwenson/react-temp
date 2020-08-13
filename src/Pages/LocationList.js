@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card } from "react-bootstrap";
+import { Table, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli, colorTemperature } from "../Utils/Common";
+import { getRandomCli } from "../Utils/Common";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function LocationList() {
   const [locations, setLocations] = useState([]);
+  const [hasErrors, setErrors] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   // Get a list of locations
   async function getLocationList() {
@@ -13,11 +16,17 @@ export default function LocationList() {
     console.log(APIURL);
 
     let parser = new DOMParser();
+    let iconv = require("iconv-lite");
     let locationList = [];
 
     fetch(APIURL)
       .then((response) => response.text())
-      .then((str) => parser.parseFromString(str, "text/xml"))
+      .then((str) =>
+        parser.parseFromString(
+          iconv.encode(new Buffer(str), "ISO-8859-1"),
+          "text/xml"
+        )
+      )
       .then((res) => {
         let items = res.getElementsByTagName("item");
         // Iterate results and input into string
@@ -38,44 +47,69 @@ export default function LocationList() {
             lon: items[i].getElementsByTagName("lon")[0].innerHTML
               ? items[i].getElementsByTagName("lon")[0].innerHTML
               : null,
-            lastUpdate: items[i].getElementsByTagName("lastUpdate")[0].innerHTML ? items[i].getElementsByTagName("lastUpdate")[0].innerHTML : null,
-            kommun: items[i].getElementsByTagName("kommun")[0].innerHTML ? items[i].getElementsByTagName("kommun")[0].innerHTML : null,
-            lan: items[i].getElementsByTagName("lan")[0].innerHTML ? items[i].getElementsByTagName("lan")[0].innerHTML : null,
-            sourceInfo: items[i].getElementsByTagName("sourceInfo")[0].innerHTML ? items[i].getElementsByTagName("sourceInfo")[0].innerHTML : null,
-            url: items[i].getElementsByTagName("url")[0].innerHTML ? items[i].getElementsByTagName("url")[0].innerHTML : null,
+            lastUpdate: items[i].getElementsByTagName("lastUpdate")[0].innerHTML
+              ? items[i].getElementsByTagName("lastUpdate")[0].innerHTML
+              : null,
+            kommun: items[i].getElementsByTagName("kommun")[0].innerHTML
+              ? items[i].getElementsByTagName("kommun")[0].innerHTML
+              : null,
+            lan: items[i].getElementsByTagName("lan")[0].innerHTML
+              ? items[i].getElementsByTagName("lan")[0].innerHTML
+              : null,
+            sourceInfo: items[i].getElementsByTagName("sourceInfo")[0].innerHTML
+              ? items[i].getElementsByTagName("sourceInfo")[0].innerHTML
+              : null,
+            url: items[i].getElementsByTagName("url")[0].innerHTML
+              ? items[i].getElementsByTagName("url")[0].innerHTML
+              : null,
           };
           locationList.push(row);
         }
         console.log({ locationList });
         setLocations(locationList);
+        setLoading(false);
       })
-      .catch((err) => console.error(`Error: ${err}`));
+      .catch((err) => {
+        console.error(`Error: ${err}`);
+        setErrors(err);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
+    setLoading(true);
     getLocationList();
   }, []);
 
   return (
-    <Card>
-      <Table borderless responsive>
-        <thead>
-          <tr>
-            <th>Plats</th>
-            <th>Temperatur</th>
-          </tr>
-        </thead>
-        <tbody>
-          {locations.map((row) => (
-            <tr key={row.id}>
-              <td>
-                <Link to={`/plats/${row.id}`} className="text-muted">{row.title}</Link>
-              </td>
-              <td style={{ color: colorTemperature(row.temp)}}>{row.temp}&deg;C</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Card>
+    <>
+      {hasErrors ? <Alert variant="danger">{hasErrors.message}</Alert> : ""}
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <Card>
+          <Table borderless responsive>
+            <thead>
+              <tr>
+                <th>Plats</th>
+                <th>Temperatur</th>
+              </tr>
+            </thead>
+            <tbody>
+              {locations.map((row) => (
+                <tr key={row.id}>
+                  <td>
+                    <Link to={`/plats/${row.id}`} className="text-muted">
+                      {row.title}
+                    </Link>
+                  </td>
+                  <td>{row.temp}&deg;C</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card>
+      )}
+    </>
   );
 }

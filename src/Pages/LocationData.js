@@ -7,7 +7,6 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 export default function LocationData() {
   const { platsId } = useParams();
   const [hasErrors, setErrors] = useState(null);
-  const [isLoading, setLoading] = useState(false);
   const [locationData, setLocationData] = useState({
     title: null,
     id: null,
@@ -29,7 +28,6 @@ export default function LocationData() {
 
   // Get a list of locations
   async function getLocationData(loc) {
-    setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&dc=true&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
@@ -47,7 +45,7 @@ export default function LocationData() {
       )
       .then((res) => {
         let items = res.getElementsByTagName("item");
-        console.log(items);
+
         let location = {
           id: items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
             ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
@@ -121,7 +119,6 @@ export default function LocationData() {
         console.error(`Error: ${err}`);
         setErrors(err);
       });
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -131,8 +128,7 @@ export default function LocationData() {
   return (
     <>
       {hasErrors && <Alert variant="danger">{hasErrors.message}</Alert>}
-      {isLoading ? <LoadingSpinner /> : ""}
-      {locationData && (
+      {locationData.temp ? (
         <Card className="my-3">
           <Card.Body>
             <div className="text-center">
@@ -144,12 +140,14 @@ export default function LocationData() {
                   {locationData.kommun} - {locationData.lan}
                 </Card.Subtitle>
               )}
+
               <h1
                 className="temperature p-3"
                 style={{ color: colorTemperature(locationData.temp) }}
               >
                 {locationData.temp}°C
               </h1>
+
               <p>
                 <small className="text-muted">{locationData.lastUpdate}</small>
                 <br />
@@ -168,6 +166,8 @@ export default function LocationData() {
             </small>
           </p>
         </Card>
+      ) : (
+        <LoadingSpinner />
       )}
     </>
   );

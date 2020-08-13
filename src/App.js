@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import LocationList from "./Pages/LocationList";
 import NearbyList from "./Pages/NearbyList";
 import LocationData from "./Pages/LocationData";
+import Favorites from "./Pages/Favorites";
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
             </>
           </Route>
           <Route exact path="/favoriter">
-            <>
-              <h1>Favoriter</h1>
-            </>
+            <Favorites />
           </Route>
           <Route exact path="/narliggande">
             <NearbyList />
