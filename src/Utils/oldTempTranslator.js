@@ -163,7 +163,7 @@ function getTemperatureData(APIURL) {
     ).style.color = colorTemperature(temperature);
 
     // Populate page elements
-    /* 
+
     document.getElementById("cityTitle").innerHTML =
       "<a href='https://www.openstreetmap.org/?mlat=" +
       locationLat +
@@ -233,7 +233,7 @@ function getTemperatureData(APIURL) {
       fallbackLocation +
       "<br>Data sparat i webbl&auml;saren: " +
       sessionStorage.getItem("locationId");
-   */
+   
   };
 
   request.send();

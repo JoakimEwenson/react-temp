@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli } from "../Utils/Common";
+import { getRandomCli, colorTemperature } from "../Utils/Common";
 
 export default function LocationList() {
   const [locations, setLocations] = useState([]);
@@ -69,9 +69,9 @@ export default function LocationList() {
           {locations.map((row) => (
             <tr key={row.id}>
               <td>
-                <Link to={`/plats/${row.id}`}>{row.title}</Link>
+                <Link to={`/plats/${row.id}`} className="text-muted">{row.title}</Link>
               </td>
-              <td>{row.temp}&deg;C</td>
+              <td style={{ color: colorTemperature(row.temp)}}>{row.temp}&deg;C</td>
             </tr>
           ))}
         </tbody>
