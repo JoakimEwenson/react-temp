@@ -21,7 +21,7 @@ export default function LocationList() {
       .then((res) => {
         let items = res.getElementsByTagName("item");
         // Iterate results and input into string
-        for (let i = 1; i < items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
           let row = {
             id: items[i].getElementsByTagName("id")[0].innerHTML
               ? items[i].getElementsByTagName("id")[0].innerHTML
