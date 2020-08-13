@@ -79,7 +79,7 @@ export default function NearbyList() {
         <Alert variant="danger">GeoLocation Error: {hasError}</Alert>
       ) : !isLoading ? (
         <Card className="my-3">
-          <Table borderless>
+          <Table borderless responsive>
             <thead>
               <tr>
                 <th>Plats</th>

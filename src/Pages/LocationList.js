@@ -58,7 +58,7 @@ export default function LocationList() {
 
   return (
     <Card>
-      <Table borderless>
+      <Table borderless responsive>
         <thead>
           <tr>
             <th>Plats</th>
