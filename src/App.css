@@ -1,38 +1,15 @@
-.App {
-  text-align: center;
+.temperature {
+  font-size: 6em !important;
+  font-weight: bolder !important;
+  text-shadow: 1px 1px 3px black;
+  text-decoration: none !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.citytitle {
+  font-weight: bolder;
+  text-transform: uppercase !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.minMaxAvgResults {
+  text-transform: lowercase;
 }

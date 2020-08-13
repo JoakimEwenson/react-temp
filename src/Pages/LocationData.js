@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRandomCli } from "../Utils/Common";
+import { getRandomCli, colorTemperature } from "../Utils/Common";
 import { Card, Alert } from "react-bootstrap";
 
 export default function LocationData() {
@@ -32,60 +32,78 @@ export default function LocationData() {
     console.log(APIURL);
 
     let parser = new DOMParser();
+    let iconv = require('iconv-lite')
 
     fetch(APIURL)
       .then((response) => response.text())
-      .then((str) => parser.parseFromString(str, "text/xml"))
+      .then((str) => parser.parseFromString(iconv.encode(new Buffer(str),'ISO-8859-1'), "text/xml"))
       .then((res) => {
         let items = res.getElementsByTagName("item");
+        console.log(items);
         let location = {
-          id: items[0].getElementsByTagName("id")[0].innerHTML
-            ? items[0].getElementsByTagName("id")[0].innerHTML
+          id: items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
             : null,
-          title: items[0].getElementsByTagName("title")[0].innerHTML
-            ? decodeURIComponent(items[0].getElementsByTagName("title")[0].innerHTML)
+          title: items[0].getElementsByTagName("title")[0].childNodes[0]
+            .nodeValue
+            ? items[0].getElementsByTagName("title")[0].childNodes[0].nodeValue
             : null,
-          temp: items[0].getElementsByTagName("temp")[0].innerHTML
-            ? items[0].getElementsByTagName("temp")[0].innerHTML
+          temp: items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
             : null,
-          lat: items[0].getElementsByTagName("lat")[0].innerHTML
-            ? items[0].getElementsByTagName("lat")[0].innerHTML
+          lat: items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
             : null,
-          lon: items[0].getElementsByTagName("lon")[0].innerHTML
-            ? items[0].getElementsByTagName("lon")[0].innerHTML
+          lon: items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
             : null,
-          lastUpdate: items[0].getElementsByTagName("lastUpdate")[0].innerHTML
-            ? items[0].getElementsByTagName("lastUpdate")[0].innerHTML
+          lastUpdate: items[0].getElementsByTagName("lastUpdate")[0]
+            .childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("lastUpdate")[0].childNodes[0]
+                .nodeValue
             : null,
-          kommun: items[0].getElementsByTagName("kommun")[0].innerHTML
-            ? items[0].getElementsByTagName("kommun")[0].innerHTML
+          kommun: items[0].getElementsByTagName("kommun")[0].childNodes[0]
+            .nodeValue
+            ? items[0]
+                .getElementsByTagName("kommun")[0]
+                .childNodes[0].nodeValue.toString()
             : null,
-          lan: items[0].getElementsByTagName("lan")[0].innerHTML
-            ? items[0].getElementsByTagName("lan")[0].innerHTML
+          lan: items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
             : null,
-          sourceInfo: items[0].getElementsByTagName("sourceInfo")[0].innerHTML
-            ? items[0].getElementsByTagName("sourceInfo")[0].innerHTML
+          sourceInfo: items[0].getElementsByTagName("sourceInfo")[0]
+            .childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("sourceInfo")[0].childNodes[0]
+                .nodeValue
             : null,
-          url: items[0].getElementsByTagName("url")[0].innerHTML
-            ? items[0].getElementsByTagName("url")[0].innerHTML
+          url: items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
             : null,
-          ammRange: items[0].getElementsByTagName("ammRange")[0].innerHTML
-            ? items[0].getElementsByTagName("ammRange")[0].innerHTML
+          ammRange: items[0].getElementsByTagName("ammRange")[0].childNodes[0]
+            .nodeValue
+            ? items[0].getElementsByTagName("ammRange")[0].childNodes[0]
+                .nodeValue
             : null,
-          average: items[0].getElementsByTagName("average")[0].innerHTML
-            ? items[0].getElementsByTagName("average")[0].innerHTML
+          average: items[0].getElementsByTagName("average")[0].childNodes[0]
+            .nodeValue
+            ? items[0].getElementsByTagName("average")[0].childNodes[0]
+                .nodeValue
             : null,
-          min: items[0].getElementsByTagName("min")[0].innerHTML
-            ? items[0].getElementsByTagName("min")[0].innerHTML
+          min: items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
             : null,
-          minTime: items[0].getElementsByTagName("minTime")[0].innerHTML
-            ? items[0].getElementsByTagName("minTime")[0].innerHTML
+          minTime: items[0].getElementsByTagName("minTime")[0].childNodes[0]
+            .nodeValue
+            ? items[0].getElementsByTagName("minTime")[0].childNodes[0]
+                .nodeValue
             : null,
-          max: items[0].getElementsByTagName("max")[0].innerHTML
-            ? items[0].getElementsByTagName("max")[0].innerHTML
+          max: items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
+            ? items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
             : null,
-          maxTime: items[0].getElementsByTagName("maxTime")[0].innerHTML
-            ? items[0].getElementsByTagName("maxTime")[0].innerHTML
+          maxTime: items[0].getElementsByTagName("maxTime")[0].childNodes[0]
+            .nodeValue
+            ? items[0].getElementsByTagName("maxTime")[0].childNodes[0]
+                .nodeValue
             : null,
         };
         console.log(location);
@@ -103,26 +121,42 @@ export default function LocationData() {
 
   return (
     <>
-      {hasErrors && (<Alert variant="danger">{hasErrors.message}</Alert>)}
+      {hasErrors && <Alert variant="danger">{hasErrors.message}</Alert>}
       {locationData && (
         <Card className="my-3">
           <Card.Body>
             <div className="text-center">
-              <Card.Title>{locationData.title}</Card.Title>
+              <Card.Title className="citytitle">
+                {locationData.title}
+              </Card.Title>
               {locationData.kommun && locationData.lan && (
-                <Card.Subtitle>
+                <Card.Subtitle className="text-muted">
                   {locationData.kommun} - {locationData.lan}
                 </Card.Subtitle>
               )}
-              <h1>{locationData.temp}°C</h1>
-              <h5>{locationData.lastUpdate}</h5>
+              <h1
+                className="temperature p-3"
+                style={{ color: colorTemperature(locationData.temp) }}
+              >
+                {locationData.temp}°C
+              </h1>
+              <p>
+                <small className="text-muted">{locationData.lastUpdate}</small>
+                <br />
+                <small className="text-muted">
+                  min: {locationData.min}°c • max: {locationData.max}°c • medel:{" "}
+                  {locationData.average}°c
+                </small>
+              </p>
             </div>
-            <p className="text-right">
-              <small>
-                <a href={locationData.url}>{locationData.sourceInfo}</a>
-              </small>
-            </p>
           </Card.Body>
+          <p className="align-text-bottom text-right m-1">
+            <small>
+              <a href={locationData.url} className="text-muted">
+                {locationData.sourceInfo}
+              </a>
+            </small>
+          </p>
         </Card>
       )}
     </>

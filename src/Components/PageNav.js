@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from "../sun-solid.svg";
 
 export default function PageNav() {
   return (
-    <Navbar bg="light" variant="light" expand="lg" fluid="true">
+    <Navbar bg="light" variant="light" expand="xl" fluid="true">
       <Navbar.Brand>
         <Link to="" className="navbar-brand">
           <Logo style={{ height: 30 + "px", padding: 5 + "px" }} />
