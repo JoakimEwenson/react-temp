@@ -33,10 +33,7 @@ export default function LocationData() {
 
     let parser = new DOMParser();
 
-    fetch(APIURL, {
-      cors: "no-cors",
-      headers: { "Content-Type": "text/xml; charset=iso-8859-1" },
-    })
+    fetch(APIURL)
       .then((response) => response.text())
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
@@ -46,7 +43,7 @@ export default function LocationData() {
             ? items[0].getElementsByTagName("id")[0].innerHTML
             : null,
           title: items[0].getElementsByTagName("title")[0].innerHTML
-            ? items[0].getElementsByTagName("title")[0].innerHTML
+            ? decodeURIComponent(items[0].getElementsByTagName("title")[0].innerHTML)
             : null,
           temp: items[0].getElementsByTagName("temp")[0].innerHTML
             ? items[0].getElementsByTagName("temp")[0].innerHTML
