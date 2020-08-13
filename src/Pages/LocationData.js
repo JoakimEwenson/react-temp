@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRandomCli, colorTemperature } from "../Utils/Common";
 import { Card, Alert } from "react-bootstrap";
+import { getRandomCli, colorTemperature } from "../Utils/Common";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function LocationData() {
   const { platsId } = useParams();
   const [hasErrors, setErrors] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   const [locationData, setLocationData] = useState({
     title: null,
     id: null,
@@ -27,16 +29,22 @@ export default function LocationData() {
 
   // Get a list of locations
   async function getLocationData(loc) {
+    setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&dc=true&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();
-    let iconv = require('iconv-lite')
+    let iconv = require("iconv-lite");
 
     fetch(APIURL)
       .then((response) => response.text())
-      .then((str) => parser.parseFromString(iconv.encode(new Buffer(str),'ISO-8859-1'), "text/xml"))
+      .then((str) =>
+        parser.parseFromString(
+          iconv.encode(new Buffer(str), "ISO-8859-1"),
+          "text/xml"
+        )
+      )
       .then((res) => {
         let items = res.getElementsByTagName("item");
         console.log(items);
@@ -113,6 +121,7 @@ export default function LocationData() {
         console.error(`Error: ${err}`);
         setErrors(err);
       });
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -122,6 +131,7 @@ export default function LocationData() {
   return (
     <>
       {hasErrors && <Alert variant="danger">{hasErrors.message}</Alert>}
+      {isLoading ? <LoadingSpinner /> : ""}
       {locationData && (
         <Card className="my-3">
           <Card.Body>
