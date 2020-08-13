@@ -1,5 +1,5 @@
 .temperature {
-  font-size: 6em !important;
+  font-size: 8rem;
   font-weight: bolder !important;
   text-shadow: 1px 1px 3px black;
   text-decoration: none !important;
@@ -12,4 +12,16 @@
 
 .minMaxAvgResults {
   text-transform: lowercase;
+}
+
+@media all and (max-width: 768px) {
+  .temperature {
+    font-size: 5rem;
+  }
+}
+
+@media all and (max-width: 335px) {
+  .temperature {
+    font-size: 4rem;
+  }
 }

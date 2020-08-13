@@ -31,11 +31,17 @@ export default function NearbyList() {
     console.log(APIURL);
 
     let parser = new DOMParser();
+    let iconv = require("iconv-lite");
     let locationList = [];
 
     fetch(APIURL)
       .then((response) => response.text())
-      .then((str) => parser.parseFromString(str, "text/xml"))
+      .then((str) =>
+        parser.parseFromString(
+          iconv.encode(new Buffer(str), "ISO-8859-1"),
+          "text/xml"
+        )
+      )
       .then((res) => {
         let items = res.getElementsByTagName("item");
         // Iterate results and input into string
