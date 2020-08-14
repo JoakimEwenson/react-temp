@@ -37,75 +37,69 @@ export default function LocationData() {
 
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), 'iso-8859-1').toString())
-      .then((str) =>
-        parser.parseFromString(str, "text/xml")
+      .then((arrayBuffer) =>
+        iconv.decode(new Buffer(arrayBuffer), "iso-8859-1").toString()
       )
+      .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
         let items = res.getElementsByTagName("item");
 
         let location = {
-          id: items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
+          id: items[0].getElementsByTagName("id")[0].childNodes[0]
             ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
             : null,
           title: items[0].getElementsByTagName("title")[0].childNodes[0]
-            .nodeValue
             ? items[0].getElementsByTagName("title")[0].childNodes[0].nodeValue
             : null,
-          temp: items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
+          temp: items[0].getElementsByTagName("temp")[0].childNodes[0]
             ? items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
             : null,
-          lat: items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
+          lat: items[0].getElementsByTagName("lat")[0].childNodes[0]
             ? items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
             : null,
-          lon: items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
+          lon: items[0].getElementsByTagName("lon")[0].childNodes[0]
             ? items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
             : null,
           lastUpdate: items[0].getElementsByTagName("lastUpdate")[0]
-            .childNodes[0].nodeValue
+            .childNodes[0]
             ? items[0].getElementsByTagName("lastUpdate")[0].childNodes[0]
                 .nodeValue
             : null,
           kommun: items[0].getElementsByTagName("kommun")[0].childNodes[0]
-            .nodeValue
             ? items[0]
                 .getElementsByTagName("kommun")[0]
                 .childNodes[0].nodeValue.toString()
             : null,
-          lan: items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
+          lan: items[0].getElementsByTagName("lan")[0].childNodes[0]
             ? items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
             : null,
           sourceInfo: items[0].getElementsByTagName("sourceInfo")[0]
-            .childNodes[0].nodeValue
+            .childNodes[0]
             ? items[0].getElementsByTagName("sourceInfo")[0].childNodes[0]
                 .nodeValue
             : null,
-          url: items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
+          url: items[0].getElementsByTagName("url")[0].childNodes[0]
             ? items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
-            : null,
+            : "https://www.temperatur.nu",
           ammRange: items[0].getElementsByTagName("ammRange")[0].childNodes[0]
-            .nodeValue
             ? items[0].getElementsByTagName("ammRange")[0].childNodes[0]
                 .nodeValue
             : null,
           average: items[0].getElementsByTagName("average")[0].childNodes[0]
-            .nodeValue
             ? items[0].getElementsByTagName("average")[0].childNodes[0]
                 .nodeValue
             : null,
-          min: items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
+          min: items[0].getElementsByTagName("min")[0].childNodes[0]
             ? items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
             : null,
           minTime: items[0].getElementsByTagName("minTime")[0].childNodes[0]
-            .nodeValue
             ? items[0].getElementsByTagName("minTime")[0].childNodes[0]
                 .nodeValue
             : null,
-          max: items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
+          max: items[0].getElementsByTagName("max")[0].childNodes[0]
             ? items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
             : null,
           maxTime: items[0].getElementsByTagName("maxTime")[0].childNodes[0]
-            .nodeValue
             ? items[0].getElementsByTagName("maxTime")[0].childNodes[0]
                 .nodeValue
             : null,
@@ -150,8 +144,14 @@ export default function LocationData() {
                 <small className="text-muted">{locationData.lastUpdate}</small>
                 <br />
                 <small className="text-muted">
-                  min: {locationData.min}°c • max: {locationData.max}°c • medel:{" "}
-                  {locationData.average}°c
+                  <span className="ammTooltip" title={locationData.minTime}>
+                    min: {locationData.min}°c
+                  </span>{" "}
+                  •{" "}
+                  <span className="ammTooltip" title={locationData.maxTime}>
+                    max: {locationData.max}°c
+                  </span>{" "}
+                  • medel: {locationData.average}°c
                 </small>
               </p>
             </div>

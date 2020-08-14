@@ -8,6 +8,7 @@ export default function NearbyList() {
   const [locations, setLocations] = useState([]);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [accuracy, setAccuracy] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
 
@@ -15,6 +16,7 @@ export default function NearbyList() {
     console.log(pos);
     setLatitude(pos.coords.latitude);
     setLongitude(pos.coords.longitude);
+    setAccuracy(pos.coords.accuracy);
     getNearbyList(pos.coords.latitude, pos.coords.longitude);
   };
 
@@ -113,7 +115,11 @@ export default function NearbyList() {
             <b>Din position:</b>
             <br />
             <small>
-              lat: {latitude} - long: {longitude}
+              lat: {latitude}
+              <br />
+              long: {longitude}
+              <br />
+              accuracy: {accuracy} m
             </small>
           </p>
         </Alert>

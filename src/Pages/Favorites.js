@@ -12,6 +12,9 @@ export default function Favorites() {
     "orrholmen",
     "romstad",
     "stampen",
+    "falun",
+    "slaka",
+    "kungsholmen",
   ]);
 
   // Get a list of locations
