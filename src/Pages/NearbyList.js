@@ -35,13 +35,9 @@ export default function NearbyList() {
     let locationList = [];
 
     fetch(APIURL)
-      .then((response) => response.text())
-      .then((str) =>
-        parser.parseFromString(
-          iconv.encode(new Buffer(str), "ISO-8859-1"),
-          "text/xml"
-        )
-      )
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), 'iso-88591').toString())
+      .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
         let items = res.getElementsByTagName("item");
         // Iterate results and input into string

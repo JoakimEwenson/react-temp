@@ -36,12 +36,10 @@ export default function LocationData() {
     let iconv = require("iconv-lite");
 
     fetch(APIURL)
-      .then((response) => response.text())
+      .then((response) => response.arrayBuffer())
+      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), 'iso-8859-1').toString())
       .then((str) =>
-        parser.parseFromString(
-          iconv.encode(new Buffer(str), "ISO-8859-1"),
-          "text/xml"
-        )
+        parser.parseFromString(str, "text/xml")
       )
       .then((res) => {
         let items = res.getElementsByTagName("item");
