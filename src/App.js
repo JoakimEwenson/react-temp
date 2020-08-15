@@ -11,6 +11,7 @@ import { getRandomCli } from "./Utils/Common";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
+  const [userFavorites, setUserFavorites] = useState([]);
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -85,16 +86,16 @@ function App() {
             </>
           </Route>
           <Route exact path="/favoriter">
-            <Favorites />
+            <Favorites setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/narliggande">
-            <NearbyList />
+            <NearbyList setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/platslista">
-            <LocationList locationList={locationList} getLocationList={getLocationList} />
+            <LocationList locationList={locationList} getLocationList={getLocationList} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/plats/:platsId">
-            <LocationData />
+            <LocationData setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/om">
             <>
