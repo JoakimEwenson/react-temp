@@ -7,18 +7,11 @@ import LocationList from "./Pages/LocationList";
 import NearbyList from "./Pages/NearbyList";
 import LocationData from "./Pages/LocationData";
 import Favorites from "./Pages/Favorites";
-import { getRandomCli } from "./Utils/Common";
+import { getRandomCli, getFavorites } from "./Utils/Common";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
-  const [userFavorites, setUserFavorites] = useState([
-    "orrholmen",
-    "romstad",
-    "stampen",
-    "falun",
-    "slaka",
-    "alfta",
-  ]);
+  const [userFavorites, setUserFavorites] = useState(getFavorites() ? getFavorites() : []);
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -122,7 +115,6 @@ function App() {
           <Route exact path="/om">
             <>
               <h1>Om tjänsten</h1>
-              {document.title = "Om tjänsten"}
             </>
           </Route>
         </Switch>

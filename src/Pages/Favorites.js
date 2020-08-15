@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card, Alert, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli } from "../Utils/Common";
+import { getRandomCli, removeFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function Favorites({ userFavorites }) {
+export default function Favorites({ userFavorites, setUserFavorites }) {
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [locations, setLocationData] = useState([]);
-  const [locationList] = useState(userFavorites);
+  const [locationList, setLocationList] = useState(userFavorites);
 
   // Get a list of locations
   async function getLocationData(favlist) {
@@ -32,69 +32,62 @@ export default function Favorites({ userFavorites }) {
 
         for (let i = 0; i < items.length; i++) {
           let location = {
-            id: items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
+            id: items[i].getElementsByTagName("id")[0].childNodes[0]
               ? items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
               : null,
             title: items[i].getElementsByTagName("title")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("title")[0].childNodes[0]
                   .nodeValue
               : null,
             temp: items[i].getElementsByTagName("temp")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("temp")[0].childNodes[0].nodeValue
               : null,
-            lat: items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
+            lat: items[i].getElementsByTagName("lat")[0].childNodes[0]
               ? items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
               : null,
-            lon: items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
+            lon: items[i].getElementsByTagName("lon")[0].childNodes[0]
               ? items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
               : null,
             lastUpdate: items[i].getElementsByTagName("lastUpdate")[0]
-              .childNodes[0].nodeValue
+              .childNodes[0]
               ? items[i].getElementsByTagName("lastUpdate")[0].childNodes[0]
                   .nodeValue
               : null,
             kommun: items[i].getElementsByTagName("kommun")[0].childNodes[0]
-              .nodeValue
               ? items[i]
                   .getElementsByTagName("kommun")[0]
                   .childNodes[0].nodeValue.toString()
               : null,
-            lan: items[i].getElementsByTagName("lan")[0].childNodes[0].nodeValue
+            lan: items[i].getElementsByTagName("lan")[0].childNodes[0]
               ? items[i].getElementsByTagName("lan")[0].childNodes[0].nodeValue
               : null,
             sourceInfo: items[i].getElementsByTagName("sourceInfo")[0]
-              .childNodes[0].nodeValue
+              .childNodes[0]
               ? items[i].getElementsByTagName("sourceInfo")[0].childNodes[0]
                   .nodeValue
               : null,
-            url: items[i].getElementsByTagName("url")[0].childNodes[0].nodeValue
+            url: items[i].getElementsByTagName("url")[0].childNodes[0]
               ? items[i].getElementsByTagName("url")[0].childNodes[0].nodeValue
               : null,
             ammRange: items[i].getElementsByTagName("ammRange")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("ammRange")[0].childNodes[0]
                   .nodeValue
               : null,
             average: items[i].getElementsByTagName("average")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("average")[0].childNodes[0]
                   .nodeValue
               : null,
-            min: items[i].getElementsByTagName("min")[0].childNodes[0].nodeValue
+            min: items[i].getElementsByTagName("min")[0].childNodes[0]
               ? items[i].getElementsByTagName("min")[0].childNodes[0].nodeValue
               : null,
             minTime: items[i].getElementsByTagName("minTime")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("minTime")[0].childNodes[0]
                   .nodeValue
               : null,
-            max: items[i].getElementsByTagName("max")[0].childNodes[0].nodeValue
+            max: items[i].getElementsByTagName("max")[0].childNodes[0]
               ? items[i].getElementsByTagName("max")[0].childNodes[0].nodeValue
               : null,
             maxTime: items[i].getElementsByTagName("maxTime")[0].childNodes[0]
-              .nodeValue
               ? items[i].getElementsByTagName("maxTime")[0].childNodes[0]
                   .nodeValue
               : null,
@@ -114,9 +107,12 @@ export default function Favorites({ userFavorites }) {
   }
 
   useEffect(() => {
-    setLoading(true);
-    getLocationData(locationList);
+    if (userFavorites) {
+      setLoading(true);
+      getLocationData(locationList);
+    }
   }, [locationList]);
+  
   return (
     <>
       {hasErrors ? <Alert variant="danger">{hasErrors.message}</Alert> : ""}
@@ -141,7 +137,12 @@ export default function Favorites({ userFavorites }) {
                     </Link>
                   </td>
                   <td>{row.temp}&deg;C</td>
-                  <td><i className="fas fa-heart" style={{ color: "red" }}></i></td>
+                  <td>
+                  <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(row.id);
+                        setLocationList(tempFavs);
+                      }}></i>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli } from "../Utils/Common";
+import { getRandomCli, removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function NearbyList({ userFavorites }) {
+export default function NearbyList({ userFavorites, setUserFavorites }) {
   const [locations, setLocations] = useState([]);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -105,10 +105,16 @@ export default function NearbyList({ userFavorites }) {
                   <td>{row.dist && row.dist} km</td>
                   <td>{row.temp}&deg;C</td>
                   <td>
-                    {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }}></i>
+                  {userFavorites.includes(row.id) ? (
+                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
                     ) : (
-                      <i className="fas fa-heart"></i>
+                      <i className="fas fa-heart" onClick={() => {
+                        let tempFavs = addFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
                     )}
                   </td>
                 </tr>

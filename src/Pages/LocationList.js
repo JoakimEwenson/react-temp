@@ -10,21 +10,23 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import { removeFavorite, addFavorite } from "../Utils/Common";
 
 export default function LocationList({
   locationList,
   getLocationList,
   userFavorites,
+  setUserFavorites,
 }) {
   document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
   const [hasErrors] = useState(null);
-  const [isLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    // setLoading(true);
-    // getLocationList();
+    setLoading(true);
     setLocations(locationList);
+    setLoading(false);
   }, [locationList]);
 
   const submitHandler = (event) => {
@@ -104,14 +106,17 @@ export default function LocationList({
                     </td>
                     <td>{row.temp}&deg;C</td>
                     <td>
-                      {userFavorites.includes(row.id) ? (
-                        <i
-                          className="fas fa-heart"
-                          style={{ color: "red" }}
-                        ></i>
-                      ) : (
-                        <i className="fas fa-heart"></i>
-                      )}
+                    {userFavorites.includes(row.id) ? (
+                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
+                    ) : (
+                      <i className="fas fa-heart" onClick={() => {
+                        let tempFavs = addFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
+                    )}
                     </td>
                   </tr>
                 ))}

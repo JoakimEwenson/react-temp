@@ -51,3 +51,83 @@ export function colorTemperature(temperature) {
 
   return textColor;
 }
+
+// Check if timestamp is old
+export function timeChecker(temperatureTimestamp) {
+  let diff = Date.now() - Date.parse(temperatureTimestamp);
+
+  // Check if difference between now and lastUpdate timestamp is above 30 minutes and if so, alert the user
+  if (diff > 1800000) {
+    console.error(
+      "A big difference in timestamps detected! Temperature last updated " +
+        diff / 1000 +
+        " seconds ago."
+    );
+  }
+}
+
+/*
+ * Section for handling favorites
+ */
+
+// Save favorites to LocalStorage
+export function saveFavorites(favoritesList) {
+  let favouritesString = "";
+  if (favoritesList.length > 0) {
+    favouritesString = favoritesList.join(",");
+  }
+  localStorage.setItem("favoritesList", favouritesString);
+}
+
+// Fetch favorites from LocalStorage
+export function getFavorites() {
+  let favouritesString, favoritesList;
+  if (localStorage.getItem("favoritesList")) {
+    favouritesString = localStorage.getItem("favoritesList");
+  }
+  favoritesList = favouritesString ? favouritesString.split(",") : [];
+  console.log(favoritesList);
+  return favoritesList;
+}
+
+// Add new favorite location
+export function addFavorite(location) {
+  let current = getFavorites();
+
+  try {
+    if (current.includes(location)) {
+      throw new Error(`Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`);
+    } else if (current.length >= 5) {
+      throw new Error(`Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`);
+    } else {
+      if (current.length === 0) {
+        current = [location];
+      } else {
+        current.push(location);
+      }
+      saveFavorites(current);
+      console.log(`Add ${location}`);
+    }
+  } catch (error) {
+    alert(error);
+  }
+
+  return current;
+}
+
+// Remove location from favorites
+export function removeFavorite(location) {
+  let current = getFavorites();
+
+  try {
+    if (current.includes(location)) {
+      current = current.filter((loc) => loc !== location);
+      saveFavorites(current);
+    }
+  } catch (error) {
+    alert(error);
+  }
+  console.log(`Removed ${location}`);
+  console.log({ current });
+  return current;
+}
