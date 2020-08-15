@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from "../sun-solid.svg";
 
 export default function PageNav() {
   return (
-    <Navbar bg="light" variant="light" expand="xl" fluid="true">
+    <Navbar bg="light" variant="light" expand="lg" fluid="true">
       <Navbar.Brand>
         <Link to="" className="navbar-brand">
           <Logo style={{ height: 30 + "px", padding: 5 + "px" }} />
@@ -20,10 +20,10 @@ export default function PageNav() {
             <NavLink>Favoriter</NavLink>
           </LinkContainer>
           <LinkContainer to="/narliggande">
-            <NavLink>Närliggande mätpunkter</NavLink>
+            <NavLink>Närliggande</NavLink>
           </LinkContainer>
           <LinkContainer to="/platslista">
-            <NavLink>Lista alla mätpunkter</NavLink>
+            <NavLink>Alla mätpunkter</NavLink>
           </LinkContainer>
           <LinkContainer to="/om">
             <NavLink>Om tjänsten</NavLink>
@@ -32,7 +32,7 @@ export default function PageNav() {
         <Form inline>
           <Form.Control
             type="text"
-            placeholder="Sök plats"
+            placeholder="Ort eller mätplats"
             className="mr-sm-2"
           />
           <Button variant="outline-secondary" disabled={true}>
