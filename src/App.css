@@ -18,6 +18,10 @@
   cursor: help;
 }
 
+.favoritesIcon {
+  font-size: 4rem;
+}
+
 @media all and (max-width: 768px) {
   .temperature {
     font-size: 5rem;

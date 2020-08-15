@@ -11,7 +11,7 @@ import { getRandomCli } from "./Utils/Common";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
-  const [fullLocationList, setFullLocationList] = useState([]);
+  const [userFavorites, setUserFavorites] = useState([]);
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -64,7 +64,6 @@ function App() {
           };
           locations.push(row);
         }
-        setFullLocationList(locations);
         setLocationList(locations);
       })
       .catch((err) => {
@@ -76,20 +75,9 @@ function App() {
     getLocationList();
   }, []);
 
-  const changeHandler = (event) => {
-    let val = event.target.value;
-    if (val.length > 2) {
-      const searchArray = locationList.filter(({title}) => title.includes(val));
-      setLocationList(searchArray);
-    }
-    else {
-      setLocationList(fullLocationList);
-    }
-  }
-
   return (
     <BrowserRouter>
-      <PageNav changeHandler={changeHandler} />
+      <PageNav />
       <Container>
         <Switch>
           <Route exact path="/">
@@ -98,16 +86,16 @@ function App() {
             </>
           </Route>
           <Route exact path="/favoriter">
-            <Favorites />
+            <Favorites setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/narliggande">
-            <NearbyList />
+            <NearbyList setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/platslista">
-            <LocationList locationList={locationList} getLocationList={getLocationList} />
+            <LocationList locationList={locationList} getLocationList={getLocationList} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/plats/:platsId">
-            <LocationData />
+            <LocationData setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/om">
             <>

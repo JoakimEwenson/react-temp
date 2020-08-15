@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Form, Button, NavLink } from "react-bootstrap";
+import { Navbar, Nav, NavLink } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { ReactComponent as Logo } from "../sun-solid.svg";
 
@@ -29,14 +29,6 @@ export default function PageNav({changeHandler}) {
             <NavLink>Om tjänsten</NavLink>
           </LinkContainer>
         </Nav>
-        <Form inline>
-          <Form.Control
-            type="text"
-            placeholder="Mätplats"
-            onChange={changeHandler}
-            className="mr-sm-2"
-          />
-        </Form>
       </Navbar.Collapse>
     </Navbar>
   );

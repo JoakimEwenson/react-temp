@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Alert, Button } from "react-bootstrap";
+import { Table, Card, Alert, Button, Form, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
@@ -14,6 +14,21 @@ export default function LocationList({ locationList, getLocationList }) {
     setLocations(locationList);
   }, [locationList]);
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+  };
+
+  const changeHandler = (event) => {
+    let val = event.target.value;
+    if (val.length >= 1) {
+      const searchArray = locationList.filter(({ title }) =>
+        title.includes(val)
+      );
+      setLocations(searchArray);
+    } else {
+      setLocations(locationList);
+    }
+  };
 
   return (
     <>
@@ -22,9 +37,34 @@ export default function LocationList({ locationList, getLocationList }) {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="text-center mx-auto p-3">
-            <Button onClick={() => getLocationList()}>Ladda om listan</Button>
-          </div>
+          <>
+            <Form onSubmit={submitHandler}>
+              <Form.Row className="align-items-center">
+                <Col>
+                  <Form.Control
+                    type="text"
+                    placeholder="Sök mätplats"
+                    onChange={changeHandler}
+                    disabled={isLoading}
+                    className="mr-sm-2"
+                  />
+                </Col>
+                <Col xs="auto">
+                  <Button title="Sök" className="mx-1">
+                    Sök
+                  </Button>
+                </Col>
+                <Col xs="auto">
+                  <Button
+                    title="Ladda om listan"
+                    onClick={() => getLocationList()}
+                  >
+                    <i class="fas fa-redo"></i>
+                  </Button>
+                </Col>
+              </Form.Row>
+            </Form>
+          </>
           <Card className="my-3">
             <Table borderless responsive>
               <thead>
