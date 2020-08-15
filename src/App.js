@@ -11,6 +11,7 @@ import { getRandomCli } from "./Utils/Common";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
+  const [fullLocationList, setFullLocationList] = useState([]);
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -63,6 +64,7 @@ function App() {
           };
           locations.push(row);
         }
+        setFullLocationList(locations);
         setLocationList(locations);
       })
       .catch((err) => {
@@ -74,9 +76,20 @@ function App() {
     getLocationList();
   }, []);
 
+  const changeHandler = (event) => {
+    let val = event.target.value;
+    if (val.length > 2) {
+      const searchArray = locationList.filter(({title}) => title.includes(val));
+      setLocationList(searchArray);
+    }
+    else {
+      setLocationList(fullLocationList);
+    }
+  }
+
   return (
     <BrowserRouter>
-      <PageNav />
+      <PageNav changeHandler={changeHandler} />
       <Container>
         <Switch>
           <Route exact path="/">

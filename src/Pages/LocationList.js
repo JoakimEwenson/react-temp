@@ -14,8 +14,6 @@ export default function LocationList({ locationList, getLocationList }) {
     setLocations(locationList);
   }, [locationList]);
 
-  const newArray = locationList.filter((el) => el.title.includes("Karl"));
-  console.log(newArray);
 
   return (
     <>
@@ -27,7 +25,7 @@ export default function LocationList({ locationList, getLocationList }) {
           <div className="text-center mx-auto p-3">
             <Button onClick={() => getLocationList()}>Ladda om listan</Button>
           </div>
-          <Card>
+          <Card className="my-3">
             <Table borderless responsive>
               <thead>
                 <tr>

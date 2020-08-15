@@ -4,7 +4,7 @@ import { Navbar, Nav, Form, Button, NavLink } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { ReactComponent as Logo } from "../sun-solid.svg";
 
-export default function PageNav() {
+export default function PageNav({changeHandler}) {
   return (
     <Navbar bg="light" variant="light" expand="lg" fluid="true">
       <Navbar.Brand>
@@ -32,12 +32,10 @@ export default function PageNav() {
         <Form inline>
           <Form.Control
             type="text"
-            placeholder="Ort eller mätplats"
+            placeholder="Mätplats"
+            onChange={changeHandler}
             className="mr-sm-2"
           />
-          <Button variant="outline-secondary" disabled={true}>
-            Sök
-          </Button>
         </Form>
       </Navbar.Collapse>
     </Navbar>
