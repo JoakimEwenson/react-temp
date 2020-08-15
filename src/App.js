@@ -11,7 +11,14 @@ import { getRandomCli } from "./Utils/Common";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
-  const [userFavorites, setUserFavorites] = useState([]);
+  const [userFavorites, setUserFavorites] = useState([
+    "orrholmen",
+    "romstad",
+    "stampen",
+    "falun",
+    "slaka",
+    "alfta",
+  ]);
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -81,25 +88,41 @@ function App() {
       <Container>
         <Switch>
           <Route exact path="/">
-            <>
-              <h1>Hem</h1>
-            </>
+          <Favorites
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+            />
           </Route>
           <Route exact path="/favoriter">
-            <Favorites userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
+            <Favorites
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+            />
           </Route>
           <Route exact path="/narliggande">
-            <NearbyList userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
+            <NearbyList
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+            />
           </Route>
           <Route exact path="/platslista">
-            <LocationList locationList={locationList} getLocationList={getLocationList} userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
+            <LocationList
+              locationList={locationList}
+              getLocationList={getLocationList}
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+            />
           </Route>
           <Route exact path="/plats/:platsId">
-            <LocationData userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
+            <LocationData
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+            />
           </Route>
           <Route exact path="/om">
             <>
               <h1>Om tjänsten</h1>
+              {document.title = "Om tjänsten"}
             </>
           </Route>
         </Switch>

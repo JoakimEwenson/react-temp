@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getRandomCli } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function NearbyList() {
+export default function NearbyList({ userFavorites }) {
   const [locations, setLocations] = useState([]);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -38,7 +38,9 @@ export default function NearbyList() {
 
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), 'iso-88591').toString())
+      .then((arrayBuffer) =>
+        iconv.decode(new Buffer(arrayBuffer), "iso-88591").toString()
+      )
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
         let items = res.getElementsByTagName("item");
@@ -54,6 +56,7 @@ export default function NearbyList() {
           };
           locationList.push(row);
         }
+        document.title = "Visar närliggande mätpunkter";
         console.log({ locationList });
         setLocations(locationList);
       })
@@ -101,6 +104,13 @@ export default function NearbyList() {
                   </td>
                   <td>{row.dist && row.dist} km</td>
                   <td>{row.temp}&deg;C</td>
+                  <td>
+                    {userFavorites.includes(row.id) ? (
+                      <i className="fas fa-heart" style={{ color: "red" }}></i>
+                    ) : (
+                      <i className="fas fa-heart"></i>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

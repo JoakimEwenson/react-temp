@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Alert, Button, Form, Col } from "react-bootstrap";
+import {
+  Table,
+  Card,
+  Alert,
+  Button,
+  Form,
+  Col,
+  InputGroup,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function LocationList({ locationList, getLocationList }) {
+export default function LocationList({
+  locationList,
+  getLocationList,
+  userFavorites,
+}) {
+  document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
   const [hasErrors] = useState(null);
   const [isLoading] = useState(false);
@@ -41,13 +54,21 @@ export default function LocationList({ locationList, getLocationList }) {
             <Form onSubmit={submitHandler}>
               <Form.Row className="align-items-center">
                 <Col>
-                  <Form.Control
-                    type="text"
-                    placeholder="Sök mätplats"
-                    onChange={changeHandler}
-                    disabled={isLoading}
-                    className="mr-sm-2"
-                  />
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>
+                        <i className="fas fa-search-location"></i>
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      type="text"
+                      className="mr-sm-2"
+                      placeholder="Sök mätplats"
+                      onChange={changeHandler}
+                      disabled={isLoading}
+                      autoFocus
+                    />
+                  </InputGroup>
                 </Col>
                 <Col xs="auto">
                   <Button title="Sök" className="mx-1">
@@ -59,7 +80,7 @@ export default function LocationList({ locationList, getLocationList }) {
                     title="Ladda om listan"
                     onClick={() => getLocationList()}
                   >
-                    <i class="fas fa-redo"></i>
+                    <i className="fas fa-redo"></i>
                   </Button>
                 </Col>
               </Form.Row>
@@ -82,6 +103,16 @@ export default function LocationList({ locationList, getLocationList }) {
                       </Link>
                     </td>
                     <td>{row.temp}&deg;C</td>
+                    <td>
+                      {userFavorites.includes(row.id) ? (
+                        <i
+                          className="fas fa-heart"
+                          style={{ color: "red" }}
+                        ></i>
+                      ) : (
+                        <i className="fas fa-heart"></i>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

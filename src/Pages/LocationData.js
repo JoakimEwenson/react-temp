@@ -4,7 +4,8 @@ import { Card, Alert } from "react-bootstrap";
 import { getRandomCli, colorTemperature } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function LocationData() {
+export default function LocationData({ userFavorites }) {
+  console.log({ userFavorites });
   const { platsId } = useParams();
   const [hasErrors, setErrors] = useState(null);
   const [locationData, setLocationData] = useState({
@@ -104,6 +105,7 @@ export default function LocationData() {
                 .nodeValue
             : null,
         };
+        document.title = `${location.temp}°C vid ${location.title}`;
         console.log(location);
         setLocationData(location);
       })
@@ -154,7 +156,13 @@ export default function LocationData() {
                   • medel: {locationData.average}°c
                 </small>
               </p>
-
+              <p className="favoritesIcon">
+                {userFavorites.includes(locationData.id) ? (
+                  <i className="fas fa-heart" style={{ color: "red" }}></i>
+                ) : (
+                  <i className="fas fa-heart"></i>
+                )}
+              </p>
             </div>
           </Card.Body>
           <p className="align-text-bottom text-right m-1">

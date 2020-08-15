@@ -22,6 +22,14 @@
   font-size: 4rem;
 }
 
+[contenteditable="true"]:focus {
+  outline: none !important;
+}
+
+*:focus {
+  outline: none !important;
+}
+
 @media all and (max-width: 768px) {
   .temperature {
     font-size: 5rem;
