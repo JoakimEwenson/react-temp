@@ -5,14 +5,17 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function LocationList({ locationList, getLocationList }) {
   const [locations, setLocations] = useState(locationList);
-  const [hasErrors, setErrors] = useState(null);
-  const [isLoading, setLoading] = useState(false);
+  const [hasErrors] = useState(null);
+  const [isLoading] = useState(false);
 
   useEffect(() => {
     // setLoading(true);
     // getLocationList();
     setLocations(locationList);
   }, [locationList]);
+
+  const newArray = locationList.filter((el) => el.title.includes("Karl"));
+  console.log(newArray);
 
   return (
     <>
