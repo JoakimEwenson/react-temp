@@ -95,11 +95,14 @@ export function addFavorite(location) {
   let current = getFavorites();
 
   try {
-    if (current.includes(location) || current.length >= 5) {
+    if (current.includes(location)) {
       throw (
-        `Det gick inte att lägga till ${location}, favoritlistan är full (max 5) eller så finns mätpunkten redan med.`
+        `Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`
       );
-    } else {
+    } else if (current.length >= 5) {
+      throw `Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`
+    } 
+    else {
       if (current.length === 0) {
         current = [location]
       }
@@ -112,6 +115,8 @@ export function addFavorite(location) {
   } catch (error) {
     alert(error);
   }
+
+  return current;
 }
 
 // Remove location from favorites

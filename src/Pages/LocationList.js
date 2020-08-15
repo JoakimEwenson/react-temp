@@ -16,6 +16,7 @@ export default function LocationList({
   locationList,
   getLocationList,
   userFavorites,
+  setUserFavorites,
 }) {
   document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
@@ -106,9 +107,15 @@ export default function LocationList({
                     <td>{row.temp}&deg;C</td>
                     <td>
                     {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => removeFavorite(row.id)}></i>
+                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
                     ) : (
-                      <i className="fas fa-heart" onClick={() => addFavorite(row.id)}></i>
+                      <i className="fas fa-heart" onClick={() => {
+                        let tempFavs = addFavorite(row.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
                     )}
                     </td>
                   </tr>
