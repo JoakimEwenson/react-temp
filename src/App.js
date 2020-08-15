@@ -10,7 +10,6 @@ import Favorites from "./Pages/Favorites";
 import { getRandomCli, getFavorites } from "./Utils/Common";
 
 function App() {
-  const favs = getFavorites() ? getFavorites() : [];
   const [locationList, setLocationList] = useState([]);
   const [userFavorites, setUserFavorites] = useState(getFavorites() ? getFavorites() : []);
 

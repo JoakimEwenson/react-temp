@@ -85,7 +85,7 @@ export function getFavorites() {
   if (localStorage.getItem("favoritesList")) {
     favouritesString = localStorage.getItem("favoritesList");
   }
-  favoritesList = favouritesString ? favouritesString.split(',') : [];
+  favoritesList = favouritesString ? favouritesString.split(",") : [];
   console.log(favoritesList);
   return favoritesList;
 }
@@ -96,17 +96,13 @@ export function addFavorite(location) {
 
   try {
     if (current.includes(location)) {
-      throw (
-        `Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`
-      );
+      throw new Error(`Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`);
     } else if (current.length >= 5) {
-      throw `Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`
-    } 
-    else {
+      throw new Error(`Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`);
+    } else {
       if (current.length === 0) {
-        current = [location]
-      }
-      else {
+        current = [location];
+      } else {
         current.push(location);
       }
       saveFavorites(current);
@@ -122,12 +118,15 @@ export function addFavorite(location) {
 // Remove location from favorites
 export function removeFavorite(location) {
   let current = getFavorites();
-  if (current.includes(location)) {
-    console.log(`Remove ${location}`);
-  }
-  else {
-    console.log("fail");
-  }
 
+  try {
+    if (current.includes(location)) {
+      current = current.filter((loc) => loc !== location);
+    }
+  } catch (error) {
+    alert(error);
+  }
+  console.log(`Removed ${location}`);
+  console.log({ current });
   return current;
 }
