@@ -122,6 +122,7 @@ export function removeFavorite(location) {
   try {
     if (current.includes(location)) {
       current = current.filter((loc) => loc !== location);
+      saveFavorites(current);
     }
   } catch (error) {
     alert(error);
