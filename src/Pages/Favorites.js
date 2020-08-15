@@ -4,18 +4,11 @@ import { Link } from "react-router-dom";
 import { getRandomCli } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function Favorites() {
+export default function Favorites({ userFavorites }) {
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [locations, setLocationData] = useState([]);
-  const [locationList, setLocationList] = useState([
-    "orrholmen",
-    "romstad",
-    "stampen",
-    "falun",
-    "slaka",
-    "kungsholmen",
-  ]);
+  const [locationList] = useState(userFavorites);
 
   // Get a list of locations
   async function getLocationData(favlist) {
@@ -30,7 +23,9 @@ export default function Favorites() {
 
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), 'iso-8859-1').toString())
+      .then((arrayBuffer) =>
+        iconv.decode(new Buffer(arrayBuffer), "iso-8859-1").toString()
+      )
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
         let items = res.getElementsByTagName("item");
@@ -106,6 +101,7 @@ export default function Favorites() {
           };
           favoritesList.push(location);
         }
+        document.title = "Visar favoritmarkerade mätpunkter";
         console.log({ favoritesList });
         setLocationData(favoritesList);
         setLoading(false);
@@ -133,6 +129,7 @@ export default function Favorites() {
               <tr>
                 <th>Plats</th>
                 <th>Temperatur</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -144,6 +141,7 @@ export default function Favorites() {
                     </Link>
                   </td>
                   <td>{row.temp}&deg;C</td>
+                  <td><i className="fas fa-heart" style={{ color: "red" }}></i></td>
                 </tr>
               ))}
             </tbody>
