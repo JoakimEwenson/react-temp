@@ -4,7 +4,7 @@ import { Navbar, Nav, NavLink } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { ReactComponent as Logo } from "../sun-solid.svg";
 
-export default function PageNav({changeHandler}) {
+export default function PageNav() {
   return (
     <Navbar bg="light" variant="light" expand="lg" fluid="true">
       <Navbar.Brand>

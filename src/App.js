@@ -86,16 +86,16 @@ function App() {
             </>
           </Route>
           <Route exact path="/favoriter">
-            <Favorites setUserFavorites={setUserFavorites} />
+            <Favorites userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/narliggande">
-            <NearbyList setUserFavorites={setUserFavorites} />
+            <NearbyList userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/platslista">
-            <LocationList locationList={locationList} getLocationList={getLocationList} setUserFavorites={setUserFavorites} />
+            <LocationList locationList={locationList} getLocationList={getLocationList} userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/plats/:platsId">
-            <LocationData setUserFavorites={setUserFavorites} />
+            <LocationData userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
           </Route>
           <Route exact path="/om">
             <>
