@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Alert } from "react-bootstrap";
-import { getRandomCli, colorTemperature } from "../Utils/Common";
+import { getRandomCli, colorTemperature, removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function LocationData({ userFavorites }) {
+export default function LocationData({ userFavorites, setUserFavorites }) {
   console.log({ userFavorites });
   const { platsId } = useParams();
   const [hasErrors, setErrors] = useState(null);
@@ -169,11 +169,17 @@ export default function LocationData({ userFavorites }) {
                 </small>
               </p>
               <p className="favoritesIcon">
-                {userFavorites.includes(locationData.id) ? (
-                  <i className="fas fa-heart" style={{ color: "red" }}></i>
-                ) : (
-                  <i className="fas fa-heart"></i>
-                )}
+              {userFavorites.includes(locationData.id) ? (
+                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(locationData.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
+                    ) : (
+                      <i className="fas fa-heart" onClick={() => {
+                        let tempFavs = addFavorite(locationData.id);
+                        setUserFavorites(tempFavs);
+                      }}></i>
+                    )}
               </p>
             </div>
           </Card.Body>

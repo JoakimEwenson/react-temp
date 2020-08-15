@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card, Alert, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli, saveFavorites } from "../Utils/Common";
+import { getRandomCli, removeFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function Favorites({ userFavorites }) {
+export default function Favorites({ userFavorites, setUserFavorites }) {
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [locations, setLocationData] = useState([]);
-  const [locationList] = useState(userFavorites);
+  const [locationList, setLocationList] = useState(userFavorites);
 
   // Get a list of locations
   async function getLocationData(favlist) {
@@ -112,6 +112,7 @@ export default function Favorites({ userFavorites }) {
       getLocationData(locationList);
     }
   }, [locationList]);
+  
   return (
     <>
       {hasErrors ? <Alert variant="danger">{hasErrors.message}</Alert> : ""}
@@ -136,7 +137,12 @@ export default function Favorites({ userFavorites }) {
                     </Link>
                   </td>
                   <td>{row.temp}&deg;C</td>
-                  <td><i className="fas fa-heart" style={{ color: "red" }}></i></td>
+                  <td>
+                  <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                        let tempFavs = removeFavorite(row.id);
+                        setLocationList(tempFavs);
+                      }}></i>
+                  </td>
                 </tr>
               ))}
             </tbody>
