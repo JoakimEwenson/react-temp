@@ -123,7 +123,11 @@ export function addFavorite(location) {
 export function removeFavorite(location) {
   let current = getFavorites();
   if (current.includes(location)) {
+    console.log(`Remove ${location}`);
+  }
+  else {
     console.log("fail");
   }
-  console.log(`Remove ${location}`);
+
+  return current;
 }
