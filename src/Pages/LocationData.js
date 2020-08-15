@@ -154,7 +154,9 @@ export default function LocationData() {
                   • medel: {locationData.average}°c
                 </small>
               </p>
-
+              <p className="favoritesIcon">
+                <i class="fas fa-heart" style={{ color: "red"}}></i>
+              </p>
             </div>
           </Card.Body>
           <p className="align-text-bottom text-right m-1">
