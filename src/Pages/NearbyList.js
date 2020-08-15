@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli } from "../Utils/Common";
+import { getRandomCli, removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function NearbyList({ userFavorites }) {
@@ -106,9 +106,9 @@ export default function NearbyList({ userFavorites }) {
                   <td>{row.temp}&deg;C</td>
                   <td>
                     {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }}></i>
+                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => removeFavorite(row.id)}></i>
                     ) : (
-                      <i className="fas fa-heart"></i>
+                      <i className="fas fa-heart" onClick={() => addFavorite(row.id)}></i>
                     )}
                   </td>
                 </tr>

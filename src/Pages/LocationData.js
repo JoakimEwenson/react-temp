@@ -116,7 +116,19 @@ export default function LocationData({ userFavorites }) {
   }
 
   useEffect(() => {
-    getLocationData(platsId);
+    let interval;
+
+    if (platsId) {
+      getLocationData(platsId);
+
+      interval = setInterval(() => {
+        getLocationData(platsId);
+      }, 600000);
+    }
+
+    return function cleanup() {
+      clearInterval(interval);
+    };
   }, [platsId]);
 
   return (
