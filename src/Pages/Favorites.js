@@ -14,7 +14,7 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
   async function getLocationData(favlist) {
     const favs = favlist.join(",");
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${favs}&dc=true&verbose=true&amm=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${favs}&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();
