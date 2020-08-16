@@ -116,7 +116,7 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
   return (
     <>
       {hasErrors ? <Alert variant="danger" className="my-3">{hasErrors.message}</Alert> : ""}
-      {userFavorites.length === 0 ? (
+      {locationList.length === 0 ? (
         <Alert variant="info" className="my-3">Du har ännu inte favoritmarkerat några mätstationer.</Alert>
       ) : (
         <Card className="my-3">

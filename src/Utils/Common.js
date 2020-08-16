@@ -151,7 +151,7 @@ export function setHome(location) {
 
 export function removeHome(location) {
   try {
-    localStorage.setItem("userHome", null);
+    localStorage.removeItem("userHome");
     console.log("Home removed...");
   } catch (error) {
     console.error(error);
