@@ -12,13 +12,13 @@
 }
 
 .btn {
-  background-color: var(--prussian-blue) !important;
+  background-color: var(--celadon-blue) !important;
   outline: none !important;
   border: none;
 }
 
 .btn:hover {
-  background-color: var(--prussian-blue) !important;
+  background-color: var(--celadon-blue) !important;
   outline: none !important;
   opacity: 0.90;
 }

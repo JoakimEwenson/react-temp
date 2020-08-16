@@ -58,7 +58,7 @@ export default function LocationList({
                 <Col>
                   <InputGroup>
                     <InputGroup.Prepend>
-                      <InputGroup.Text>
+                      <InputGroup.Text className="bg-dark" style={{border: 0}}>
                         <i className="fas fa-search-location"></i>
                       </InputGroup.Text>
                     </InputGroup.Prepend>
