@@ -60,7 +60,7 @@ export default function LocationList({
             <Col>
               <InputGroup>
                 <InputGroup.Prepend>
-                  <InputGroup.Text className="bg-dark" style={{ border: 0 }}>
+                  <InputGroup.Text>
                     <i className="fas fa-search-location"></i>
                   </InputGroup.Text>
                 </InputGroup.Prepend>
@@ -74,19 +74,19 @@ export default function LocationList({
               </InputGroup>
             </Col>
             <Col xs="auto">
-              <Button title="Sök" className="btn btn-secondary mx-1">
-                Sök
-              </Button>
-            </Col>
-            <Col xs="auto">
               <Button
                 title="Ladda om listan"
                 onClick={() => {
                   getLocationList();
                 }}
-                className="btn btn-secondary"
+                className="btn btn-dark"
               >
-                <i className="fas fa-sync-alt"></i>
+                {isLoading ? (
+                <i className="fas fa-sync fa-spin mr-1"></i>
+                ) : (
+                  <i className="fas fa-sync-alt mr-1"></i>
+                )}
+                Uppdatera listan
               </Button>
             </Col>
           </Form.Row>
@@ -106,13 +106,15 @@ export default function LocationList({
               }}
             >
               Alfabetiskt
-            </span>
-            {" "}|{" "}
+            </span>{" "}
+            |{" "}
             <span
               className="sortLink"
               onClick={() => {
                 setLoading(true);
-                const filtered = locations.filter(({ temp }) => parseFloat(temp));
+                const filtered = locations.filter(({ temp }) =>
+                  parseFloat(temp)
+                );
                 const sorted = filtered.sort((a, b) => {
                   return parseFloat(a.temp) - parseFloat(b.temp);
                 });
@@ -121,13 +123,15 @@ export default function LocationList({
               }}
             >
               Lägsta temperatur överst
-            </span>
-            {" "}|{" "}
+            </span>{" "}
+            |{" "}
             <span
               className="sortLink"
               onClick={() => {
                 setLoading(true);
-                const filtered = locations.filter(({ temp }) => parseFloat(temp));
+                const filtered = locations.filter(({ temp }) =>
+                  parseFloat(temp)
+                );
                 const sorted = filtered.sort((a, b) => {
                   return parseFloat(b.temp) - parseFloat(a.temp);
                 });
@@ -153,7 +157,7 @@ export default function LocationList({
             {locations.map((row) => (
               <tr key={row.id}>
                 <td>
-                  <Link to={`/plats/${row.id}`} className="text-muted">
+                  <Link to={`/plats/${row.id}`}>
                     {row.title}
                   </Link>
                 </td>
@@ -161,8 +165,7 @@ export default function LocationList({
                 <td>
                   {userFavorites.includes(row.id) ? (
                     <i
-                      className="fas fa-star uiIcon"
-                      style={{ color: "orange" }}
+                      className="fas fa-star uiIcon uiIconFavorited"
                       onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setUserFavorites(tempFavs);

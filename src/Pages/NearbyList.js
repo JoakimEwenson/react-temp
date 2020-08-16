@@ -98,7 +98,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
               {locations.map((row) => (
                 <tr key={row.id}>
                   <td>
-                    <Link to={`/plats/${row.id}`} className="text-muted">
+                    <Link to={`/plats/${row.id}`}>
                       {row.title}
                     </Link>
                   </td>
@@ -106,7 +106,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
                   <td>{row.temp}&deg;C</td>
                   <td>
                   {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
+                      <i className="fas fa-star uiIcon uiIconFavorited" onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setUserFavorites(tempFavs);
                       }}></i>

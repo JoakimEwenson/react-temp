@@ -1,35 +1,36 @@
 :root {
---celadon-blue: #457B9D;
---prussian-blue: #1D3557;
---powder-blue: #A8DADC;
---honeydew: #F1FAEE;
---imperial-red: #E63946;
+  --dark-purple: #16001eff;
+  --imperial-red: #e63946;
+  --oxford-blue: #0c1b33ff;
+  --xiketic: #220c10ff;
+  --dark-liver: #474647ff;
+  --raisin-black: #2c2c34ff;
+  --dark-olive-green: #606c38ff;
+  --kombu-green: #283618ff;
+  --cornsilk: #fefae0ff;
+  --fawn: #dda15eff;
+  --liver-dogs: #bc6c25ff;
+}
+
+.card a {
+  color: var(--raisin-black) !important;
+  text-decoration: underline;
+}
+
+.card a:hover {
+  text-decoration: none;
 }
 
 .bg-dark {
-  background-color: var(--celadon-blue) !important;
-  color: #ffffff !important;
+  background-color: var(--raisin-black) !important;
 }
 
-.btn {
-  background-color: var(--celadon-blue) !important;
-  outline: none !important;
-  border: none;
-}
-
-.btn:hover {
-  background-color: var(--celadon-blue) !important;
-  outline: none !important;
-  opacity: 0.90;
+.btn-dark {
+  background-color: var(--raisin-black) !important;
 }
 
 .alert-danger {
   background-color: var(--imperial-red);
-  color: #fff !important;
-}
-
-.alert-info {
-  background-color: var(--celadon-blue);
   color: #fff !important;
 }
 
@@ -60,6 +61,18 @@
 .uiIcon {
   cursor: pointer;
   margin: 10px;
+}
+
+.uiIconFavorited {
+  color: var(--fawn);
+}
+
+.uiIconHouseSelected {
+  color: var(--dark-olive-green);
+}
+
+.uiIconRefreshing {
+  color: var(--liver-dogs);
 }
 
 .sortLink {

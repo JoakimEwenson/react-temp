@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import PageNav from "./Components/PageNav";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -9,6 +8,7 @@ import LocationData from "./Pages/LocationData";
 import Favorites from "./Pages/Favorites";
 import { getRandomCli, getFavorites, getHome } from "./Utils/Common";
 import About from "./Pages/About";
+import "./App.css";
 
 function App() {
   const [locationList, setLocationList] = useState([]);

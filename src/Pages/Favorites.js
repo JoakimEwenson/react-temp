@@ -132,13 +132,13 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
               {locations.map((row) => (
                 <tr key={row.id}>
                   <td>
-                    <Link to={`/plats/${row.id}`} className="text-muted">
+                    <Link to={`/plats/${row.id}`}>
                       {row.title}
                     </Link>
                   </td>
                   <td>{row.temp}&deg;C</td>
                   <td>
-                  <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
+                  <i className="fas fa-star uiIcon uiIconFavorited" onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setLocationList(tempFavs);
                       }}></i>

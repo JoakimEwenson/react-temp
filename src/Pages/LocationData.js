@@ -188,17 +188,16 @@ export default function LocationData({
               <p className="iconRow">
                 {userHome === locationData.id ? (
                   <i
-                    className="fas fa-house-user uiIcon"
+                    className="fas fa-house-user uiIcon uiIconHouseSelected" 
                     onClick={() => {
                       removeHome(locationData.id);
                       setUserHome(null);
                     }}
-                    style={{ color: "#457B9D" }}
                     title="Ta bort från startsidan"
                   ></i>
                 ) : (
                   <i
-                    className="fas fa-house-user uiIcon"
+                    className="fas fa-home uiIcon"
                     onClick={() => {
                       setHome(locationData.id);
                       setUserHome(locationData.id);
@@ -208,8 +207,7 @@ export default function LocationData({
                 )}
                 {userFavorites.includes(locationData.id) ? (
                   <i
-                    className="fas fa-star uiIcon"
-                    style={{ color: "orange" }}
+                    className="fas fa-star uiIcon uiIconFavorited"
                     onClick={() => {
                       let tempFavs = removeFavorite(locationData.id);
                       setUserFavorites(tempFavs);
@@ -227,7 +225,7 @@ export default function LocationData({
                   ></i>
                 )}
                 {isLoading ? (
-                  <i className="fas fa-sync fa-spin uiIcon"></i>
+                  <i className="fas fa-sync fa-spin uiIcon uiIconRefreshing"></i>
                 ) : (
                   <i
                     className="fas fa-sync-alt uiIcon"
