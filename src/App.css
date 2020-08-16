@@ -23,6 +23,15 @@
   opacity: 0.90;
 }
 
+.alert-danger {
+  background-color: var(--imperial-red);
+  color: #fff !important;
+}
+
+.alert-info {
+  background-color: var(--powder-blue);
+}
+
 .temperature {
   font-size: 8rem;
   font-weight: bolder !important;
