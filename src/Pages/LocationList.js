@@ -37,7 +37,7 @@ export default function LocationList({
     let val = event.target.value;
     if (val.length >= 1) {
       const searchArray = locationList.filter(({ title }) =>
-        title.includes(val)
+        title.toLowerCase().includes(val.toLowerCase())
       );
       setLocations(searchArray);
     } else {
@@ -47,13 +47,13 @@ export default function LocationList({
 
   return (
     <>
-      {hasErrors ? <Alert variant="danger">{hasErrors.message}</Alert> : ""}
+      {hasErrors ? <Alert variant="danger" className="my-3">{hasErrors.message}</Alert> : ""}
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
           <>
-            <Form onSubmit={submitHandler}>
+            <Form onSubmit={submitHandler} className="my-3">
               <Form.Row className="align-items-center">
                 <Col>
                   <InputGroup>
@@ -68,12 +68,11 @@ export default function LocationList({
                       placeholder="Sök mätplats"
                       onChange={changeHandler}
                       disabled={isLoading}
-                      autoFocus
                     />
                   </InputGroup>
                 </Col>
                 <Col xs="auto">
-                  <Button title="Sök" className="mx-1">
+                  <Button title="Sök" className="btn btn-secondary mx-1">
                     Sök
                   </Button>
                 </Col>
@@ -81,8 +80,9 @@ export default function LocationList({
                   <Button
                     title="Ladda om listan"
                     onClick={() => getLocationList()}
+                    className="btn btn-secondary"
                   >
-                    <i className="fas fa-redo"></i>
+                    <i className="fas fa-sync-alt"></i>
                   </Button>
                 </Col>
               </Form.Row>
@@ -107,12 +107,12 @@ export default function LocationList({
                     <td>{row.temp}&deg;C</td>
                     <td>
                     {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                      <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setUserFavorites(tempFavs);
                       }}></i>
                     ) : (
-                      <i className="fas fa-heart" onClick={() => {
+                      <i className="far fa-star uiIcon" onClick={() => {
                         let tempFavs = addFavorite(row.id);
                         setUserFavorites(tempFavs);
                       }}></i>

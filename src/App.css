@@ -1,3 +1,28 @@
+:root {
+--celadon-blue: #457B9D;
+--prussian-blue: #1D3557;
+--powder-blue: #A8DADC;
+--honeydew: #F1FAEE;
+--imperial-red: #E63946;
+}
+
+.bg-dark {
+  background-color: var(--celadon-blue) !important;
+  color: #ffffff !important;
+}
+
+.btn {
+  background-color: var(--prussian-blue) !important;
+  outline: none !important;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--prussian-blue) !important;
+  outline: none !important;
+  opacity: 0.90;
+}
+
 .temperature {
   font-size: 8rem;
   font-weight: bolder !important;
@@ -18,8 +43,13 @@
   cursor: help;
 }
 
-.favoritesIcon {
-  font-size: 4rem;
+.iconRow {
+  font-size: 2rem;
+}
+
+.uiIcon {
+  cursor: pointer;
+  margin: 10px;
 }
 
 [contenteditable="true"]:focus {

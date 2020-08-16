@@ -119,7 +119,7 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <Card>
+        <Card className="my-3">
           <Table borderless responsive>
             <thead>
               <tr>
@@ -138,7 +138,7 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
                   </td>
                   <td>{row.temp}&deg;C</td>
                   <td>
-                  <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                  <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setLocationList(tempFavs);
                       }}></i>

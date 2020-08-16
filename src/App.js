@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import PageNav from "./Components/PageNav";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import LocationList from "./Pages/LocationList";
 import NearbyList from "./Pages/NearbyList";
 import LocationData from "./Pages/LocationData";
 import Favorites from "./Pages/Favorites";
-import { getRandomCli, getFavorites } from "./Utils/Common";
+import { getRandomCli, getFavorites, getHome } from "./Utils/Common";
+import About from "./Pages/About";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
-  const [userFavorites, setUserFavorites] = useState(getFavorites() ? getFavorites() : []);
+  const [userFavorites, setUserFavorites] = useState(
+    getFavorites() ? getFavorites() : []
+  );
+  const [userHome, setUserHome] = useState(getHome() ? getHome() : "");
 
   async function getLocationList() {
     const CLI = getRandomCli(12);
@@ -81,10 +85,7 @@ function App() {
       <Container>
         <Switch>
           <Route exact path="/">
-          <Favorites
-              userFavorites={userFavorites}
-              setUserFavorites={setUserFavorites}
-            />
+            {userHome ? <Redirect to={`/plats/${userHome}`} /> : <About />}
           </Route>
           <Route exact path="/favoriter">
             <Favorites
@@ -110,12 +111,12 @@ function App() {
             <LocationData
               userFavorites={userFavorites}
               setUserFavorites={setUserFavorites}
+              userHome={userHome}
+              setUserHome={setUserHome}
             />
           </Route>
           <Route exact path="/om">
-            <>
-              <h1>Om tjänsten</h1>
-            </>
+            <About />
           </Route>
         </Switch>
       </Container>

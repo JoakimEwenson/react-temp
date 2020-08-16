@@ -6,27 +6,27 @@ import { ReactComponent as Logo } from "../sun-solid.svg";
 
 export default function PageNav() {
   return (
-    <Navbar bg="light" variant="light" expand="lg" fluid="true">
+    <Navbar bg="dark" variant="dark" expand="lg" fluid="true" className="bg-dark">
       <Navbar.Brand>
         <Link to="" className="navbar-brand">
-          <Logo style={{ height: 30 + "px", padding: 5 + "px" }} />
-          temperatur.nu
+        <i class="fas fa-sun mx-1"></i>
+          <b>temperatur.nu</b>
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" defaultActiveKey="/">
           <LinkContainer to="/favoriter">
-            <NavLink>Favoriter</NavLink>
+            <NavLink><i className="fas fa-star mx-1"></i>Favoriter</NavLink>
           </LinkContainer>
           <LinkContainer to="/narliggande">
-            <NavLink>Närliggande</NavLink>
+            <NavLink><i class="fas fa-location-arrow mx-1"></i>Närliggande</NavLink>
           </LinkContainer>
           <LinkContainer to="/platslista">
-            <NavLink>Alla mätpunkter</NavLink>
+            <NavLink><i class="fas fa-bars mx-1"></i>Alla mätpunkter</NavLink>
           </LinkContainer>
           <LinkContainer to="/om">
-            <NavLink>Om tjänsten</NavLink>
+            <NavLink><i class="fas fa-question-circle mx-1"></i>Om tjänsten</NavLink>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>

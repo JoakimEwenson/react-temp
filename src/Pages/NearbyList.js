@@ -83,7 +83,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
     <>
       {isLoading ? <LoadingSpinner /> : ""}
       {hasError ? (
-        <Alert variant="danger">GeoLocation Error: {hasError}</Alert>
+        <Alert variant="danger" className="my-3">GeoLocation Error: {hasError}</Alert>
       ) : !isLoading ? (
         <Card className="my-3">
           <Table borderless responsive>
@@ -106,12 +106,12 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
                   <td>{row.temp}&deg;C</td>
                   <td>
                   {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
+                      <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setUserFavorites(tempFavs);
                       }}></i>
                     ) : (
-                      <i className="fas fa-heart" onClick={() => {
+                      <i className="far fa-star uiIcon" onClick={() => {
                         let tempFavs = addFavorite(row.id);
                         setUserFavorites(tempFavs);
                       }}></i>

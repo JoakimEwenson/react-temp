@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Alert } from "react-bootstrap";
-import { getRandomCli, colorTemperature, removeFavorite, addFavorite } from "../Utils/Common";
+import {
+  getRandomCli,
+  colorTemperature,
+  removeFavorite,
+  addFavorite,
+  setHome,
+  removeHome,
+} from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function LocationData({ userFavorites, setUserFavorites }) {
+export default function LocationData({
+  userFavorites,
+  setUserFavorites,
+  userHome,
+  setUserHome,
+}) {
   console.log({ userFavorites });
   const { platsId } = useParams();
+  const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [locationData, setLocationData] = useState({
     title: null,
@@ -29,6 +42,7 @@ export default function LocationData({ userFavorites, setUserFavorites }) {
 
   // Get a list of locations
   async function getLocationData(loc) {
+    setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&dc=true&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
@@ -108,10 +122,13 @@ export default function LocationData({ userFavorites, setUserFavorites }) {
         document.title = `${location.temp}°C vid ${location.title}`;
         console.log(location);
         setLocationData(location);
+        setErrors(null);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(`Error: ${err}`);
         setErrors(err);
+        setLoading(false);
       });
   }
 
@@ -133,7 +150,7 @@ export default function LocationData({ userFavorites, setUserFavorites }) {
 
   return (
     <>
-      {hasErrors && <Alert variant="danger">{hasErrors.message}</Alert>}
+      {hasErrors && <Alert variant="danger" className="my-3">{hasErrors.message}</Alert>}
       {locationData.temp ? (
         <Card className="my-3">
           <Card.Body>
@@ -168,18 +185,58 @@ export default function LocationData({ userFavorites, setUserFavorites }) {
                   • medel: {locationData.average}°c
                 </small>
               </p>
-              <p className="favoritesIcon">
-              {userFavorites.includes(locationData.id) ? (
-                      <i className="fas fa-heart" style={{ color: "red" }} onClick={() => {
-                        let tempFavs = removeFavorite(locationData.id);
-                        setUserFavorites(tempFavs);
-                      }}></i>
-                    ) : (
-                      <i className="fas fa-heart" onClick={() => {
-                        let tempFavs = addFavorite(locationData.id);
-                        setUserFavorites(tempFavs);
-                      }}></i>
-                    )}
+              <p className="iconRow">
+                {userHome === locationData.id ? (
+                  <i
+                    className="fas fa-house-user uiIcon"
+                    onClick={() => {
+                      removeHome(locationData.id);
+                      setUserHome(null);
+                    }}
+                    style={{ color: "#457B9D" }}
+                    title="Ta bort från startsidan"
+                  ></i>
+                ) : (
+                  <i
+                    className="fas fa-house-user uiIcon"
+                    onClick={() => {
+                      setHome(locationData.id);
+                      setUserHome(locationData.id);
+                    }}
+                    title="Ställ in som startsidan"
+                  ></i>
+                )}
+                {userFavorites.includes(locationData.id) ? (
+                  <i
+                    className="fas fa-star uiIcon"
+                    style={{ color: "orange" }}
+                    onClick={() => {
+                      let tempFavs = removeFavorite(locationData.id);
+                      setUserFavorites(tempFavs);
+                    }}
+                    title="Ta bort från favoriter"
+                  ></i>
+                ) : (
+                  <i
+                    className="far fa-star uiIcon"
+                    onClick={() => {
+                      let tempFavs = addFavorite(locationData.id);
+                      setUserFavorites(tempFavs);
+                    }}
+                    title="Lägg till i favoriter"
+                  ></i>
+                )}
+                {isLoading ? (
+                  <i className="fas fa-sync fa-spin uiIcon"></i>
+                ) : (
+                  <i
+                    className="fas fa-sync-alt uiIcon"
+                    onClick={() => {
+                      getLocationData(platsId);
+                    }}
+                    title="Uppdatera informationen"
+                  ></i>
+                )}
               </p>
             </div>
           </Card.Body>

@@ -96,9 +96,13 @@ export function addFavorite(location) {
 
   try {
     if (current.includes(location)) {
-      throw new Error(`Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`);
+      throw new Error(
+        `Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`
+      );
     } else if (current.length >= 5) {
-      throw new Error(`Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`);
+      throw new Error(
+        `Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`
+      );
     } else {
       if (current.length === 0) {
         current = [location];
@@ -130,4 +134,31 @@ export function removeFavorite(location) {
   console.log(`Removed ${location}`);
   console.log({ current });
   return current;
+}
+
+/*
+ * Section for handling home page
+ */
+
+export function setHome(location) {
+  try {
+    localStorage.setItem("userHome", location);
+    console.log(`Set home to ${location}`);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function removeHome(location) {
+  try {
+    localStorage.setItem("userHome", null);
+    console.log("Home removed...");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function getHome() {
+  console.log(`Your home is ${localStorage.getItem("userHome")}`);
+  return localStorage.getItem("userHome");
 }
