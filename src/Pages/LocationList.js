@@ -47,84 +47,142 @@ export default function LocationList({
 
   return (
     <>
-      {hasErrors ? <Alert variant="danger" className="my-3">{hasErrors.message}</Alert> : ""}
-      {isLoading ? (
-        <LoadingSpinner />
+      {hasErrors ? (
+        <Alert variant="danger" className="my-3">
+          {hasErrors.message}
+        </Alert>
       ) : (
-        <>
-          <>
-            <Form onSubmit={submitHandler} className="my-3">
-              <Form.Row className="align-items-center">
-                <Col>
-                  <InputGroup>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text className="bg-dark" style={{border: 0}}>
-                        <i className="fas fa-search-location"></i>
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                      type="text"
-                      className="mr-sm-2"
-                      placeholder="Sök mätplats"
-                      onChange={changeHandler}
-                      disabled={isLoading}
-                    />
-                  </InputGroup>
-                </Col>
-                <Col xs="auto">
-                  <Button title="Sök" className="btn btn-secondary mx-1">
-                    Sök
-                  </Button>
-                </Col>
-                <Col xs="auto">
-                  <Button
-                    title="Ladda om listan"
-                    onClick={() => getLocationList()}
-                    className="btn btn-secondary"
-                  >
-                    <i className="fas fa-sync-alt"></i>
-                  </Button>
-                </Col>
-              </Form.Row>
-            </Form>
-          </>
-          <Card className="my-3">
-            <Table borderless responsive>
-              <thead>
-                <tr>
-                  <th>Plats</th>
-                  <th>Temperatur</th>
-                </tr>
-              </thead>
-              <tbody>
-                {locations.map((row) => (
-                  <tr key={row.id}>
-                    <td>
-                      <Link to={`/plats/${row.id}`} className="text-muted">
-                        {row.title}
-                      </Link>
-                    </td>
-                    <td>{row.temp}&deg;C</td>
-                    <td>
-                    {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-star uiIcon" style={{ color: "orange" }} onClick={() => {
+        ""
+      )}
+      <>
+        <Form onSubmit={submitHandler} className="my-3">
+          <Form.Row className="align-items-center">
+            <Col>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text className="bg-dark" style={{ border: 0 }}>
+                    <i className="fas fa-search-location"></i>
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="search"
+                  className="mr-sm-2"
+                  placeholder="Sök mätplats"
+                  onChange={changeHandler}
+                  disabled={isLoading}
+                />
+              </InputGroup>
+            </Col>
+            <Col xs="auto">
+              <Button title="Sök" className="btn btn-secondary mx-1">
+                Sök
+              </Button>
+            </Col>
+            <Col xs="auto">
+              <Button
+                title="Ladda om listan"
+                onClick={() => {
+                  getLocationList();
+                }}
+                className="btn btn-secondary"
+              >
+                <i className="fas fa-sync-alt"></i>
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+      </>
+      <Card className="my-3">
+        <p className="pt-1 text-center">
+          <b>Sortering:</b>
+          <br />
+          <small className="text-muted">
+            <span
+              className="sortLink"
+              onClick={() => {
+                setLoading(true);
+                setLocations(locationList);
+                setLoading(false);
+              }}
+            >
+              Alfabetiskt
+            </span>
+            {" "}|{" "}
+            <span
+              className="sortLink"
+              onClick={() => {
+                setLoading(true);
+                const filtered = locations.filter(({ temp }) => parseFloat(temp));
+                const sorted = filtered.sort((a, b) => {
+                  return parseFloat(a.temp) - parseFloat(b.temp);
+                });
+                setLocations(sorted);
+                setLoading(false);
+              }}
+            >
+              Lägsta temperatur överst
+            </span>
+            {" "}|{" "}
+            <span
+              className="sortLink"
+              onClick={() => {
+                setLoading(true);
+                const filtered = locations.filter(({ temp }) => parseFloat(temp));
+                const sorted = filtered.sort((a, b) => {
+                  return parseFloat(b.temp) - parseFloat(a.temp);
+                });
+                setLocations(sorted);
+                setLoading(false);
+              }}
+            >
+              Högsta temperatur överst
+            </span>
+          </small>
+        </p>
+      </Card>
+      {isLoading ? <LoadingSpinner /> : ""}
+      <Card className="my-3">
+        <Table borderless responsive>
+          <thead>
+            <tr>
+              <th>Plats</th>
+              <th>Temperatur</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locations.map((row) => (
+              <tr key={row.id}>
+                <td>
+                  <Link to={`/plats/${row.id}`} className="text-muted">
+                    {row.title}
+                  </Link>
+                </td>
+                <td>{row.temp}&deg;C</td>
+                <td>
+                  {userFavorites.includes(row.id) ? (
+                    <i
+                      className="fas fa-star uiIcon"
+                      style={{ color: "orange" }}
+                      onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setUserFavorites(tempFavs);
-                      }}></i>
-                    ) : (
-                      <i className="far fa-star uiIcon" onClick={() => {
+                      }}
+                    ></i>
+                  ) : (
+                    <i
+                      className="far fa-star uiIcon"
+                      onClick={() => {
                         let tempFavs = addFavorite(row.id);
                         setUserFavorites(tempFavs);
-                      }}></i>
-                    )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card>
-        </>
-      )}
+                      }}
+                    ></i>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Card>
     </>
   );
 }

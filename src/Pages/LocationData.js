@@ -44,7 +44,7 @@ export default function LocationData({
   async function getLocationData(loc) {
     setLoading(true);
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&dc=true&verbose=true&amm=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();
@@ -140,7 +140,7 @@ export default function LocationData({
 
       interval = setInterval(() => {
         getLocationData(platsId);
-      }, 600000);
+      }, 300000);
     }
 
     return function cleanup() {

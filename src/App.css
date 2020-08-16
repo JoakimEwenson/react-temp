@@ -62,6 +62,10 @@
   margin: 10px;
 }
 
+.sortLink {
+  cursor: pointer;
+}
+
 [contenteditable="true"]:focus {
   outline: none !important;
 }

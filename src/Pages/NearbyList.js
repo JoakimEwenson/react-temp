@@ -29,7 +29,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   // Get a list of locations
   async function getNearbyList(lat, long) {
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=5&dc=true&verbose=true&amm=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=5&verbose=true&amm=true&cli=${CLI}`;
     console.log(APIURL);
 
     let parser = new DOMParser();
