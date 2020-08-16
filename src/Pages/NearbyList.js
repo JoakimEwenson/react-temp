@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Alert } from "react-bootstrap";
+import { Table, Card, Alert, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getRandomCli, removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
@@ -83,7 +83,9 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
     <>
       {isLoading ? <LoadingSpinner /> : ""}
       {hasError ? (
-        <Alert variant="danger" className="my-3">GeoLocation Error: {hasError}</Alert>
+        <Alert variant="danger" className="my-3">
+          GeoLocation Error: {hasError}
+        </Alert>
       ) : !isLoading ? (
         <Card className="my-3">
           <Table borderless responsive>
@@ -98,29 +100,60 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
               {locations.map((row) => (
                 <tr key={row.id}>
                   <td>
-                    <Link to={`/plats/${row.id}`}>
-                      {row.title}
-                    </Link>
+                    <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
                   <td>{row.dist && row.dist} km</td>
                   <td>{row.temp}&deg;C</td>
                   <td>
-                  {userFavorites.includes(row.id) ? (
-                      <i className="fas fa-star uiIcon uiIconFavorited" onClick={() => {
-                        let tempFavs = removeFavorite(row.id);
-                        setUserFavorites(tempFavs);
-                      }}></i>
+                    {userFavorites.includes(row.id) ? (
+                      <i
+                        className="fas fa-star uiIcon uiIconFavorited"
+                        onClick={() => {
+                          let tempFavs = removeFavorite(row.id);
+                          setUserFavorites(tempFavs);
+                        }}
+                      ></i>
                     ) : (
-                      <i className="far fa-star uiIcon" onClick={() => {
-                        let tempFavs = addFavorite(row.id);
-                        setUserFavorites(tempFavs);
-                      }}></i>
+                      <i
+                        className="far fa-star uiIcon"
+                        onClick={() => {
+                          let tempFavs = addFavorite(row.id);
+                          setUserFavorites(tempFavs);
+                        }}
+                      ></i>
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          <div className="my-3 mx-auto">
+            <Button
+              title="Ladda om listan"
+              onClick={() => {
+                if (navigator.geolocation) {
+                  setLoading(true);
+                  navigator.geolocation.getCurrentPosition(
+                    setGeoLocation,
+                    positionErrorHandler,
+                    {
+                      enableHighAccuracy: true,
+                      timeout: 10000,
+                      maximumAge: 500,
+                    }
+                  );
+                }
+              }}
+              className="btn btn-dark"
+            >
+              {isLoading ? (
+                <i className="fas fa-sync fa-spin mr-1"></i>
+              ) : (
+                <i className="fas fa-sync-alt mr-1"></i>
+              )}
+              Uppdatera listan
+            </Button>
+          </div>
         </Card>
       ) : (
         ""
