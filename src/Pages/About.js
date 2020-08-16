@@ -15,7 +15,7 @@ export default function About() {
         <h4>Beskrivning</h4>
         <p>
           En simpel webbapp skriven i React med Bootstrap som stilmallsramverk.
-          Syftet är att hämta temperaturer från nätverket av mätstationer på
+          Syftet är att hämta temperaturer från nätverket av mätstationer på&nbsp;
           <a href="https://temperatur.nu/">temperatur.nu</a>.
         </p>
 
