@@ -10,9 +10,9 @@ En simpel webbapp skriven i React med Bootstrap som stilmallsramverk. Syftet är
 * Detaljerad vy över station och dess information
 * Favoritlista baserat på Javascripts LocalStorage
 * Möjlighet att välja en mätstation som hemskärm vid återbesök
+* Möjlighet att sortera på högsta/lägsta temperatur
 
 ### Kommande
-* Möjlighet att sortera på högsta/lägsta temperatur
 * Möjlighet att söka närmsta station via positioneringstjänst
 * Karta på detaljvyn
 * Närliggande stationer på detaljvyn
