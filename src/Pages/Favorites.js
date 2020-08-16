@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getRandomCli, removeFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 
-export default function Favorites({ userFavorites, setUserFavorites }) {
+export default function Favorites({ userFavorites }) {
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [locations, setLocationData] = useState([]);
@@ -112,12 +112,23 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
       getLocationData(locationList);
     }
   }, [locationList]);
-  
+
   return (
     <>
-      {hasErrors ? <Alert variant="danger" className="my-3">{hasErrors.message}</Alert> : ""}
+      {hasErrors ? (
+        <Alert variant="danger" className="my-3">
+          {hasErrors.message}
+        </Alert>
+      ) : (
+        ""
+      )}
+      {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <Alert variant="info" className="my-3">Du har ännu inte favoritmarkerat några mätstationer.</Alert>
+        <Card className="my-3">
+          <Card.Body className="text-center">
+            Du har ännu inte favoritmarkerat några mätstationer.
+          </Card.Body>
+        </Card>
       ) : (
         <Card className="my-3">
           <Table borderless responsive>
@@ -132,16 +143,17 @@ export default function Favorites({ userFavorites, setUserFavorites }) {
               {locations.map((row) => (
                 <tr key={row.id}>
                   <td>
-                    <Link to={`/plats/${row.id}`}>
-                      {row.title}
-                    </Link>
+                    <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
                   <td>{row.temp}&deg;C</td>
                   <td>
-                  <i className="fas fa-star uiIcon uiIconFavorited" onClick={() => {
+                    <i
+                      className="fas fa-star uiIcon uiIconFavorited"
+                      onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setLocationList(tempFavs);
-                      }}></i>
+                      }}
+                    ></i>
                   </td>
                 </tr>
               ))}

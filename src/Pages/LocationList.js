@@ -13,6 +13,8 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import { removeFavorite, addFavorite } from "../Utils/Common";
 
 export default function LocationList({
+  isLoading,
+  setLoading,
   locationList,
   getLocationList,
   userFavorites,
@@ -21,7 +23,6 @@ export default function LocationList({
   document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
   const [hasErrors] = useState(null);
-  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);

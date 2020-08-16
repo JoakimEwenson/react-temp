@@ -34,6 +34,12 @@
   color: #fff !important;
 }
 
+.alert-info {
+  background-color: var(--cornsilk) !important;
+  color: var(--raisin-black) !important;
+  border: 0px;
+}
+
 .temperature {
   font-size: 8rem;
   font-weight: bolder !important;

@@ -12,6 +12,8 @@ import "./App.css";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+
   const [userFavorites, setUserFavorites] = useState(
     getFavorites() ? getFavorites() : []
   );
@@ -107,6 +109,8 @@ function App() {
           </Route>
           <Route exact path="/platslista">
             <LocationList
+              isLoading={isLoading}
+              setLoading={setLoading}
               locationList={locationList}
               getLocationList={getLocationList}
               userFavorites={userFavorites}

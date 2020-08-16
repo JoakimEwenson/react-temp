@@ -125,21 +125,6 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
       ) : (
         ""
       )}
-      {latitude && longitude && (
-        <Alert variant="info" className="text-center">
-          <p>
-            <b>Din position:</b>
-            <br />
-            <small>
-              lat: {latitude}
-              <br />
-              long: {longitude}
-              <br />
-              accuracy: {accuracy} m
-            </small>
-          </p>
-        </Alert>
-      )}
     </>
   );
 }
