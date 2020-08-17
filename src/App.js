@@ -9,6 +9,7 @@ import Favorites from "./Pages/Favorites";
 import { getRandomCli, getFavorites, getHome } from "./Utils/Common";
 import About from "./Pages/About";
 import "./App.css";
+import PageFooter from "./Components/PageFooter";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
@@ -130,6 +131,7 @@ function App() {
           </Route>
         </Switch>
       </Container>
+      <PageFooter />
     </BrowserRouter>
   );
 }

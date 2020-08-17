@@ -12,6 +12,10 @@
   --liver-dogs: #bc6c25ff;
 }
 
+body {
+  padding-bottom: 50px;
+}
+
 .card a {
   color: var(--raisin-black) !important;
   text-decoration: underline;
@@ -38,6 +42,10 @@
   background-color: var(--cornsilk) !important;
   color: var(--raisin-black) !important;
   border: 0px;
+}
+
+.footerIcon {
+  color: whitesmoke !important;
 }
 
 .temperature {
