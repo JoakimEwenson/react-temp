@@ -7,12 +7,12 @@ export default function PageFooter() {
         <i className="fab fa-github footerIcon m-2"></i>
       </a>
       <a href="https://twitter.com/JoakimEwenson">
-        <i class="fab fa-twitter footerIcon m-2"></i>
+        <i className="fab fa-twitter footerIcon m-2"></i>
       </a>
       <a href="https://www.linkedin.com/in/joakim-ewenson-a1586377/">
-        <i class="fab fa-linkedin-in footerIcon m-2"></i>
+        <i className="fab fa-linkedin-in footerIcon m-2"></i>
       </a>
-      <a href="https://www.ewenson.se"><i class="fab fa-wordpress footerIcon m-2"></i></a>
+      <a href="https://www.ewenson.se"><i className="fab fa-wordpress footerIcon m-2"></i></a>
     </div>
   );
 }

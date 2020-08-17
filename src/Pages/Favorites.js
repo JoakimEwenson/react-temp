@@ -15,7 +15,7 @@ export default function Favorites({ userFavorites }) {
     const favs = favlist.join(",");
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${favs}&verbose=true&amm=true&cli=${CLI}`;
-    console.log(APIURL);
+    //console.log(APIURL);
 
     let parser = new DOMParser();
     let iconv = require("iconv-lite");
@@ -95,7 +95,7 @@ export default function Favorites({ userFavorites }) {
           favoritesList.push(location);
         }
         document.title = "Visar favoritmarkerade mätpunkter";
-        console.log({ favoritesList });
+        //console.log({ favoritesList });
         setLocationData(favoritesList);
         setLoading(false);
       })

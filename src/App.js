@@ -23,7 +23,7 @@ function App() {
   async function getLocationList() {
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?verbose=true&cli=${CLI}`;
-    console.log(APIURL);
+    //console.log(APIURL);
 
     const parser = new DOMParser();
     const iconv = require("iconv-lite");

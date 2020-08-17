@@ -86,7 +86,7 @@ export function getFavorites() {
     favouritesString = localStorage.getItem("favoritesList");
   }
   favoritesList = favouritesString ? favouritesString.split(",") : [];
-  console.log(favoritesList);
+  //console.log(favoritesList);
   return favoritesList;
 }
 
@@ -110,7 +110,7 @@ export function addFavorite(location) {
         current.push(location);
       }
       saveFavorites(current);
-      console.log(`Add ${location}`);
+      //console.log(`Add ${location}`);
     }
   } catch (error) {
     alert(error);
@@ -131,8 +131,8 @@ export function removeFavorite(location) {
   } catch (error) {
     alert(error);
   }
-  console.log(`Removed ${location}`);
-  console.log({ current });
+  //console.log(`Removed ${location}`);
+  //console.log({ current });
   return current;
 }
 
@@ -143,7 +143,7 @@ export function removeFavorite(location) {
 export function setHome(location) {
   try {
     localStorage.setItem("userHome", location);
-    console.log(`Set home to ${location}`);
+    //console.log(`Set home to ${location}`);
   } catch (error) {
     console.error(error);
   }
@@ -152,13 +152,13 @@ export function setHome(location) {
 export function removeHome(location) {
   try {
     localStorage.removeItem("userHome");
-    console.log("Home removed...");
+    //console.log("Home removed...");
   } catch (error) {
     console.error(error);
   }
 }
 
 export function getHome() {
-  console.log(`Your home is ${localStorage.getItem("userHome")}`);
+  //console.log(`Your home is ${localStorage.getItem("userHome")}`);
   return localStorage.getItem("userHome");
 }

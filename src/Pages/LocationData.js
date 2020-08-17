@@ -10,6 +10,7 @@ import {
   removeHome,
 } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import NearbyLocations from "../Components/NearbyLocations";
 
 export default function LocationData({
   userFavorites,
@@ -17,10 +18,11 @@ export default function LocationData({
   userHome,
   setUserHome,
 }) {
-  console.log({ userFavorites });
+  //console.log({ userFavorites });
   const { platsId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
+  const [hasTimeStamp, setTimeStamp] = useState(null);
   const [locationData, setLocationData] = useState({
     title: null,
     id: null,
@@ -45,7 +47,9 @@ export default function LocationData({
     setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
-    console.log(APIURL);
+    console.log(
+      `${APIURL} requested at ${new Date().toLocaleTimeString("sv-SE")}`
+    );
 
     let parser = new DOMParser();
     let iconv = require("iconv-lite");
@@ -120,8 +124,9 @@ export default function LocationData({
             : null,
         };
         document.title = `${location.temp}°C vid ${location.title}`;
-        console.log(location);
+        //console.log(location);
         setLocationData(location);
+        setTimeStamp(new Date().getTime());
         setErrors(null);
         setLoading(false);
       })
@@ -150,102 +155,119 @@ export default function LocationData({
 
   return (
     <>
-      {hasErrors && <Alert variant="danger" className="my-3">{hasErrors.message}</Alert>}
+      {hasErrors && (
+        <Alert variant="danger" className="my-3">
+          {hasErrors.message}
+        </Alert>
+      )}
       {locationData.temp ? (
-        <Card className="my-3">
-          <Card.Body>
-            <div className="text-center">
-              <Card.Title className="citytitle">
-                {locationData.title}
-              </Card.Title>
-              {locationData.kommun && locationData.lan && (
-                <Card.Subtitle className="text-muted">
-                  {locationData.kommun} - {locationData.lan}
-                </Card.Subtitle>
-              )}
+        <>
+          <Card className="my-3">
+            <Card.Body>
+              <div className="text-center">
+                <Card.Title className="citytitle">
+                  {locationData.title}
+                </Card.Title>
+                {locationData.kommun && locationData.lan && (
+                  <Card.Subtitle className="text-muted">
+                    {locationData.kommun} - {locationData.lan}
+                  </Card.Subtitle>
+                )}
 
-              <h1
-                className="temperature p-3"
-                style={{ color: colorTemperature(locationData.temp) }}
-              >
-                {locationData.temp}°C
-              </h1>
+                <h1
+                  className="temperature p-3"
+                  style={{ color: colorTemperature(locationData.temp) }}
+                >
+                  {locationData.temp}°C
+                </h1>
 
-              <p>
-                <small className="text-muted">{locationData.lastUpdate}</small>
-                <br />
-                <small className="text-muted">
-                  <span className="ammTooltip" title={locationData.minTime}>
-                    min: {locationData.min}°c
-                  </span>{" "}
-                  •{" "}
-                  <span className="ammTooltip" title={locationData.maxTime}>
-                    max: {locationData.max}°c
-                  </span>{" "}
-                  • medel: {locationData.average}°c
-                </small>
-              </p>
-              <p className="iconRow">
-                {userHome === locationData.id ? (
-                  <i
-                    className="fas fa-house-user uiIcon uiIconHouseSelected" 
-                    onClick={() => {
-                      removeHome(locationData.id);
-                      setUserHome(null);
-                    }}
-                    title="Ta bort från startsidan"
-                  ></i>
-                ) : (
-                  <i
-                    className="fas fa-home uiIcon"
-                    onClick={() => {
-                      setHome(locationData.id);
-                      setUserHome(locationData.id);
-                    }}
-                    title="Ställ in som startsidan"
-                  ></i>
-                )}
-                {userFavorites.includes(locationData.id) ? (
-                  <i
-                    className="fas fa-star uiIcon uiIconFavorited"
-                    onClick={() => {
-                      let tempFavs = removeFavorite(locationData.id);
-                      setUserFavorites(tempFavs);
-                    }}
-                    title="Ta bort från favoriter"
-                  ></i>
-                ) : (
-                  <i
-                    className="far fa-star uiIcon"
-                    onClick={() => {
-                      let tempFavs = addFavorite(locationData.id);
-                      setUserFavorites(tempFavs);
-                    }}
-                    title="Lägg till i favoriter"
-                  ></i>
-                )}
-                {isLoading ? (
-                  <i className="fas fa-sync fa-spin uiIcon uiIconRefreshing"></i>
-                ) : (
-                  <i
-                    className="fas fa-sync-alt uiIcon"
-                    onClick={() => {
-                      getLocationData(platsId);
-                    }}
-                    title="Uppdatera informationen"
-                  ></i>
-                )}
-              </p>
-            </div>
-          </Card.Body>
-          <p className="align-text-bottom text-right m-1">
-            <small>
-              <a href={locationData.url} className="text-muted">
-                {locationData.sourceInfo}
-              </a>
-            </small>
-          </p>
-        </Card>
+                <p>
+                  <small className="text-muted">
+                    {locationData.lastUpdate}
+                  </small>
+                  <br />
+                  <small className="text-muted">
+                    <span className="ammTooltip" title={locationData.minTime}>
+                      min: {locationData.min}°c
+                    </span>{" "}
+                    •{" "}
+                    <span className="ammTooltip" title={locationData.maxTime}>
+                      max: {locationData.max}°c
+                    </span>{" "}
+                    • medel: {locationData.average}°c
+                  </small>
+                </p>
+                <p className="iconRow">
+                  {userHome === locationData.id ? (
+                    <i
+                      className="fas fa-house-user uiIcon uiIconHouseSelected"
+                      onClick={() => {
+                        removeHome(locationData.id);
+                        setUserHome(null);
+                      }}
+                      title="Ta bort från startsidan"
+                    ></i>
+                  ) : (
+                    <i
+                      className="fas fa-home uiIcon"
+                      onClick={() => {
+                        setHome(locationData.id);
+                        setUserHome(locationData.id);
+                      }}
+                      title="Ställ in som startsidan"
+                    ></i>
+                  )}
+                  {userFavorites.includes(locationData.id) ? (
+                    <i
+                      className="fas fa-star uiIcon uiIconFavorited"
+                      onClick={() => {
+                        let tempFavs = removeFavorite(locationData.id);
+                        setUserFavorites(tempFavs);
+                      }}
+                      title="Ta bort från favoriter"
+                    ></i>
+                  ) : (
+                    <i
+                      className="far fa-star uiIcon"
+                      onClick={() => {
+                        let tempFavs = addFavorite(locationData.id);
+                        setUserFavorites(tempFavs);
+                      }}
+                      title="Lägg till i favoriter"
+                    ></i>
+                  )}
+                  {isLoading ? (
+                    <i className="fas fa-sync fa-spin uiIcon uiIconRefreshing"></i>
+                  ) : (
+                    <i
+                      className="fas fa-sync-alt uiIcon"
+                      onClick={() => {
+                        getLocationData(platsId);
+                      }}
+                      title="Uppdatera informationen"
+                    ></i>
+                  )}
+                </p>
+              </div>
+            </Card.Body>
+            <p className="align-text-bottom text-right m-1">
+              <small>
+                <a href={locationData.url} className="text-muted">
+                  {locationData.sourceInfo}
+                </a>
+              </small>
+            </p>
+          </Card>
+          <Card>
+            <NearbyLocations
+              lat={locationData.lat}
+              long={locationData.lon}
+              locationId={locationData.id}
+              hasTimeStamp={hasTimeStamp}
+              numResults="4"
+            />
+          </Card>
+        </>
       ) : (
         <LoadingSpinner />
       )}

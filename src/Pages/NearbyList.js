@@ -10,7 +10,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   const [hasError, setError] = useState();
 
   const setGeoLocation = function (pos) {
-    console.log(pos);
+    //console.log(pos);
     getNearbyList(pos.coords.latitude, pos.coords.longitude);
   };
 
@@ -24,7 +24,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   async function getNearbyList(lat, long) {
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=5&verbose=true&amm=true&cli=${CLI}`;
-    console.log(APIURL);
+    //console.log(APIURL);
 
     let parser = new DOMParser();
     let iconv = require("iconv-lite");
@@ -51,7 +51,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
           locationList.push(row);
         }
         document.title = "Visar närliggande mätpunkter";
-        console.log({ locationList });
+        //console.log({ locationList });
         setLocations(locationList);
       })
       .catch((err) => console.error(`Error: ${err}`));
