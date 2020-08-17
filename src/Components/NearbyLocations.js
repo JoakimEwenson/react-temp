@@ -71,7 +71,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
     <>
       {hasError ? <Alert variant="danger">{hasError}</Alert> : ""}
       {isLoading ? <LoadingSpinner /> : ""}
-      <Table borderless>
+      <Table borderless responsive>
         <thead>
           <tr>
             <th colSpan="3" className="text-center">

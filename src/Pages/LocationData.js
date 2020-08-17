@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Alert } from "react-bootstrap";
-import ReactMapGL from 'react-map-gl';
+import { Popup } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import {
   getRandomCli,
   colorTemperature,
@@ -21,6 +22,8 @@ export default function LocationData({
 }) {
   //console.log({ userFavorites });
   const { platsId } = useParams();
+  const defaultMapWidth = "100%";
+  const defaultMapHeight = "75vh";
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [hasTimeStamp, setTimeStamp] = useState(null);
@@ -41,6 +44,13 @@ export default function LocationData({
     minTime: null,
     max: null,
     maxTime: null,
+  });
+  const [viewport, setViewport] = useState({
+    width: defaultMapWidth,
+    height: defaultMapHeight,
+    latitude: 62.10237936,
+    longitude: 14.5632154,
+    zoom: 3,
   });
 
   // Get a list of locations
@@ -125,8 +135,14 @@ export default function LocationData({
             : null,
         };
         document.title = `${location.temp}°C vid ${location.title}`;
-        //console.log(location);
         setLocationData(location);
+        setViewport({
+          width: defaultMapWidth,
+          height: defaultMapHeight,
+          latitude: Number(location.lat),
+          longitude: Number(location.lon),
+          zoom: 8,
+        });
         setTimeStamp(new Date().getTime());
         setErrors(null);
         setLoading(false);
@@ -259,7 +275,35 @@ export default function LocationData({
               </small>
             </p>
           </Card>
-          <Card>
+
+          <Card className="my-3">
+            <ReactMapGL
+              mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
+              mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
+              {...viewport}
+              onViewportChange={(nextViewport) => setViewport(nextViewport)}
+            >
+              <Popup
+                closeButton={false}
+                key={locationData.id}
+                latitude={parseFloat(locationData.lat)}
+                longitude={parseFloat(locationData.lon)}
+              >
+                <div className="p-1 text-center">
+                  <i className="fas fa-temperature-high"></i>
+                  <br />
+                  <span
+                    className="temperatureSmall"
+                    style={{ color: colorTemperature(locationData.temp) }}
+                  >
+                    {locationData.temp}&deg;C
+                  </span>
+                </div>
+              </Popup>
+            </ReactMapGL>
+          </Card>
+
+          <Card className="my-3">
             <NearbyLocations
               lat={locationData.lat}
               long={locationData.lon}
