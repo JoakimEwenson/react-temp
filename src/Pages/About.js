@@ -28,13 +28,13 @@ export default function About() {
           <li>Favoritlista baserat på Javascripts LocalStorage</li>
           <li>Möjlighet att välja en mätstation som hemskärm vid återbesök</li>
           <li>Möjlighet att sortera på högsta/lägsta temperatur</li>
+          <li>Närliggande stationer på detaljvyn</li>
         </ul>
 
         <h4>Kommande</h4>
         <ul>
           <li>Möjlighet att söka närmsta station via positioneringstjänst</li>
           <li>Karta på detaljvyn</li>
-          <li>Närliggande stationer på detaljvyn</li>
           <li>Kartvy</li>
         </ul>
 

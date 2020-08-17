@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Alert } from "react-bootstrap";
+import ReactMapGL from 'react-map-gl';
 import {
   getRandomCli,
   colorTemperature,
