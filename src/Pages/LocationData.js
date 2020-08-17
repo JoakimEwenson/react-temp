@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Alert } from "react-bootstrap";
-import ReactMapGL from 'react-map-gl';
+import StaticMap from "react-map-gl";
 import {
   getRandomCli,
   colorTemperature,
@@ -21,9 +21,11 @@ export default function LocationData({
 }) {
   //console.log({ userFavorites });
   const { platsId } = useParams();
+  const targetRef = useRef();
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
   const [hasTimeStamp, setTimeStamp] = useState(null);
+  const [dimensions, setDimensions] = useState({ width:0, height: 400 });
   const [locationData, setLocationData] = useState({
     title: null,
     id: null,
@@ -154,6 +156,15 @@ export default function LocationData({
     };
   }, [platsId]);
 
+  useLayoutEffect(() => {
+    if (targetRef.current) {
+      setDimensions({
+        width: targetRef.current.offsetWidth,
+        height: targetRef.current.offsetHeight
+      });
+    }
+  }, []);
+
   return (
     <>
       {hasErrors && (
@@ -259,7 +270,17 @@ export default function LocationData({
               </small>
             </p>
           </Card>
-          <Card>
+          <Card className="my-3" ref={targetRef}>
+            <StaticMap
+              mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
+              width={400}
+              height={400}
+              latitude={parseFloat(locationData.lat)}
+              longitude={parseFloat(locationData.lon)}
+              zoom={8}
+            />
+          </Card>
+          <Card className="my-3">
             <NearbyLocations
               lat={locationData.lat}
               long={locationData.lon}
