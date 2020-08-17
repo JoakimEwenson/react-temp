@@ -85,7 +85,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
             maximumAge: 500,
           }
         );
-      }, 300000);
+      }, 600000);
     }
 
     return () => {

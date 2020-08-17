@@ -107,10 +107,19 @@ export default function Favorites({ userFavorites }) {
   }
 
   useEffect(() => {
+    let interval;
+
     if (userFavorites) {
       setLoading(true);
       getLocationData(locationList);
+      interval = setInterval(() => {
+        getLocationData(locationList);
+      }, 600000);
     }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [locationList, userFavorites]);
 
   return (
