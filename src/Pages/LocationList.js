@@ -25,9 +25,7 @@ export default function LocationList({
   const [hasErrors] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
     setLocations(locationList);
-    setLoading(false);
   }, [locationList]);
 
   const submitHandler = (event) => {
@@ -67,6 +65,7 @@ export default function LocationList({
                 </InputGroup.Prepend>
                 <Form.Control
                   type="search"
+                  id="locationSearchBar"
                   className="mr-sm-2"
                   placeholder="Sök mätplats"
                   onChange={changeHandler}
@@ -83,7 +82,7 @@ export default function LocationList({
                 className="btn btn-dark"
               >
                 {isLoading ? (
-                <i className="fas fa-sync fa-spin mr-1"></i>
+                  <i className="fas fa-sync fa-spin mr-1"></i>
                 ) : (
                   <i className="fas fa-sync-alt mr-1"></i>
                 )}
@@ -102,7 +101,19 @@ export default function LocationList({
               className="sortLink"
               onClick={() => {
                 setLoading(true);
-                setLocations(locationList);
+                const filtered = locations.filter(({ title }) =>
+                  title.toLowerCase()
+                );
+                const sorted = filtered.sort((a, b) => {
+                  if (a.title < b.title) {
+                    return -1;
+                  }
+                  if (a.title > b.title) {
+                    return 1;
+                  }
+                  return 0;
+                });
+                setLocations(sorted);
                 setLoading(false);
               }}
             >
@@ -141,6 +152,16 @@ export default function LocationList({
               }}
             >
               Högsta temperatur överst
+            </span>{" "}
+            |{" "}
+            <span
+              className="sortLink"
+              onClick={() => {
+                setLocations(locationList);
+                document.getElementById("locationSearchBar").value = "";
+              }}
+            >
+              Ta bort filter
             </span>
           </small>
         </p>
@@ -158,9 +179,7 @@ export default function LocationList({
             {locations.map((row) => (
               <tr key={row.id}>
                 <td>
-                  <Link to={`/plats/${row.id}`}>
-                    {row.title}
-                  </Link>
+                  <Link to={`/plats/${row.id}`}>{row.title}</Link>
                 </td>
                 <td>{row.temp}&deg;C</td>
                 <td>

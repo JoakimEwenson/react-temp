@@ -111,7 +111,7 @@ export default function Favorites({ userFavorites }) {
       setLoading(true);
       getLocationData(locationList);
     }
-  }, [locationList]);
+  }, [locationList, userFavorites]);
 
   return (
     <>

@@ -6,17 +6,13 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function NearbyList({ userFavorites, setUserFavorites }) {
   const [locations, setLocations] = useState([]);
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [accuracy, setAccuracy] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
 
   const setGeoLocation = function (pos) {
+    setCurrentPosition(pos);
     console.log(pos);
-    setLatitude(pos.coords.latitude);
-    setLongitude(pos.coords.longitude);
-    setAccuracy(pos.coords.accuracy);
     getNearbyList(pos.coords.latitude, pos.coords.longitude);
   };
 
@@ -65,6 +61,8 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   }
 
   useEffect(() => {
+    let interval;
+
     if (navigator.geolocation) {
       setLoading(true);
       navigator.geolocation.getCurrentPosition(
@@ -76,8 +74,24 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
           maximumAge: 500,
         }
       );
+
+      interval = setInterval(() => {
+        navigator.geolocation.getCurrentPosition(
+          setGeoLocation,
+          positionErrorHandler,
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 500,
+          }
+        );
+      }, 300000);
     }
-  }, []);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, [currentPosition]);
 
   return (
     <>
