@@ -6,12 +6,10 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function NearbyList({ userFavorites, setUserFavorites }) {
   const [locations, setLocations] = useState([]);
-  const [currentPosition, setCurrentPosition] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
 
   const setGeoLocation = function (pos) {
-    setCurrentPosition(pos);
     console.log(pos);
     getNearbyList(pos.coords.latitude, pos.coords.longitude);
   };
@@ -91,7 +89,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
     return () => {
       clearInterval(interval);
     }
-  }, [currentPosition]);
+  }, []);
 
   return (
     <>
