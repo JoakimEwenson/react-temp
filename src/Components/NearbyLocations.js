@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Card, Table } from "react-bootstrap";
 import { Popup } from "react-map-gl";
-import ReactMapGL from "react-map-gl";
+import ReactMapGL, { NavigationControl } from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
 
 export default function NearbyLocations({
@@ -108,6 +108,9 @@ export default function NearbyLocations({
           {...viewport}
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
+          <div style={{ position: "absolute", right: 0 }}>
+            <NavigationControl showCompass={false} />
+          </div>
           {locationList.map((loc) => (
             <Popup
               closeButton={false}
@@ -118,7 +121,9 @@ export default function NearbyLocations({
               <div className="p-1 text-center">
                 <i className="fas fa-temperature-high"></i>
                 <br />
-                <small><Link to={`/plats/${loc.id}`}>{loc.title}</Link></small>
+                <small>
+                  <Link to={`/plats/${loc.id}`}>{loc.title}</Link>
+                </small>
                 <br />
                 <span
                   className="temperatureSmall"
