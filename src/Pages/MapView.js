@@ -5,7 +5,7 @@ import { Popup } from "react-map-gl";
 import ReactMapGL from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
 
-export default function NearbyLocations({
+export default function MapView({
   lat,
   long,
   locationId,
@@ -16,7 +16,7 @@ export default function NearbyLocations({
   const defaultMapHeight = "75vh";
   const defaultLat = 62.10237936;
   const defaultLong = 14.5632154;
-  const defaultZoom = 12;
+  const defaultZoom = 6;
   const [locationList, setLocationList] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
@@ -94,7 +94,12 @@ export default function NearbyLocations({
 
   useEffect(() => {
     setLoading(true);
-    getNearbyList(lat, long, numResults);
+    if (lat && long && numResults) {
+      getNearbyList(lat, long, numResults);
+    }
+    else {
+      getNearbyList(defaultLat, defaultLong, 10)
+    }
   }, [lat, long, locationId, numResults, hasTimeStamp]);
 
   return (

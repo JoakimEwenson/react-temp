@@ -10,6 +10,7 @@ import { getRandomCli, getFavorites, getHome } from "./Utils/Common";
 import About from "./Pages/About";
 import "./App.css";
 import PageFooter from "./Components/PageFooter";
+import MapView from "./Pages/MapView";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
@@ -101,6 +102,9 @@ function App() {
               userFavorites={userFavorites}
               setUserFavorites={setUserFavorites}
             />
+          </Route>
+          <Route exact path="/karta">
+            <MapView locationList={locationList} />
           </Route>
           <Route exact path="/narliggande">
             <NearbyList
