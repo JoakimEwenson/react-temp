@@ -5,7 +5,7 @@ import { Card, Alert } from "react-bootstrap";
 import {
   getRandomCli,
   colorTemperature,
-  timeChecker,
+  isOldTimeStamp,
   removeFavorite,
   addFavorite,
   setHome,
@@ -49,9 +49,9 @@ export default function LocationData({
     setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
-    console.log(
+/*     console.log(
       `${APIURL} requested at ${new Date().toLocaleTimeString("sv-SE")}`
-    );
+    ); */
 
     let parser = new DOMParser();
     let iconv = require("iconv-lite");
@@ -163,12 +163,12 @@ export default function LocationData({
       )}
       {locationData.temp ? (
         <>
-          {timeChecker(locationData.lastUpdate) ? (
-            ""
-          ) : (
+          {isOldTimeStamp(locationData.lastUpdate) ? (
             <Alert variant="danger" className="my-3 text-center">
               Temperaturen har inte uppdaterats de senaste 30 minuterna.
             </Alert>
+          ) : (
+            ""
           )}
           <Card className="my-3">
             <Card.Body>

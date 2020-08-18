@@ -17,9 +17,15 @@ export default function LocationList({
   setLoading,
   locationList,
   getLocationList,
+  locationListAge,
   userFavorites,
   setUserFavorites,
 }) {
+  console.log(
+    `LocationList age: ${
+      (new Date().getTime() - locationListAge) / 1000
+    } seconds`
+  );
   document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
   const [hasErrors] = useState(null);
@@ -73,6 +79,7 @@ export default function LocationList({
                 />
               </InputGroup>
             </Col>
+            {(new Date().getTime() - locationListAge) / 1000 > 180000 ? (
             <Col xs="auto">
               <Button
                 title="Ladda om listan"
@@ -86,9 +93,9 @@ export default function LocationList({
                 ) : (
                   <i className="fas fa-sync-alt mr-1"></i>
                 )}
-                Uppdatera listan
               </Button>
             </Col>
+            ) : ""}
           </Form.Row>
         </Form>
       </>

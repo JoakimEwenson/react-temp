@@ -53,15 +53,20 @@ export function colorTemperature(temperature) {
 }
 
 // Check if timestamp is old
-export function timeChecker(temperatureTimestamp) {
+export function isOldTimeStamp(temperatureTimestamp) {
   let diff = Date.now() - Date.parse(temperatureTimestamp);
+  //console.log(`Now: ${Date.now()}, parsed timestamp: ${Date.parse(temperatureTimestamp)}`);
 
   // Check if difference between now and lastUpdate timestamp is above 30 minutes and if so, alert the user
   if (diff > 1800000) {
-    //console.error(`A big difference in timestamps detected! Temperature last updated  ${parseInt((diff / 1000) / 60)} minutes ago.`);
-    return false;
+/*     console.error(
+      `A big difference in timestamps detected! Temperature last updated  ${parseInt(
+        diff / 1000 / 60
+      )} minutes ago.` 
+    );*/
+    return true;
   }
-  return true;
+  return false;
 }
 
 /*

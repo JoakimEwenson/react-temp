@@ -14,6 +14,7 @@ import MapView from "./Pages/MapView";
 
 function App() {
   const [locationList, setLocationList] = useState([]);
+  const [locationListAge, setLocationListAge] = useState(new Date().getTime());
   const [isLoading, setLoading] = useState(false);
 
   const [userFavorites, setUserFavorites] = useState(
@@ -22,9 +23,12 @@ function App() {
   const [userHome, setUserHome] = useState(getHome() ? getHome() : "");
 
   async function getLocationList() {
+    setLocationListAge(new Date().getTime());
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?verbose=true&cli=${CLI}`;
-    //console.log(APIURL);
+    console.log(
+      `${APIURL} requested at ${new Date().toLocaleTimeString("sv-SE")}`
+    );
 
     const parser = new DOMParser();
     const iconv = require("iconv-lite");
@@ -56,7 +60,7 @@ function App() {
             };
             locations.push(row);
           }
-          console.log(`All locations size: ${JSON.stringify(locations).length} chars`);
+          //console.log(`All locations size: ${JSON.stringify(locations).length} chars`);
           setLocationList(locations);
         } catch (error) {
           console.errror(error);
@@ -68,7 +72,15 @@ function App() {
   }
 
   useEffect(() => {
+    let interval;
+
     getLocationList();
+
+    interval = setInterval(() => {
+      getLocationList();
+    }, 180000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -100,6 +112,8 @@ function App() {
               setLoading={setLoading}
               locationList={locationList}
               getLocationList={getLocationList}
+              locationListAge={locationListAge}
+              setLocationListAge={setLocationListAge}
               userFavorites={userFavorites}
               setUserFavorites={setUserFavorites}
             />
