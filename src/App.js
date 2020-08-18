@@ -78,7 +78,7 @@ function App() {
 
     interval = setInterval(() => {
       getLocationList();
-    }, 180000);
+    }, 1800000);
 
     return () => clearInterval(interval);
   }, []);
