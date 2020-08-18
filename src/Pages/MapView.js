@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Alert, Card, Table } from "react-bootstrap";
 import { Popup } from "react-map-gl";
 import ReactMapGL from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
 
-export default function MapView() {
+export default function MapView({
+  lat,
+  long,
+  locationId,
+  numResults,
+  hasTimeStamp,
+}) {
   const defaultMapWidth = "100%";
-  const defaultMapHeight = "85vh";
+  const defaultMapHeight = "75vh";
+  const defaultLat = 62.10237936;
+  const defaultLong = 14.5632154;
+  const defaultZoom = 6;
   const [locationList, setLocationList] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [hasError, setError] = useState();
   const [viewport, setViewport] = useState({
     width: defaultMapWidth,
     height: defaultMapHeight,
-    latitude: 62.10237936,
-    longitude: 14.5632154,
-    zoom: 8,
+    latitude: Number(lat) ? Number(lat) : defaultLat,
+    longitude: Number(long) ? Number(long) : defaultLong,
+    zoom: defaultZoom,
   });
 
   // Get a list of locations
-  async function getNearbyList(lat, long) {
+  async function getNearbyList(lat, long, num) {
     const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat.toString()}&lon=${long.toString()}&num=5&verbose=true&amm=true&cli=${CLI}`;
+    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=${num}&verbose=true&amm=true&cli=${CLI}`;
     //console.log(APIURL);
 
     let parser = new DOMParser();
@@ -38,39 +49,62 @@ export default function MapView() {
         // Iterate results and input into string
         for (let i = 0; i < items.length; i++) {
           let row = {
-            id: items[i].getElementsByTagName("id")[0].innerHTML,
-            title: items[i].getElementsByTagName("title")[0].innerHTML,
-            temp: items[i].getElementsByTagName("temp")[0].innerHTML,
+            id: items[i].getElementsByTagName("id")[0].childNodes[0]
+              ? items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
+              : null,
+            title: items[i].getElementsByTagName("title")[0].childNodes[0]
+              ? items[i].getElementsByTagName("title")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            temp: items[i].getElementsByTagName("temp")[0].childNodes[0]
+              ? items[i].getElementsByTagName("temp")[0].childNodes[0].nodeValue
+              : null,
+            lat: items[i].getElementsByTagName("lat")[0].childNodes[0]
+              ? items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
+              : null,
+            lon: items[i].getElementsByTagName("lon")[0].childNodes[0]
+              ? items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
+              : null,
             dist: items[i].getElementsByTagName("dist")[0].innerHTML
               ? items[i].getElementsByTagName("dist")[0].innerHTML
               : null,
           };
           locationList.push(row);
         }
-        document.title = "Visar närliggande mätpunkter";
         //console.log({ locationList });
         setLocationList(locationList);
+        setViewport({
+          width: defaultMapWidth,
+          height: defaultMapHeight,
+          latitude: Number(locationList[0].lat)
+            ? Number(locationList[0].lat)
+            : defaultLat,
+          longitude: Number(locationList[0].lon)
+            ? Number(locationList[0].lon)
+            : defaultLong,
+          zoom: defaultZoom,
+        });
       })
-      .catch((err) => console.error(`Error: ${err}`));
+      .catch((err) => {
+        setError(err);
+        console.error(`Error: ${err}`);
+      });
     setLoading(false);
   }
 
   useEffect(() => {
-    let interval;
-
     setLoading(true);
-    getNearbyList(viewport.latitude, viewport.longitude);
-    interval = setInterval(() => {
-      getNearbyList(viewport.latitude, viewport.longitude);
-    }, 600000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+    if (lat && long && numResults) {
+      getNearbyList(lat, long, numResults);
+    }
+    else {
+      getNearbyList(defaultLat, defaultLong, 10)
+    }
+  }, [lat, long, locationId, numResults, hasTimeStamp]);
 
   return (
     <>
+      {hasError ? <Alert variant="danger">{hasError}</Alert> : ""}
       {isLoading ? "Laddar..." : ""}
       <Card className="my-3">
         <ReactMapGL
@@ -83,11 +117,13 @@ export default function MapView() {
             <Popup
               closeButton={false}
               key={loc.id}
-              latitude={Number(loc.lat)}
-              longitude={Number(loc.lon)}
+              latitude={parseFloat(loc.lat)}
+              longitude={parseFloat(loc.lon)}
             >
               <div className="p-1 text-center">
                 <i className="fas fa-temperature-high"></i>
+                <br />
+                <small><Link to={`/plats/${loc.id}`}>{loc.title}</Link></small>
                 <br />
                 <span
                   className="temperatureSmall"
@@ -99,6 +135,31 @@ export default function MapView() {
             </Popup>
           ))}
         </ReactMapGL>
+        <Table borderless responsive>
+          <thead>
+            <tr>
+              <th colSpan="3" className="text-center">
+                Kartans mätstationer
+              </th>
+            </tr>
+            <tr>
+              <th>Plats</th>
+              <th>Avstånd</th>
+              <th>Temperatur</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locationList.map((row) => (
+              <tr key={row.id}>
+                <td>
+                  <Link to={`/plats/${row.id}`}>{row.title}</Link>
+                </td>
+                <td>{row.dist} km</td>
+                <td>{row.temp}&deg;C</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Card>
     </>
   );
