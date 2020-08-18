@@ -108,17 +108,18 @@ export default function NearbyLocations({
           {...viewport}
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
-          <div style={{ position: "absolute", right: 0 }}>
+          <div className="p-2" style={{ position: "absolute", right: 0, zIndex: 99 }}>
             <NavigationControl showCompass={false} />
           </div>
           {locationList.map((loc) => (
             <Popup
               closeButton={false}
+              sortByDepth={true}
               key={loc.id}
               latitude={parseFloat(loc.lat)}
               longitude={parseFloat(loc.lon)}
             >
-              <div className="p-1 text-center">
+              <div className="p-1 text-center" style={loc.id === locationId ? {zIndex: 98} : {}}>
                 <i className="fas fa-temperature-high"></i>
                 <br />
                 <small>
