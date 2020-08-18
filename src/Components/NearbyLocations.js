@@ -114,12 +114,11 @@ export default function NearbyLocations({
           {locationList.map((loc) => (
             <Popup
               closeButton={false}
-              sortByDepth={true}
               key={loc.id}
               latitude={parseFloat(loc.lat)}
               longitude={parseFloat(loc.lon)}
             >
-              <div className="p-1 text-center" style={loc.id === locationId ? {zIndex: 98} : {}}>
+              <div className="p-1 text-center">
                 <i className="fas fa-temperature-high"></i>
                 <br />
                 <small>
