@@ -58,12 +58,10 @@ export function timeChecker(temperatureTimestamp) {
 
   // Check if difference between now and lastUpdate timestamp is above 30 minutes and if so, alert the user
   if (diff > 1800000) {
-    console.error(
-      "A big difference in timestamps detected! Temperature last updated " +
-        diff / 1000 +
-        " seconds ago."
-    );
+    //console.error(`A big difference in timestamps detected! Temperature last updated  ${parseInt((diff / 1000) / 60)} minutes ago.`);
+    return false;
   }
+  return true;
 }
 
 /*

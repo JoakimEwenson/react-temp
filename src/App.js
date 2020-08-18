@@ -49,32 +49,14 @@ function App() {
               temp: items[i].getElementsByTagName("temp")[0].innerHTML
                 ? items[i].getElementsByTagName("temp")[0].innerHTML
                 : null,
-              lat: items[i].getElementsByTagName("lat")[0].innerHTML
-                ? items[i].getElementsByTagName("lat")[0].innerHTML
-                : null,
-              lon: items[i].getElementsByTagName("lon")[0].innerHTML
-                ? items[i].getElementsByTagName("lon")[0].innerHTML
-                : null,
               lastUpdate: items[i].getElementsByTagName("lastUpdate")[0]
                 .innerHTML
                 ? items[i].getElementsByTagName("lastUpdate")[0].innerHTML
                 : null,
-              kommun: items[i].getElementsByTagName("kommun")[0].innerHTML
-                ? items[i].getElementsByTagName("kommun")[0].innerHTML
-                : null,
-              lan: items[i].getElementsByTagName("lan")[0].innerHTML
-                ? items[i].getElementsByTagName("lan")[0].innerHTML
-                : null,
-              sourceInfo: items[i].getElementsByTagName("sourceInfo")[0]
-                .innerHTML
-                ? items[i].getElementsByTagName("sourceInfo")[0].innerHTML
-                : null,
-              url: items[i].getElementsByTagName("url")[0].innerHTML
-                ? items[i].getElementsByTagName("url")[0].innerHTML
-                : null,
             };
             locations.push(row);
           }
+          console.log(`All locations size: ${JSON.stringify(locations).length} chars`);
           setLocationList(locations);
         } catch (error) {
           console.errror(error);

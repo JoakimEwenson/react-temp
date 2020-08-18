@@ -5,13 +5,13 @@ import { Card, Alert } from "react-bootstrap";
 import {
   getRandomCli,
   colorTemperature,
+  timeChecker,
   removeFavorite,
   addFavorite,
   setHome,
   removeHome,
 } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
-import MapView from "./MapView";
 import NearbyLocations from "../Components/NearbyLocations";
 
 export default function LocationData({
@@ -163,6 +163,13 @@ export default function LocationData({
       )}
       {locationData.temp ? (
         <>
+          {timeChecker(locationData.lastUpdate) ? (
+            ""
+          ) : (
+            <Alert variant="danger" className="my-3 text-center">
+              Temperaturen har inte uppdaterats de senaste 30 minuterna.
+            </Alert>
+          )}
           <Card className="my-3">
             <Card.Body>
               <div className="text-center">
@@ -174,14 +181,12 @@ export default function LocationData({
                     {locationData.kommun} - {locationData.lan}
                   </Card.Subtitle>
                 )}
-
                 <h1
                   className="temperature p-3"
                   style={{ color: colorTemperature(locationData.temp) }}
                 >
                   {locationData.temp}°C
                 </h1>
-
                 <p>
                   <small className="text-muted">
                     {locationData.lastUpdate}
@@ -259,13 +264,13 @@ export default function LocationData({
               </small>
             </p>
           </Card>
-            <NearbyLocations
-              lat={locationData.lat}
-              long={locationData.lon}
-              locationId={locationData.id}
-              hasTimeStamp={hasTimeStamp}
-              numResults="10"
-            />
+          <NearbyLocations
+            lat={locationData.lat}
+            long={locationData.lon}
+            locationId={locationData.id}
+            hasTimeStamp={hasTimeStamp}
+            numResults="10"
+          />
         </>
       ) : (
         <LoadingSpinner />
