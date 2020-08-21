@@ -1,9 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Card, Table } from "react-bootstrap";
-import { Popup } from "react-map-gl";
+import { Popup, Marker, GeolocateControl } from "react-map-gl";
 import ReactMapGL, { NavigationControl } from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
+
+class Markers extends PureComponent {
+  render() {
+    const { data } = this.props;
+    return (
+      <Marker
+        key={getRandomCli(4)}
+        latitude={data.latitude}
+        longitude={data.longitude}
+      >
+        <i className="fas fa-map-marker-alt"></i>
+      </Marker>
+    );
+  }
+}
+
+class Popups extends PureComponent {
+  render() {
+    const { data } = this.props;
+    return data.map((loc) => (
+      <Popup
+        closeButton={false}
+        key={loc.id}
+        latitude={parseFloat(loc.lat)}
+        longitude={parseFloat(loc.lon)}
+      >
+        <div className="p-1 text-center">
+          <i className="fas fa-temperature-high"></i>
+          <br />
+          <small>
+            <Link to={`/plats/${loc.id}`}>{loc.title}</Link>
+          </small>
+          <br />
+          <span
+            className="temperatureSmall"
+            style={{ color: colorTemperature(loc.temp) }}
+          >
+            {loc.temp}&deg;C
+          </span>
+        </div>
+      </Popup>
+    ));
+  }
+}
 
 export default function NearbyLocations({
   lat,
@@ -11,6 +55,7 @@ export default function NearbyLocations({
   locationId,
   numResults,
   hasTimeStamp,
+  showMarker = false,
 }) {
   const defaultMapWidth = "100%";
   const defaultMapHeight = "75vh";
@@ -20,13 +65,16 @@ export default function NearbyLocations({
   const [locationList, setLocationList] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
+  const [coords, setCoords] = useState({ latitude: Number(lat), longitude: Number(long) });
   const [viewport, setViewport] = useState({
     width: defaultMapWidth,
     height: defaultMapHeight,
-    latitude: Number(lat) ? Number(lat) : defaultLat,
-    longitude: Number(long) ? Number(long) : defaultLong,
+    latitude: coords.latitude ? coords.latitude : defaultLat,
+    longitude: coords.longitude ? coords.longitude : defaultLong,
     zoom: defaultZoom,
   });
+
+  console.log({lat}, {long})
 
   // Get a list of locations
   async function getNearbyList(lat, long, num) {
@@ -95,7 +143,7 @@ export default function NearbyLocations({
   useEffect(() => {
     setLoading(true);
     getNearbyList(lat, long, numResults);
-  }, [lat, long, locationId, numResults, hasTimeStamp]);
+  }, [lat, long, locationId, numResults, hasTimeStamp, coords]);
 
   return (
     <>
@@ -108,32 +156,17 @@ export default function NearbyLocations({
           {...viewport}
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
-          <div className="p-2" style={{ position: "absolute", right: 0, zIndex: 99 }}>
+          <div
+            className="p-2"
+            style={{ position: "absolute", right: 0, zIndex: 99 }}
+          >
             <NavigationControl showCompass={false} />
+            <GeolocateControl className="mt-2" positionOptions={{enableHighAccuracy: true}} trackUserLocation={false} onGeolocate={(pos) => (
+              setCoords({latitude: pos.coords.latitude, longitude: pos.coords.longitude})
+            )} />
           </div>
-          {locationList.map((loc) => (
-            <Popup
-              closeButton={false}
-              key={loc.id}
-              latitude={parseFloat(loc.lat)}
-              longitude={parseFloat(loc.lon)}
-            >
-              <div className="p-1 text-center">
-                <i className="fas fa-temperature-high"></i>
-                <br />
-                <small>
-                  <Link to={`/plats/${loc.id}`}>{loc.title}</Link>
-                </small>
-                <br />
-                <span
-                  className="temperatureSmall"
-                  style={{ color: colorTemperature(loc.temp) }}
-                >
-                  {loc.temp}&deg;C
-                </span>
-              </div>
-            </Popup>
-          ))}
+          {showMarker ? <Markers data={coords} /> : ""}
+          {locationList ? <Popups data={locationList} /> : ""}
         </ReactMapGL>
         <Table borderless responsive>
           <thead>
