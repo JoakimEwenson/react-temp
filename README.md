@@ -11,11 +11,12 @@ En simpel webbapp skriven i React med Bootstrap som stilmallsramverk. Syftet är
 * Favoritlista baserat på Javascripts LocalStorage
 * Möjlighet att välja en mätstation som hemskärm vid återbesök
 * Möjlighet att sortera på högsta/lägsta temperatur
+* Närliggande stationer på detaljvyn
+* Karta på detaljvyn
+* Karta på närliggande stationer
 
 ### Kommande
 * Möjlighet att söka närmsta station via positioneringstjänst
-* Karta på detaljvyn
-* Närliggande stationer på detaljvyn
 * Kartvy
 
 ### Övrigt
