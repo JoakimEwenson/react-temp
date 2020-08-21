@@ -270,6 +270,7 @@ export default function LocationData({
             locationId={locationData.id}
             hasTimeStamp={hasTimeStamp}
             numResults="10"
+            showMarker={false}
           />
         </>
       ) : (
