@@ -9,13 +9,16 @@ class Markers extends PureComponent {
   render() {
     const { data } = this.props;
     return (
+      <>
       <Marker
         key={getRandomCli(4)}
         latitude={data.latitude}
         longitude={data.longitude}
+        offsetTop={-16}
       >
         <i className="fas fa-map-marker-alt"></i>
       </Marker>
+      </>
     );
   }
 }
