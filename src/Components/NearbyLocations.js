@@ -61,11 +61,14 @@ export default function NearbyLocations({
   const defaultMapHeight = "75vh";
   const defaultLat = 62.10237936;
   const defaultLong = 14.5632154;
-  const defaultZoom = 12;
+  const defaultZoom = 10;
   const [locationList, setLocationList] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
-  const [coords, setCoords] = useState({ latitude: Number(lat), longitude: Number(long) });
+  const [coords, setCoords] = useState({
+    latitude: Number(lat),
+    longitude: Number(long),
+  });
   const [viewport, setViewport] = useState({
     width: defaultMapWidth,
     height: defaultMapHeight,
@@ -74,7 +77,7 @@ export default function NearbyLocations({
     zoom: defaultZoom,
   });
 
-  console.log({lat}, {long})
+  console.log({ lat }, { long });
 
   // Get a list of locations
   async function getNearbyList(lat, long, num) {
@@ -121,17 +124,6 @@ export default function NearbyLocations({
         }
         //console.log({ locationList });
         setLocationList(locationList);
-        setViewport({
-          width: defaultMapWidth,
-          height: defaultMapHeight,
-          latitude: Number(locationList[0].lat)
-            ? Number(locationList[0].lat)
-            : defaultLat,
-          longitude: Number(locationList[0].lon)
-            ? Number(locationList[0].lon)
-            : defaultLong,
-          zoom: defaultZoom,
-        });
       })
       .catch((err) => {
         setError(err);
@@ -143,7 +135,7 @@ export default function NearbyLocations({
   useEffect(() => {
     setLoading(true);
     getNearbyList(lat, long, numResults);
-  }, [lat, long, locationId, numResults, hasTimeStamp, coords]);
+  }, [lat, long, locationId, numResults, hasTimeStamp]);
 
   return (
     <>
@@ -161,12 +153,29 @@ export default function NearbyLocations({
             style={{ position: "absolute", right: 0, zIndex: 99 }}
           >
             <NavigationControl showCompass={false} />
-            <GeolocateControl className="mt-2" positionOptions={{enableHighAccuracy: true}} trackUserLocation={false} onGeolocate={(pos) => (
-              setCoords({latitude: pos.coords.latitude, longitude: pos.coords.longitude})
-            )} />
+            {showMarker ? (
+              <GeolocateControl
+                className="mt-2"
+                showUserLocation={true}
+                label="Hämta din position"
+                positionOptions={{ enableHighAccuracy: true }}
+                trackUserLocation={false}
+                onGeolocate={(pos) => {
+                  setCoords({latitude: pos.coords.latitude, longitude: pos.coords.longitude});
+                  setViewport({
+                    width: defaultMapWidth,
+                    height: defaultMapHeight,
+                    latitude: pos.coords.latitude ? pos.coords.latitude : defaultLat,
+                    longitude: pos.coords.longitude ? pos.coords.longitude : defaultLong,
+                    zoom: 8,
+                  });
+                  getNearbyList(pos.coords.latitude,pos.coords.longitude,numResults);
+                }}
+              />
+            ) : ""}
           </div>
-          {showMarker ? <Markers data={coords} /> : ""}
           {locationList ? <Popups data={locationList} /> : ""}
+          {showMarker ? <Markers data={coords} /> : ""}
         </ReactMapGL>
         <Table borderless responsive>
           <thead>
