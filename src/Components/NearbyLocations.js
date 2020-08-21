@@ -167,7 +167,7 @@ export default function NearbyLocations({
                     height: defaultMapHeight,
                     latitude: pos.coords.latitude ? pos.coords.latitude : defaultLat,
                     longitude: pos.coords.longitude ? pos.coords.longitude : defaultLong,
-                    zoom: 8,
+                    zoom: defaultZoom,
                   });
                   getNearbyList(pos.coords.latitude,pos.coords.longitude,numResults);
                 }}
