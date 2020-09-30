@@ -126,6 +126,15 @@ function App() {
               setUserHome={setUserHome}
             />
           </Route>
+          <Route exact path="/:platsId">
+            <LocationData
+              userFavorites={userFavorites}
+              setUserFavorites={setUserFavorites}
+              userHome={userHome}
+              setUserHome={setUserHome}
+              hideMap="true"
+            />
+          </Route>
           <Route exact path="/om">
             <About />
           </Route>

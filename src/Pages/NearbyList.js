@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card, Alert, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli, removeFavorite, addFavorite } from "../Utils/Common";
+import { removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import NearbyLocations from "../Components/NearbyLocations";
 
 export default function NearbyList({ userFavorites, setUserFavorites }) {
-  const [locations, setLocations] = useState([]);
+  const [locations] = useState([]);
   const [coords, setCoords] = useState();
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
@@ -24,6 +24,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   };
 
   // Get a list of locations
+  /* 
   async function getNearbyList(lat, long) {
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=5&verbose=true&amm=true&cli=${CLI}`;
@@ -59,7 +60,7 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
       })
       .catch((err) => console.error(`Error: ${err}`));
     setLoading(false);
-  }
+  } */
 
   useEffect(() => {
     let interval;
@@ -86,19 +87,24 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
             maximumAge: 500,
           }
         );
-
       }, 600000);
     }
 
     return () => {
       clearInterval(interval);
-    }
+    };
   }, []);
 
   if (coords) {
-    return (<NearbyLocations lat={coords.latitude} long={coords.longitude} numResults="10" showMarker={true} />);
-  }
-  else {
+    return (
+      <NearbyLocations
+        lat={coords.latitude}
+        long={coords.longitude}
+        numResults="10"
+        showMarker={true}
+      />
+    );
+  } else {
     return (
       <>
         {isLoading ? <LoadingSpinner /> : ""}

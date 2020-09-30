@@ -19,8 +19,8 @@ export default function LocationData({
   setUserFavorites,
   userHome,
   setUserHome,
+  hideMap,
 }) {
-  //console.log({ userFavorites });
   const { platsId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
@@ -49,7 +49,7 @@ export default function LocationData({
     setLoading(true);
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
-/*     console.log(
+    /*     console.log(
       `${APIURL} requested at ${new Date().toLocaleTimeString("sv-SE")}`
     ); */
 
@@ -264,14 +264,20 @@ export default function LocationData({
               </small>
             </p>
           </Card>
-          <NearbyLocations
-            lat={locationData.lat}
-            long={locationData.lon}
-            locationId={locationData.id}
-            hasTimeStamp={hasTimeStamp}
-            numResults="10"
-            showMarker={false}
-          />
+          {hideMap ? (
+            ""
+          ) : (
+            <>
+              <NearbyLocations
+                lat={locationData.lat}
+                long={locationData.lon}
+                locationId={locationData.id}
+                hasTimeStamp={hasTimeStamp}
+                numResults="10"
+                showMarker={false}
+              />
+            </>
+          )}
         </>
       ) : (
         <LoadingSpinner />

@@ -10,14 +10,14 @@ class Markers extends PureComponent {
     const { data } = this.props;
     return (
       <>
-      <Marker
-        key={getRandomCli(4)}
-        latitude={data.latitude}
-        longitude={data.longitude}
-        offsetTop={-16}
-      >
-        <i className="fas fa-map-marker-alt"></i>
-      </Marker>
+        <Marker
+          key={getRandomCli(4)}
+          latitude={data.latitude}
+          longitude={data.longitude}
+          offsetTop={-16}
+        >
+          <i className="fas fa-map-marker-alt"></i>
+        </Marker>
       </>
     );
   }
@@ -80,7 +80,7 @@ export default function NearbyLocations({
     zoom: defaultZoom,
   });
 
-  console.log({ lat }, { long });
+  //console.log({ lat }, { long });
 
   // Get a list of locations
   async function getNearbyList(lat, long, num) {
@@ -164,18 +164,31 @@ export default function NearbyLocations({
                 positionOptions={{ enableHighAccuracy: true }}
                 trackUserLocation={false}
                 onGeolocate={(pos) => {
-                  setCoords({latitude: pos.coords.latitude, longitude: pos.coords.longitude});
+                  setCoords({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude,
+                  });
                   setViewport({
                     width: defaultMapWidth,
                     height: defaultMapHeight,
-                    latitude: pos.coords.latitude ? pos.coords.latitude : defaultLat,
-                    longitude: pos.coords.longitude ? pos.coords.longitude : defaultLong,
+                    latitude: pos.coords.latitude
+                      ? pos.coords.latitude
+                      : defaultLat,
+                    longitude: pos.coords.longitude
+                      ? pos.coords.longitude
+                      : defaultLong,
                     zoom: defaultZoom,
                   });
-                  getNearbyList(pos.coords.latitude,pos.coords.longitude,numResults);
+                  getNearbyList(
+                    pos.coords.latitude,
+                    pos.coords.longitude,
+                    numResults
+                  );
                 }}
               />
-            ) : ""}
+            ) : (
+              ""
+            )}
           </div>
           {locationList ? <Popups data={locationList} /> : ""}
           {showMarker ? <Markers data={coords} /> : ""}
