@@ -65,69 +65,72 @@ export default function LocationData({
       .then((res) => {
         let items = res.getElementsByTagName("item");
 
-        let location = {
-          id: items[0].getElementsByTagName("id")[0].childNodes[0]
-            ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
-            : null,
-          title: items[0].getElementsByTagName("title")[0].childNodes[0]
-            ? items[0].getElementsByTagName("title")[0].childNodes[0].nodeValue
-            : null,
-          temp: items[0].getElementsByTagName("temp")[0].childNodes[0]
-            ? items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
-            : null,
-          lat: items[0].getElementsByTagName("lat")[0].childNodes[0]
-            ? items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
-            : null,
-          lon: items[0].getElementsByTagName("lon")[0].childNodes[0]
-            ? items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
-            : null,
-          lastUpdate: items[0].getElementsByTagName("lastUpdate")[0]
-            .childNodes[0]
-            ? items[0].getElementsByTagName("lastUpdate")[0].childNodes[0]
-                .nodeValue
-            : null,
-          kommun: items[0].getElementsByTagName("kommun")[0].childNodes[0]
-            ? items[0]
-                .getElementsByTagName("kommun")[0]
-                .childNodes[0].nodeValue.toString()
-            : null,
-          lan: items[0].getElementsByTagName("lan")[0].childNodes[0]
-            ? items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
-            : null,
-          sourceInfo: items[0].getElementsByTagName("sourceInfo")[0]
-            .childNodes[0]
-            ? items[0].getElementsByTagName("sourceInfo")[0].childNodes[0]
-                .nodeValue
-            : null,
-          url: items[0].getElementsByTagName("url")[0].childNodes[0]
-            ? items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
-            : "https://www.temperatur.nu",
-          ammRange: items[0].getElementsByTagName("ammRange")[0].childNodes[0]
-            ? items[0].getElementsByTagName("ammRange")[0].childNodes[0]
-                .nodeValue
-            : null,
-          average: items[0].getElementsByTagName("average")[0].childNodes[0]
-            ? items[0].getElementsByTagName("average")[0].childNodes[0]
-                .nodeValue
-            : null,
-          min: items[0].getElementsByTagName("min")[0].childNodes[0]
-            ? items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
-            : null,
-          minTime: items[0].getElementsByTagName("minTime")[0].childNodes[0]
-            ? items[0].getElementsByTagName("minTime")[0].childNodes[0]
-                .nodeValue
-            : null,
-          max: items[0].getElementsByTagName("max")[0].childNodes[0]
-            ? items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
-            : null,
-          maxTime: items[0].getElementsByTagName("maxTime")[0].childNodes[0]
-            ? items[0].getElementsByTagName("maxTime")[0].childNodes[0]
-                .nodeValue
-            : null,
-        };
-        document.title = `${location.temp}°C vid ${location.title}`;
-        setLocationData(location);
-        setTimeStamp(new Date().getTime());
+        if (items.length > 0) {
+          let location = {
+            id: items[0].getElementsByTagName("id")[0].childNodes[0]
+              ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
+              : null,
+            title: items[0].getElementsByTagName("title")[0].childNodes[0]
+              ? items[0].getElementsByTagName("title")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            temp: items[0].getElementsByTagName("temp")[0].childNodes[0]
+              ? items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
+              : null,
+            lat: items[0].getElementsByTagName("lat")[0].childNodes[0]
+              ? items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
+              : null,
+            lon: items[0].getElementsByTagName("lon")[0].childNodes[0]
+              ? items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
+              : null,
+            lastUpdate: items[0].getElementsByTagName("lastUpdate")[0]
+              .childNodes[0]
+              ? items[0].getElementsByTagName("lastUpdate")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            kommun: items[0].getElementsByTagName("kommun")[0].childNodes[0]
+              ? items[0]
+                  .getElementsByTagName("kommun")[0]
+                  .childNodes[0].nodeValue.toString()
+              : null,
+            lan: items[0].getElementsByTagName("lan")[0].childNodes[0]
+              ? items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
+              : null,
+            sourceInfo: items[0].getElementsByTagName("sourceInfo")[0]
+              .childNodes[0]
+              ? items[0].getElementsByTagName("sourceInfo")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            url: items[0].getElementsByTagName("url")[0].childNodes[0]
+              ? items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
+              : "https://www.temperatur.nu",
+            ammRange: items[0].getElementsByTagName("ammRange")[0].childNodes[0]
+              ? items[0].getElementsByTagName("ammRange")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            average: items[0].getElementsByTagName("average")[0].childNodes[0]
+              ? items[0].getElementsByTagName("average")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            min: items[0].getElementsByTagName("min")[0].childNodes[0]
+              ? items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
+              : null,
+            minTime: items[0].getElementsByTagName("minTime")[0].childNodes[0]
+              ? items[0].getElementsByTagName("minTime")[0].childNodes[0]
+                  .nodeValue
+              : null,
+            max: items[0].getElementsByTagName("max")[0].childNodes[0]
+              ? items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
+              : null,
+            maxTime: items[0].getElementsByTagName("maxTime")[0].childNodes[0]
+              ? items[0].getElementsByTagName("maxTime")[0].childNodes[0]
+                  .nodeValue
+              : null,
+          };
+          document.title = `${location.temp}°C vid ${location.title}`;
+          setLocationData(location);
+          setTimeStamp(new Date().getTime());
+        }
         setErrors(null);
         setLoading(false);
       })
@@ -205,53 +208,121 @@ export default function LocationData({
                 </p>
                 <p className="iconRow">
                   {userHome === locationData.id ? (
-                    <i
-                      className="fas fa-house-user uiIcon uiIconHouseSelected"
+                    <svg
+                      className="uiIcon uiIconHouseSelected"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         removeHome(locationData.id);
                         setUserHome(null);
                       }}
                       title="Ta bort från startsidan"
-                    ></i>
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      ></path>
+                    </svg>
                   ) : (
-                    <i
-                      className="fas fa-home uiIcon"
+                    <svg
+                      className="uiIcon"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         setHome(locationData.id);
                         setUserHome(locationData.id);
                       }}
                       title="Ställ in som startsidan"
-                    ></i>
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      ></path>
+                    </svg>
                   )}
                   {userFavorites.includes(locationData.id) ? (
-                    <i
-                      className="fas fa-star uiIcon uiIconFavorited"
+                    <svg
+                      className="uiIcon uiIconFavorited"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         let tempFavs = removeFavorite(locationData.id);
                         setUserFavorites(tempFavs);
                       }}
                       title="Ta bort från favoriter"
-                    ></i>
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                      ></path>
+                    </svg>
                   ) : (
-                    <i
-                      className="far fa-star uiIcon"
+                    <svg
+                      className="uiIcon"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         let tempFavs = addFavorite(locationData.id);
                         setUserFavorites(tempFavs);
                       }}
                       title="Lägg till i favoriter"
-                    ></i>
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                      ></path>
+                    </svg>
                   )}
                   {isLoading ? (
-                    <i className="fas fa-sync fa-spin uiIcon uiIconRefreshing"></i>
+                    <svg
+                      className="uiIcon uiIconRefreshing"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      ></path>
+                    </svg>
                   ) : (
-                    <i
-                      className="fas fa-sync-alt uiIcon"
+                    <svg
+                      className="uiIcon"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         getLocationData(platsId);
                       }}
                       title="Uppdatera informationen"
-                    ></i>
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      ></path>
+                    </svg>
                   )}
                 </p>
               </div>

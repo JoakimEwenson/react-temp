@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-
 export default function About() {
   document.title = "Om tjänsten";
   return (
@@ -15,8 +14,8 @@ export default function About() {
         </p>
         <h4>Beskrivning</h4>
         <p>
-          En simpel webbapp skriven i React med Bootstrap som stilmallsramverk.
-          Syftet är att hämta temperaturer från nätverket av mätstationer på&nbsp;
+          En simpel webbapp skriven i React med syfte att hämta temperaturer
+          från nätverket av mätstationer på&nbsp;
           <a href="https://temperatur.nu/">temperatur.nu</a>.
         </p>
 
@@ -34,8 +33,15 @@ export default function About() {
 
         <h4>Kommande</h4>
         <ul>
-          <li>Möjlighet att söka närmsta station via positioneringstjänst</li>
           <li>Kartvy</li>
+        </ul>
+
+        <h4>Teknik</h4>
+        <ul>
+          <li>React</li>
+          <li><a href="https://getbootstrap.com">Bootstrap</a> (CSS)</li>
+          <li><a href="https://heroicons.dev">Heroicons</a> (ikoner)</li>
+          <li><a href="https://fontawesome.com">Font Awesome</a> (footer-ikoner)</li>
         </ul>
 
         <h4>Övrigt</h4>

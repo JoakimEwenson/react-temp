@@ -44,9 +44,17 @@ body {
   border: 0px;
 }
 
+.brandIcon {
+  width: 1.6rem;
+}
+
+.navbarIcon {
+  width: 1.2rem;
+}
+
 .footerIcon {
   color: whitesmoke !important;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .temperature {
@@ -82,6 +90,7 @@ body {
 .uiIcon {
   cursor: pointer;
   margin: 10px;
+  width: 2.5rem;
 }
 
 .uiIconFavorited {
@@ -89,11 +98,19 @@ body {
 }
 
 .uiIconHouseSelected {
-  color: var(--dark-olive-green);
+  color: var(--imperial-red);
 }
 
 .uiIconRefreshing {
   color: var(--liver-dogs);
+  -webkit-animation: rotation 2s infinite linear;
+  -moz-animation: rotation 2s infinite linear;
+  -o-animation: rotation 2s infinite linear;
+  animation: rotation 2s infinite linear;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  max-width: 10rem;
 }
 
 .sortLink {
@@ -118,4 +135,21 @@ body {
   .temperature {
     font-size: 4rem;
   }
+}
+
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(-359deg);}
+}
+@-moz-keyframes rotation {
+  from {-moz-transform: rotate(0deg);}
+  to   {-moz-transform: rotate(-359deg);}
+}
+@-o-keyframes rotation {
+  from {-o-transform: rotate(0deg);}
+  to   {-o-transform: rotate(-359deg);}
+}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to   {transform: rotate(-359deg);}
 }
