@@ -11,6 +11,8 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState();
 
+  document.title = "Visar närliggande mätpunkter";
+
   const setGeoLocation = function (pos) {
     //console.log(pos);
     setCoords(pos.coords);
