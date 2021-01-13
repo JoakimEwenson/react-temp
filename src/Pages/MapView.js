@@ -121,8 +121,6 @@ export default function MapView({
               longitude={parseFloat(loc.lon)}
             >
               <div className="p-1 text-center">
-                <i className="fas fa-temperature-high"></i>
-                <br />
                 <small><Link to={`/plats/${loc.id}`}>{loc.title}</Link></small>
                 <br />
                 <span

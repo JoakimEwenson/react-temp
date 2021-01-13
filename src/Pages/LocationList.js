@@ -21,11 +21,7 @@ export default function LocationList({
   userFavorites,
   setUserFavorites,
 }) {
-  console.log(
-    `LocationList age: ${
-      (new Date().getTime() - locationListAge) / 1000
-    } seconds`
-  );
+
   document.title = "Listar alla mätpunkter";
   const [locations, setLocations] = useState(locationList);
   const [hasErrors] = useState(null);

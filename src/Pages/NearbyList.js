@@ -23,45 +23,6 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
     setLoading(false);
   };
 
-  // Get a list of locations
-  /* 
-  async function getNearbyList(lat, long) {
-    const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=5&verbose=true&amm=true&cli=${CLI}`;
-    //console.log(APIURL);
-
-    let parser = new DOMParser();
-    let iconv = require("iconv-lite");
-    let locationList = [];
-
-    fetch(APIURL)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) =>
-        iconv.decode(new Buffer(arrayBuffer), "iso-88591").toString()
-      )
-      .then((str) => parser.parseFromString(str, "text/xml"))
-      .then((res) => {
-        let items = res.getElementsByTagName("item");
-        // Iterate results and input into string
-        for (let i = 0; i < items.length; i++) {
-          let row = {
-            id: items[i].getElementsByTagName("id")[0].innerHTML,
-            title: items[i].getElementsByTagName("title")[0].innerHTML,
-            temp: items[i].getElementsByTagName("temp")[0].innerHTML,
-            dist: items[i].getElementsByTagName("dist")[0].innerHTML
-              ? items[i].getElementsByTagName("dist")[0].innerHTML
-              : null,
-          };
-          locationList.push(row);
-        }
-        document.title = "Visar närliggande mätpunkter";
-        //console.log({ locationList });
-        setLocations(locationList);
-      })
-      .catch((err) => console.error(`Error: ${err}`));
-    setLoading(false);
-  } */
-
   useEffect(() => {
     let interval;
 
