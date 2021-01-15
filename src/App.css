@@ -108,6 +108,10 @@ body {
   cursor: pointer;
 }
 
+.searchbarIcon {
+  width: 1.3rem;
+}
+
 .uiIcon {
   cursor: pointer;
   margin: 10px;
