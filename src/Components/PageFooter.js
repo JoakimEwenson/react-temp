@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PageFooter() {
   return (
-    <div className="bg-dark mx-auto text-center fixed-bottom sticky-bottom">
+    <div className="bg-dark mx-auto text-center fixed-bottom sticky-bottom pb-2">
       <a href="https://github.com/JoakimEwenson/react-temp">
         <i className="fab fa-github footerIcon m-2"></i>
       </a>

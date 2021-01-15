@@ -10,6 +10,12 @@
   --cornsilk: #fefae0ff;
   --fawn: #dda15eff;
   --liver-dogs: #bc6c25ff;
+  /* CSS HSL from Coolors.co */
+--celeste: hsla(180, 83%, 79%, 1);
+--gold-crayola: hsla(36, 81%, 75%, 1);
+--tumbleweed: hsla(21, 53%, 69%, 1);
+--copper-red: hsla(9, 46%, 57%, 1);
+--bittersweet: hsla(4, 88%, 67%, 1);
 }
 
 body {
@@ -87,6 +93,11 @@ body {
   font-size: 2rem;
 }
 
+.favlistIcon {
+  width: 1.3rem;
+  cursor: pointer;
+}
+
 .uiIcon {
   cursor: pointer;
   margin: 10px;
@@ -94,15 +105,17 @@ body {
 }
 
 .uiIconFavorited {
-  color: var(--fawn);
+  color: var(--gold-crayola);
+  fill: var(--gold-crayola);
 }
 
 .uiIconHouseSelected {
-  color: var(--imperial-red);
+  color: var(--copper-red);
+  fill: var(--copper-red) !important;
 }
 
 .uiIconRefreshing {
-  color: var(--liver-dogs);
+  color: var(--bittersweet);
   -webkit-animation: rotation 2s infinite linear;
   -moz-animation: rotation 2s infinite linear;
   -o-animation: rotation 2s infinite linear;
@@ -138,18 +151,34 @@ body {
 }
 
 @-webkit-keyframes rotation {
-  from {-webkit-transform: rotate(0deg);}
-  to   {-webkit-transform: rotate(-359deg);}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-359deg);
+  }
 }
 @-moz-keyframes rotation {
-  from {-moz-transform: rotate(0deg);}
-  to   {-moz-transform: rotate(-359deg);}
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(-359deg);
+  }
 }
 @-o-keyframes rotation {
-  from {-o-transform: rotate(0deg);}
-  to   {-o-transform: rotate(-359deg);}
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(-359deg);
+  }
 }
 @keyframes rotation {
-  from {transform: rotate(0deg);}
-  to   {transform: rotate(-359deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-359deg);
+  }
 }
