@@ -16,6 +16,12 @@
 --tumbleweed: hsla(21, 53%, 69%, 1);
 --copper-red: hsla(9, 46%, 57%, 1);
 --bittersweet: hsla(4, 88%, 67%, 1);
+/* Option */
+--blue-sapphire: hsla(201, 38%, 29%, 1);
+--light-slate-gray: hsla(203, 17%, 51%, 1);
+--cadet-grey: hsla(203, 18%, 68%, 1);
+--timberwolf: hsla(38, 8%, 81%, 1);
+--maize-crayola: hsla(47, 73%, 58%, 1);
 }
 
 body {
@@ -32,7 +38,11 @@ body {
 }
 
 .bg-dark {
-  background-color: var(--raisin-black) !important;
+  background-color: var(--blue-sapphire) !important;
+}
+
+.bg-light {
+  background-color: var(--timberwolf);
 }
 
 .btn-dark {
@@ -105,17 +115,17 @@ body {
 }
 
 .uiIconFavorited {
-  color: var(--gold-crayola);
-  fill: var(--gold-crayola);
+  color: var(--maize-crayola);
+  fill: var(--maize-crayola);
 }
 
 .uiIconHouseSelected {
-  color: var(--copper-red);
-  fill: var(--copper-red) !important;
+  color: var(--light-slate-gray);
+  fill: var(--light-slate-gray) !important;
 }
 
 .uiIconRefreshing {
-  color: var(--bittersweet);
+  color: var(--light-slate-gray);
   -webkit-animation: rotation 2s infinite linear;
   -moz-animation: rotation 2s infinite linear;
   -o-animation: rotation 2s infinite linear;
