@@ -24,7 +24,7 @@ export default function Favorites({ userFavorites }) {
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
       .then((arrayBuffer) =>
-        iconv.decode(new Buffer(arrayBuffer), "iso-8859-1").toString()
+        iconv.decode(new Buffer(arrayBuffer), "utf-8").toString()
       )
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {

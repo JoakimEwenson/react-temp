@@ -41,7 +41,7 @@ export default function MapView({
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
       .then((arrayBuffer) =>
-        iconv.decode(new Buffer(arrayBuffer), "iso-88591").toString()
+        iconv.decode(new Buffer(arrayBuffer), "utf-8").toString()
       )
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {

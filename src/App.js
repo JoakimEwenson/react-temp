@@ -36,7 +36,7 @@ function App() {
 
     fetch(APIURL)
       .then((response) => response.arrayBuffer())
-      .then((buff) => iconv.decode(new Buffer(buff), "iso-8859-1").toString())
+      .then((buff) => iconv.decode(new Buffer(buff), "utf-8").toString())
       .then((str) => parser.parseFromString(str, "text/xml"))
       .then((res) => {
         try {
