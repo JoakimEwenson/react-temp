@@ -113,7 +113,7 @@ export default function MapView({
           {...viewport}
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
-          {locationList.map((loc) => (
+          {locationList.reverse().map((loc) => (
             <Popup
               closeButton={false}
               key={loc.id}
