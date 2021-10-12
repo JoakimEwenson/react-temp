@@ -1,6 +1,5 @@
 import React, { useEffect, useState, PureComponent } from "react";
 import { Link } from "react-router-dom";
-import { Alert, Card, Table } from "react-bootstrap";
 import { Popup, Marker, GeolocateControl } from "react-map-gl";
 import ReactMapGL, { NavigationControl } from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
@@ -59,7 +58,7 @@ export default function NearbyLocations({
   showMarker = false,
 }) {
   const defaultMapWidth = "100%";
-  const defaultMapHeight = "75vh";
+  const defaultMapHeight = "65vh";
   const defaultLat = 62.10237936;
   const defaultLong = 14.5632154;
   const defaultZoom = 10;
@@ -140,9 +139,9 @@ export default function NearbyLocations({
 
   return (
     <>
-      {hasError ? <Alert variant="danger">{hasError}</Alert> : ""}
+      {hasError ? <div >{hasError}</div> : ""}
       {isLoading ? "Laddar..." : ""}
-      <Card className="my-3">
+      <div className="container bg-white shadow-sm max-w-5xl my-3">
         <ReactMapGL
           mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
           mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
@@ -150,7 +149,7 @@ export default function NearbyLocations({
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
           <div
-            className="p-2"
+            className="p-0"
             style={{ position: "absolute", right: 0, zIndex: 99 }}
           >
             <NavigationControl showCompass={false} />
@@ -191,17 +190,17 @@ export default function NearbyLocations({
           {locationList ? <Popups data={locationList} /> : ""}
           {showMarker ? <Markers data={coords} /> : ""}
         </ReactMapGL>
-        <Table borderless responsive>
+        <table className="container table-fixed border-separate">
           <thead>
             <tr>
-              <th colSpan="3" className="text-center">
+              <th colSpan="3" className="text-center py-3">
                 Kartans mätstationer
               </th>
             </tr>
             <tr>
-              <th>Plats</th>
-              <th>Avstånd</th>
-              <th>Temperatur</th>
+              <th className="w-1/2">Plats</th>
+              <th className="w-1/4">Avstånd</th>
+              <th className="w-1/4">Temperatur</th>
             </tr>
           </thead>
           <tbody>
@@ -215,8 +214,8 @@ export default function NearbyLocations({
               </tr>
             ))}
           </tbody>
-        </Table>
-      </Card>
+        </table>
+      </div>
     </>
   );
 }

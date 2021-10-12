@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Card, Alert, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getRandomCli, removeFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
@@ -125,27 +124,27 @@ export default function Favorites({ userFavorites }) {
   return (
     <>
       {hasErrors ? (
-        <Alert variant="danger" className="my-3">
+        <div className="container max-w-5xl my-3">
           {hasErrors.message}
-        </Alert>
+        </div>
       ) : (
         ""
       )}
       {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <Card className="my-3">
-          <Card.Body className="text-center">
+        <div className="container max-w-5xl my-3">
+          <div  className="text-center">
             Du har ännu inte favoritmarkerat några mätstationer.
-          </Card.Body>
-        </Card>
+          </div >
+        </div>
       ) : (
-        <Card className="my-3">
-          <Table borderless responsive>
+        <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
+          <table className="container table-fixed">
             <thead>
               <tr>
-                <th>Plats</th>
-                <th>Temperatur</th>
-                <th></th>
+                <th className="w-1/2">Plats</th>
+                <th className="w-1/4">Temperatur</th>
+                <th className="w-1/4"></th>
               </tr>
             </thead>
             <tbody>
@@ -167,8 +166,8 @@ export default function Favorites({ userFavorites }) {
                 </tr>
               ))}
             </tbody>
-          </Table>
-        </Card>
+          </table>
+        </div>
       )}
     </>
   );

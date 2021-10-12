@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Table, Card, Alert, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { removeFavorite, addFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
@@ -72,12 +71,12 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
       <>
         {isLoading ? <LoadingSpinner /> : ""}
         {hasError ? (
-          <Alert variant="danger" className="my-3">
+          <div className="my-3">
             GeoLocation Error: {hasError}
-          </Alert>
+          </div>
         ) : !isLoading ? (
-          <Card className="my-3">
-            <Table borderless responsive>
+          <div className="my-3">
+            <table className="container">
               <thead>
                 <tr>
                   <th>Plats</th>
@@ -115,9 +114,9 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </table>
             <div className="my-3 mx-auto">
-              <Button
+              <button
                 title="Ladda om listan"
                 onClick={() => {
                   if (navigator.geolocation) {
@@ -141,9 +140,9 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
                   <i className="fas fa-sync-alt mr-1"></i>
                 )}
                 Uppdatera listan
-              </Button>
+              </button>
             </div>
-          </Card>
+          </div>
         ) : (
           ""
         )}

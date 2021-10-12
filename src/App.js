@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PageNav from "./Components/PageNav";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Container } from "react-bootstrap";
 import LocationList from "./Pages/LocationList";
 import NearbyList from "./Pages/NearbyList";
 import LocationData from "./Pages/LocationData";
@@ -86,7 +85,6 @@ function App() {
   return (
     <BrowserRouter>
       <PageNav />
-      <Container>
         <Switch>
           <Route exact path="/">
             {userHome ? <Redirect to={`/plats/${userHome}`} /> : <About />}
@@ -130,7 +128,6 @@ function App() {
             <About />
           </Route>
         </Switch>
-      </Container>
       <PageFooter />
     </BrowserRouter>
   );
