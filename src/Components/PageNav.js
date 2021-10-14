@@ -32,6 +32,7 @@ export default function PageNav() {
                   </span>
                 </div>
               </Link>
+              <div className="hidden md:block">
               <Link
                 to="/favoriter"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
@@ -56,6 +57,7 @@ export default function PageNav() {
               >
                 Om sidan
               </Link>
+              </div>
             </div>
           </div>
         </div>
