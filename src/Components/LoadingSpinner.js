@@ -4,7 +4,7 @@ export default function LoadingSpinner() {
   return (
     <div className="text-center mx-auto my-5">
       <svg
-        className="h-10 w-10 mx-auto"
+        className="h-10 w-10 mx-auto uiIconRefreshing"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

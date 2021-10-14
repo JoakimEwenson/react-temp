@@ -31,6 +31,10 @@ body {
   padding-bottom: 50px;
 }
 
+.map_container {
+  padding-top: 15px;
+}
+
 .temperature {
   font-family: "JetBrains Mono", monospace;
   font-size: 8rem;
@@ -40,6 +44,7 @@ body {
 }
 
 .temperatureSmall {
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.2rem;
   font-weight: bolder !important;
   text-shadow: 0px 0px 1px black;
@@ -89,7 +94,6 @@ body {
 }
 
 .uiIconRefreshing {
-  color: var(--light-slate-gray);
   -webkit-animation: rotation 2s infinite linear;
   -moz-animation: rotation 2s infinite linear;
   -o-animation: rotation 2s infinite linear;

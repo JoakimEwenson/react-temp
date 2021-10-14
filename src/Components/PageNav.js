@@ -10,7 +10,7 @@ export default function PageNav() {
             <div className="flex-shrink-0 flex items-center">
               <Link
                 to="/"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 <div className="flex items-center space-x-2">
                   <svg
@@ -34,25 +34,25 @@ export default function PageNav() {
               </Link>
               <Link
                 to="/favoriter"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
               >
                 Favoriter
               </Link>
               <Link
                 to="/narliggande"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
               >
                 Närliggande
               </Link>
               <Link
                 to="/platslista"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
               >
                 Alla mätpunkter
               </Link>
               <Link
                 to="/om"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
               >
                 Om sidan
               </Link>
