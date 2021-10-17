@@ -30,6 +30,28 @@ export default function PageNav() {
                 </div>
               </Link>
             </div>
+            <div className="bg-gray-800 hidden" id="mobile-menu">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link to="/favoriter" className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
+                  Favoriter
+                </Link>
+                <Link
+                  to="/narliggande"
+                  className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                >
+                  Närliggande
+                </Link>
+                <Link
+                  to="/platslista"
+                  className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
+                >
+                  Alla mätpunkter
+                </Link>
+                <Link to="/om" className="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
+                  Om sidan
+                </Link>
+              </div>
+            </div>
             <div className="flex-shrink-0 flex items-center md:hidden">
               <button
                 type="button"
@@ -83,28 +105,7 @@ export default function PageNav() {
                 </Link>
               </div>
             </div>
-            <div className="hidden" id="mobile-menu">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                <Link to="/favoriter" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
-                  Favoriter
-                </Link>
-                <Link
-                  to="/narliggande"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-                >
-                  Närliggande
-                </Link>
-                <Link
-                  to="/platslista"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-                >
-                  Alla mätpunkter
-                </Link>
-                <Link to="/om" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
-                  Om sidan
-                </Link>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
