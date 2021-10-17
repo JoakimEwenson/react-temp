@@ -58,7 +58,21 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
       {locationData?.temp ? (
         <>
           {isOldTimeStamp(locationData?.lastUpdate) ? (
-            <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+            <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
               Temperaturen har inte uppdaterats de senaste 30 minuterna.
             </div>
           ) : (

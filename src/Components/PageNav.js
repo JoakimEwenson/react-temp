@@ -8,7 +8,7 @@ export default function PageNav() {
         <div className="flex items-center justify-between h-16">
           <div className="flex-1 flex items-center justify-between sm:items-stretch sm:justify-between">
             <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              <Link to="/" className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium">
                 <div className="flex items-center space-x-2">
                   <svg
                     className="h-8 w-8 text-white"
@@ -24,13 +24,13 @@ export default function PageNav() {
                       d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                     ></path>
                   </svg>
-                  <span className="text-xl">
+                  <span className="text-xl hidden sm:block">
                     <b>temperatur.nu</b>
                   </span>
                 </div>
               </Link>
             </div>
-            <div className="flex items-center sm:hidden">
+            <div className="flex-shrink-0 flex items-center md:hidden">
               <button
                 type="button"
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -61,7 +61,7 @@ export default function PageNav() {
                 </svg>
               </button>
             </div>
-            <div className="hidden sm:block sm:ml-6 items-center">
+            <div className="hidden md:flex sm:ml-6 flex-shrink-0 items-center">
               <div class="flex space-x-4">
                 <Link to="/favoriter" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
                   Favoriter
@@ -76,14 +76,14 @@ export default function PageNav() {
                   to="/platslista"
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
                 >
-                  Alla mätpunkter
+                  Alla
                 </Link>
                 <Link to="/om" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
                   Om sidan
                 </Link>
               </div>
             </div>
-            <div class="sm:hidden" id="mobile-menu">
+            <div class="hidden" id="mobile-menu">
               <div class="px-2 pt-2 pb-3 space-y-1">
                 <Link to="/favoriter" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
                   Favoriter
