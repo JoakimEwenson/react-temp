@@ -62,7 +62,7 @@ export default function PageNav() {
               </button>
             </div>
             <div className="hidden md:flex sm:ml-6 flex-shrink-0 items-center">
-              <div class="flex space-x-4">
+              <div className="flex space-x-4">
                 <Link to="/favoriter" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
                   Favoriter
                 </Link>
@@ -83,8 +83,8 @@ export default function PageNav() {
                 </Link>
               </div>
             </div>
-            <div class="hidden" id="mobile-menu">
-              <div class="px-2 pt-2 pb-3 space-y-1">
+            <div className="hidden" id="mobile-menu">
+              <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link to="/favoriter" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold">
                   Favoriter
                 </Link>
