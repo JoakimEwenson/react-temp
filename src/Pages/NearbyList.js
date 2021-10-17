@@ -87,12 +87,12 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
               <tbody>
                 {locations.map((row) => (
                   <tr key={row.id}>
-                    <td>
+                    <td className="py-2">
                       <Link to={`/plats/${row.id}`}>{row.title}</Link>
                     </td>
-                    <td>{row.dist && row.dist} km</td>
-                    <td>{row.temp}&deg;C</td>
-                    <td>
+                    <td className="py-2">{row.dist && row.dist} km</td>
+                    <td className="py-2">{row.temp}&deg;C</td>
+                    <td className="py-2">
                       {userFavorites.includes(row.id) ? (
                         <i
                           className="fas fa-star uiIcon uiIconFavorited"

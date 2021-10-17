@@ -59,11 +59,6 @@ export function isOldTimeStamp(temperatureTimestamp) {
 
   // Check if difference between now and lastUpdate timestamp is above 30 minutes and if so, alert the user
   if (diff > 1800000) {
-/*     console.error(
-      `A big difference in timestamps detected! Temperature last updated  ${parseInt(
-        diff / 1000 / 60
-      )} minutes ago.` 
-    );*/
     return true;
   }
   return false;
@@ -102,9 +97,9 @@ export function addFavorite(location) {
       throw new Error(
         `Det gick inte att lägga till ${location}, mätpunkten finns redan med i listan.`
       );
-    } else if (current.length >= 5) {
+    } else if (current.length >= 25) {
       throw new Error(
-        `Det gick inte att lägga till ${location}, favoritlistan har redan maximala 5 mätplatser.`
+        `Det gick inte att lägga till ${location}, favoritlistan har redan maximala 25 mätplatser.`
       );
     } else {
       if (current.length === 0) {

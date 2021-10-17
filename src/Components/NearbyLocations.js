@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Popup, Marker, GeolocateControl } from "react-map-gl";
 import ReactMapGL, { NavigationControl } from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
+import apiCaller from "../Utils/apiCaller";
 
 class Markers extends PureComponent {
   render() {
@@ -23,7 +24,7 @@ class Popups extends PureComponent {
     return data.map((loc) => (
       <Popup closeButton={false} key={loc.id} latitude={parseFloat(loc.lat)} longitude={parseFloat(loc.lon)}>
         <div className="p-1 text-center">
-          <small>
+          <small className="font-bold">
             <Link to={`/plats/${loc.id}`}>{loc.title}</Link>
           </small>
           <br />
@@ -61,52 +62,20 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
 
   // Get a list of locations
   async function getNearbyList(lat, long, num) {
-    const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=${num}&verbose=true&amm=true&cli=${CLI}`;
-    //console.log(APIURL);
-
-    let parser = new DOMParser();
-    let iconv = require("iconv-lite");
-    let locationList = [];
-
-    fetch(APIURL)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), "utf-8").toString())
-      .then((str) => parser.parseFromString(str, "text/xml"))
-      .then((res) => {
-        let items = res.getElementsByTagName("item");
-        // Iterate results and input into string
-        for (let i = 0; i < items.length; i++) {
-          let row = {
-            id: items[i].getElementsByTagName("id")[0].childNodes[0]
-              ? items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
-              : null,
-            title: items[i].getElementsByTagName("title")[0].childNodes[0]
-              ? items[i].getElementsByTagName("title")[0].childNodes[0].nodeValue
-              : null,
-            temp: items[i].getElementsByTagName("temp")[0].childNodes[0]
-              ? items[i].getElementsByTagName("temp")[0].childNodes[0].nodeValue
-              : null,
-            lat: items[i].getElementsByTagName("lat")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
-              : null,
-            lon: items[i].getElementsByTagName("lon")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
-              : null,
-            dist: items[i].getElementsByTagName("dist")[0].innerHTML
-              ? items[i].getElementsByTagName("dist")[0].innerHTML
-              : null,
-          };
-          locationList.push(row);
-        }
-        //console.log({ locationList });
-        setLocationList(locationList);
-      })
-      .catch((err) => {
-        setError(err);
-        console.error(`Error: ${err}`);
-      });
-    setLoading(false);
+    try {
+      // Fetch data
+      const result = await apiCaller(`lat=${lat}&lon=${long}&num=${num}&verbose=true&amm=true`);
+      const data = await result.json();
+      // Process data
+      if (data?.stations?.length > 0) {
+        setLocationList(data?.stations);
+      }
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      console.error(`Error: ${error}`);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -116,7 +85,13 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
 
   return (
     <>
-      {hasError ? <div>{hasError}</div> : ""}
+      {hasError ? (
+        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+          {hasError}
+        </div>
+      ) : (
+        ""
+      )}
       {isLoading ? "Laddar..." : ""}
       <div className="container bg-white shadow-sm max-w-5xl my-3">
         <div className="map_container">
@@ -174,12 +149,12 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             </thead>
             <tbody>
               {locationList.map((row) => (
-                <tr key={row.id}>
-                  <td>
+                <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                  <td className="py-2">
                     <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
-                  <td>{row.dist} km</td>
-                  <td>{row.temp}&deg;C</td>
+                  <td className="py-2">{row.dist} km</td>
+                  <td className="py-2">{row.temp}&deg;C</td>
                 </tr>
               ))}
             </tbody>

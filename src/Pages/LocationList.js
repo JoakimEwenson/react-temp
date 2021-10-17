@@ -38,51 +38,47 @@ export default function LocationList({
     <>
       {hasErrors ? <div className="my-3">{hasErrors.message}</div> : ""}
       <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
-        <form onSubmit={submitHandler} className="my-3">
-          <form className="align-items-center">
+        <form onSubmit={submitHandler} className="my-3 align-items-center">
+          <div>
+            <svg
+              className="searchbarIcon"
+              fill="none"
+              stroke="white"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <input
+              type="search"
+              id="locationSearchBar"
+              className="border w-full rounded-md p-2"
+              placeholder="Sök mätplats"
+              onChange={changeHandler}
+              disabled={isLoading}
+            />
+          </div>
+          {(new Date().getTime() - locationListAge) / 1000 > 180000 ? (
             <div>
-              <svg
-                className="searchbarIcon"
-                fill="none"
-                stroke="white"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <button
+                title="Ladda om listan"
+                onClick={() => {
+                  getLocationList();
+                }}
+                className="btn btn-dark"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-              <input
-                type="search"
-                id="locationSearchBar"
-                className="border w-full rounded-md p-2"
-                placeholder="Sök mätplats"
-                onChange={changeHandler}
-                disabled={isLoading}
-              />
+                {isLoading ? <i className="fas fa-sync fa-spin mr-1"></i> : <i className="fas fa-sync-alt mr-1"></i>}
+              </button>
             </div>
-            {(new Date().getTime() - locationListAge) / 1000 > 180000 ? (
-              <div>
-                <button
-                  title="Ladda om listan"
-                  onClick={() => {
-                    getLocationList();
-                  }}
-                  className="btn btn-dark"
-                >
-                  {isLoading ? <i className="fas fa-sync fa-spin mr-1"></i> : <i className="fas fa-sync-alt mr-1"></i>}
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-          </form>
+          ) : (
+            ""
+          )}
         </form>
-      </div>
-      <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
         <p className="pt-1 text-center">
           <b>Sortering:</b>
           <br />
@@ -162,12 +158,12 @@ export default function LocationList({
           </thead>
           <tbody>
             {locations.map((row) => (
-              <tr key={row.id}>
-                <td>
+              <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                <td className="py-2">
                   <Link to={`/plats/${row.id}`}>{row.title}</Link>
                 </td>
-                <td>{row.temp}&deg;C</td>
-                <td>
+                <td className="py-2">{row.temp}&deg;C</td>
+                <td className="py-2">
                   {userFavorites.includes(row.id) ? (
                     <>
                       <svg

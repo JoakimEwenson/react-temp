@@ -10,13 +10,13 @@ export default function About() {
           Av <a href="https://www.ewenson.se">Joakim Ewenson</a>, augusti 2020
         </em>
       </p>
-      <h4 className="text-2xl mt-4 mb-2">Beskrivning</h4>
+      <h4 className="text-2xl font-bold mt-4 mb-2">Beskrivning</h4>
       <p>
         En simpel webbapp skriven i React med syfte att hämta temperaturer från nätverket av mätstationer på&nbsp;
         <a href="https://temperatur.nu/">temperatur.nu</a>.
       </p>
 
-      <h4 className="text-2xl mt-4 mb-2">Funktioner</h4>
+      <h4 className="text-2xl font-bold mt-4 mb-2">Funktioner</h4>
       <ul className="list-disc ml-4">
         <li>Lista över närliggande stationer</li>
         <li>Lista över samtliga stationer, sökbar i realtid</li>
@@ -28,12 +28,12 @@ export default function About() {
         <li>Karta på detaljvyn</li>
       </ul>
 
-      <h4 className="text-2xl mt-4 mb-2">Kommande</h4>
+      <h4 className="text-2xl font-bold mt-4 mb-2">Kommande</h4>
       <ul className="list-disc ml-4">
         <li>Kartvy</li>
       </ul>
 
-      <h4 className="text-2xl mt-4 mb-2">Teknik</h4>
+      <h4 className="text-2xl font-bold mt-4 mb-2">Teknik</h4>
       <ul className="list-disc ml-4">
         <li>React</li>
         <li>
@@ -47,7 +47,7 @@ export default function About() {
         </li>
       </ul>
 
-      <h4 className="text-2xl mt-4 mb-2">Övrigt</h4>
+      <h4 className="text-2xl font-bold mt-4 mb-2">Övrigt</h4>
       <p>
         Information om temperatur.nu och dess API finns på adressen&nbsp;
         <a href="http://wiki.temperatur.nu/index.php/API">http://wiki.temperatur.nu/index.php/API</a>.

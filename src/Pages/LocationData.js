@@ -1,124 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import {
-  getRandomCli,
-  colorTemperature,
-  isOldTimeStamp,
-  removeFavorite,
-  addFavorite,
-  setHome,
-  removeHome,
-} from "../Utils/Common";
+import { colorTemperature, isOldTimeStamp, removeFavorite, addFavorite, setHome, removeHome } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import NearbyLocations from "../Components/NearbyLocations";
+import apiCaller from "../Utils/apiCaller";
 
 export default function LocationData({ userFavorites, setUserFavorites, userHome, setUserHome, hideMap }) {
   const { platsId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [hasErrors, setErrors] = useState(null);
-  const [hasTimeStamp, setTimeStamp] = useState(null);
-  const [locationData, setLocationData] = useState({
-    title: null,
-    id: null,
-    temp: null,
-    lat: null,
-    lon: null,
-    lastUpdate: null,
-    kommun: null,
-    lan: null,
-    sourceInfo: null,
-    url: null,
-    ammRange: null,
-    average: null,
-    min: null,
-    minTime: null,
-    max: null,
-    maxTime: null,
-  });
+  const [hasTimeStamp] = useState(null);
+  const [locationData, setLocationData] = useState(null);
 
   // Get a list of locations
   async function getLocationData(loc) {
-    setLoading(true);
-    const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${loc}&verbose=true&amm=true&cli=${CLI}`;
-    /*     console.log(
-      `${APIURL} requested at ${new Date().toLocaleTimeString("sv-SE")}`
-    ); */
+    try {
+      const result = await apiCaller(`p=${loc}&verbose=true&amm=true`);
+      const data = await result.json();
+      if (data?.stations?.length > 0) {
+        setLocationData(data?.stations[0]);
+        document.title = `${data?.stations[0]?.temp}°C vid ${data?.stations[0]?.title}`;
+      }
 
-    let parser = new DOMParser();
-    let iconv = require("iconv-lite");
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setErrors(error);
 
-    fetch(APIURL)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) => iconv.decode(new Buffer(arrayBuffer), "utf-8").toString())
-      .then((str) => parser.parseFromString(str, "text/xml"))
-      .then((res) => {
-        let items = res.getElementsByTagName("item");
-
-        if (items.length > 0) {
-          let location = {
-            id: items[0].getElementsByTagName("id")[0].childNodes[0]
-              ? items[0].getElementsByTagName("id")[0].childNodes[0].nodeValue
-              : null,
-            title: items[0].getElementsByTagName("title")[0].childNodes[0]
-              ? items[0].getElementsByTagName("title")[0].childNodes[0].nodeValue
-              : null,
-            temp: items[0].getElementsByTagName("temp")[0].childNodes[0]
-              ? items[0].getElementsByTagName("temp")[0].childNodes[0].nodeValue
-              : null,
-            lat: items[0].getElementsByTagName("lat")[0].childNodes[0]
-              ? items[0].getElementsByTagName("lat")[0].childNodes[0].nodeValue
-              : null,
-            lon: items[0].getElementsByTagName("lon")[0].childNodes[0]
-              ? items[0].getElementsByTagName("lon")[0].childNodes[0].nodeValue
-              : null,
-            lastUpdate: items[0].getElementsByTagName("lastUpdate")[0].childNodes[0]
-              ? items[0].getElementsByTagName("lastUpdate")[0].childNodes[0].nodeValue
-              : null,
-            kommun: items[0].getElementsByTagName("kommun")[0].childNodes[0]
-              ? items[0].getElementsByTagName("kommun")[0].childNodes[0].nodeValue.toString()
-              : null,
-            lan: items[0].getElementsByTagName("lan")[0].childNodes[0]
-              ? items[0].getElementsByTagName("lan")[0].childNodes[0].nodeValue
-              : null,
-            sourceInfo: items[0].getElementsByTagName("sourceInfo")[0].childNodes[0]
-              ? items[0].getElementsByTagName("sourceInfo")[0].childNodes[0].nodeValue
-              : null,
-            url: items[0].getElementsByTagName("url")[0].childNodes[0]
-              ? items[0].getElementsByTagName("url")[0].childNodes[0].nodeValue
-              : "https://www.temperatur.nu",
-            ammRange: items[0].getElementsByTagName("ammRange")[0].childNodes[0]
-              ? items[0].getElementsByTagName("ammRange")[0].childNodes[0].nodeValue
-              : null,
-            average: items[0].getElementsByTagName("average")[0].childNodes[0]
-              ? items[0].getElementsByTagName("average")[0].childNodes[0].nodeValue
-              : null,
-            min: items[0].getElementsByTagName("min")[0].childNodes[0]
-              ? items[0].getElementsByTagName("min")[0].childNodes[0].nodeValue
-              : null,
-            minTime: items[0].getElementsByTagName("minTime")[0].childNodes[0]
-              ? items[0].getElementsByTagName("minTime")[0].childNodes[0].nodeValue
-              : null,
-            max: items[0].getElementsByTagName("max")[0].childNodes[0]
-              ? items[0].getElementsByTagName("max")[0].childNodes[0].nodeValue
-              : null,
-            maxTime: items[0].getElementsByTagName("maxTime")[0].childNodes[0]
-              ? items[0].getElementsByTagName("maxTime")[0].childNodes[0].nodeValue
-              : null,
-          };
-          document.title = `${location.temp}°C vid ${location.title}`;
-          setLocationData(location);
-          setTimeStamp(new Date().getTime());
-        }
-        setErrors(null);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(`Error: ${err}`);
-        setErrors(err);
-        setLoading(false);
-      });
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -139,48 +50,54 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
 
   return (
     <>
-      {hasErrors && <div className="my-3">{hasErrors.message}</div>}
-      {locationData.temp ? (
+      {hasErrors && (
+        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+          {hasErrors.message}
+        </div>
+      )}
+      {locationData?.temp ? (
         <>
-          {isOldTimeStamp(locationData.lastUpdate) ? (
-            <div className="my-3 text-center">Temperaturen har inte uppdaterats de senaste 30 minuterna.</div>
+          {isOldTimeStamp(locationData?.lastUpdate) ? (
+            <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+              Temperaturen har inte uppdaterats de senaste 30 minuterna.
+            </div>
           ) : (
             ""
           )}
           <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
             <div className="text-center">
-              <div className="citytitle">{locationData.title}</div>
-              {locationData.kommun && locationData.lan && (
+              <div className="citytitle">{locationData?.title}</div>
+              {locationData?.kommun && locationData?.lan && (
                 <div className="text-muted">
-                  {locationData.kommun} - {locationData.lan}
+                  {locationData?.kommun} - {locationData?.lan}
                 </div>
               )}
-              <h1 className="temperature p-3" style={{ color: colorTemperature(locationData.temp) }}>
-                {locationData.temp}°C
+              <h1 className="temperature p-3" style={{ color: colorTemperature(locationData?.temp) }}>
+                {locationData?.temp}°C
               </h1>
               <p>
-                <small className="text-muted">{locationData.lastUpdate}</small>
+                <small className="text-muted">{locationData?.lastUpdate}</small>
                 <br />
                 <small className="text-muted">
-                  <span className="ammTooltip" title={locationData.minTime}>
-                    min: {locationData.min}°c
+                  <span className="ammTooltip" title={locationData?.minTime}>
+                    min: {locationData?.min}°c
                   </span>{" "}
                   •{" "}
-                  <span className="ammTooltip" title={locationData.maxTime}>
-                    max: {locationData.max}°c
+                  <span className="ammTooltip" title={locationData?.maxTime}>
+                    max: {locationData?.max}°c
                   </span>{" "}
-                  • medel: {locationData.average}°c
+                  • medel: {locationData?.average}°c
                 </small>
               </p>
               <div className="flex items-center justify-center mx-auto text-center">
-                {userHome === locationData.id ? (
+                {userHome === locationData?.id ? (
                   <svg
                     className="uiIcon uiIconHouseSelected"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
-                      removeHome(locationData.id);
+                      removeHome(locationData?.id);
                       setUserHome(null);
                     }}
                     title="Ta bort från startsidan"
@@ -195,8 +112,8 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
-                      setHome(locationData.id);
-                      setUserHome(locationData.id);
+                      setHome(locationData?.id);
+                      setUserHome(locationData?.id);
                     }}
                     title="Ställ in som startsidan"
                   >
@@ -208,7 +125,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     ></path>
                   </svg>
                 )}
-                {userFavorites.includes(locationData.id) ? (
+                {userFavorites.includes(locationData?.id) ? (
                   <svg
                     className="uiIcon uiIconFavorited"
                     fill="none"
@@ -216,7 +133,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
-                      let tempFavs = removeFavorite(locationData.id);
+                      let tempFavs = removeFavorite(locationData?.id);
                       setUserFavorites(tempFavs);
                     }}
                     title="Ta bort från favoriter"
@@ -236,7 +153,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
-                      let tempFavs = addFavorite(locationData.id);
+                      let tempFavs = addFavorite(locationData?.id);
                       setUserFavorites(tempFavs);
                     }}
                     title="Lägg till i favoriter"
@@ -288,8 +205,8 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
             </div>
             <p className="align-text-bottom text-right m-1">
               <small>
-                <a href={locationData.url} className="text-muted">
-                  {locationData.sourceInfo}
+                <a href={locationData?.url} className="text-muted">
+                  {locationData?.sourceInfo}
                 </a>
               </small>
             </p>
@@ -299,9 +216,9 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
           ) : (
             <>
               <NearbyLocations
-                lat={locationData.lat}
-                long={locationData.lon}
-                locationId={locationData.id}
+                lat={locationData?.lat}
+                long={locationData?.lon}
+                locationId={locationData?.id}
                 hasTimeStamp={hasTimeStamp}
                 numResults="10"
                 showMarker={false}

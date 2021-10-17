@@ -46,12 +46,12 @@ body {
 .temperatureSmall {
   font-family: "JetBrains Mono", monospace;
   font-size: 1.2rem;
-  font-weight: bolder !important;
+  font-weight: 600;
   text-shadow: 0px 0px 1px black;
 }
 
 .citytitle {
-  font-weight: bolder;
+  font-weight: 800;
   text-transform: uppercase !important;
 }
 
@@ -116,6 +116,7 @@ body {
   outline: none !important;
 }
 
+/* Responsive */
 @media all and (max-width: 768px) {
   .temperature {
     font-size: 5rem;
@@ -128,6 +129,7 @@ body {
   }
 }
 
+/* Keyframes */
 @-webkit-keyframes rotation {
   from {
     -webkit-transform: rotate(0deg);
