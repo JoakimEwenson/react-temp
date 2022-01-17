@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Card, Alert, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getRandomCli, removeFavorite } from "../Utils/Common";
+import { removeFavorite } from "../Utils/Common";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import apiCaller from "../Utils/apiCaller";
 
 export default function Favorites({ userFavorites }) {
   const [isLoading, setLoading] = useState(false);
@@ -12,98 +12,22 @@ export default function Favorites({ userFavorites }) {
 
   // Get a list of locations
   async function getLocationData(favlist) {
-    const favs = favlist.join(",");
-    const CLI = getRandomCli(12);
-    const APIURL = `https://api.temperatur.nu/tnu_1.15.php?p=${favs}&verbose=true&amm=true&cli=${CLI}`;
-    //console.log(APIURL);
+    try {
+      // Fetch data
+      const favs = favlist.join(",");
+      const result = await apiCaller(`p=${favs}&verbose=true&amm=true&num=25`);
+      const data = await result.json();
+      // Process data
+      if (data?.stations?.length > 0) {
+        setLocationData(data?.stations);
+      }
 
-    let parser = new DOMParser();
-    let iconv = require("iconv-lite");
-    let favoritesList = [];
-
-    fetch(APIURL)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) =>
-        iconv.decode(new Buffer(arrayBuffer), "utf-8").toString()
-      )
-      .then((str) => parser.parseFromString(str, "text/xml"))
-      .then((res) => {
-        let items = res.getElementsByTagName("item");
-
-        for (let i = 0; i < items.length; i++) {
-          let location = {
-            id: items[i].getElementsByTagName("id")[0].childNodes[0]
-              ? items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
-              : null,
-            title: items[i].getElementsByTagName("title")[0].childNodes[0]
-              ? items[i].getElementsByTagName("title")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            temp: items[i].getElementsByTagName("temp")[0].childNodes[0]
-              ? items[i].getElementsByTagName("temp")[0].childNodes[0].nodeValue
-              : null,
-            lat: items[i].getElementsByTagName("lat")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
-              : null,
-            lon: items[i].getElementsByTagName("lon")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
-              : null,
-            lastUpdate: items[i].getElementsByTagName("lastUpdate")[0]
-              .childNodes[0]
-              ? items[i].getElementsByTagName("lastUpdate")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            kommun: items[i].getElementsByTagName("kommun")[0].childNodes[0]
-              ? items[i]
-                  .getElementsByTagName("kommun")[0]
-                  .childNodes[0].nodeValue.toString()
-              : null,
-            lan: items[i].getElementsByTagName("lan")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lan")[0].childNodes[0].nodeValue
-              : null,
-            sourceInfo: items[i].getElementsByTagName("sourceInfo")[0]
-              .childNodes[0]
-              ? items[i].getElementsByTagName("sourceInfo")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            url: items[i].getElementsByTagName("url")[0].childNodes[0]
-              ? items[i].getElementsByTagName("url")[0].childNodes[0].nodeValue
-              : null,
-            ammRange: items[i].getElementsByTagName("ammRange")[0].childNodes[0]
-              ? items[i].getElementsByTagName("ammRange")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            average: items[i].getElementsByTagName("average")[0].childNodes[0]
-              ? items[i].getElementsByTagName("average")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            min: items[i].getElementsByTagName("min")[0].childNodes[0]
-              ? items[i].getElementsByTagName("min")[0].childNodes[0].nodeValue
-              : null,
-            minTime: items[i].getElementsByTagName("minTime")[0].childNodes[0]
-              ? items[i].getElementsByTagName("minTime")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            max: items[i].getElementsByTagName("max")[0].childNodes[0]
-              ? items[i].getElementsByTagName("max")[0].childNodes[0].nodeValue
-              : null,
-            maxTime: items[i].getElementsByTagName("maxTime")[0].childNodes[0]
-              ? items[i].getElementsByTagName("maxTime")[0].childNodes[0]
-                  .nodeValue
-              : null,
-          };
-          favoritesList.push(location);
-        }
-        document.title = "Visar favoritmarkerade mätpunkter";
-        //console.log({ favoritesList });
-        setLocationData(favoritesList);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(`Error: ${err}`);
-        setErrors(err);
-        setLoading(false);
-      });
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setErrors(error);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -124,38 +48,30 @@ export default function Favorites({ userFavorites }) {
 
   return (
     <>
-      {hasErrors ? (
-        <Alert variant="danger" className="my-3">
-          {hasErrors.message}
-        </Alert>
-      ) : (
-        ""
-      )}
+      {hasErrors ? <div className="container max-w-5xl my-3">{hasErrors.message}</div> : ""}
       {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <Card className="my-3">
-          <Card.Body className="text-center">
-            Du har ännu inte favoritmarkerat några mätstationer.
-          </Card.Body>
-        </Card>
+        <div className="container max-w-5xl my-3">
+          <div className="text-center">Du har ännu inte favoritmarkerat några mätstationer.</div>
+        </div>
       ) : (
-        <Card className="my-3">
-          <Table borderless responsive>
+        <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
+          <table className="container table-fixed">
             <thead>
               <tr>
-                <th>Plats</th>
-                <th>Temperatur</th>
-                <th></th>
+                <th className="w-1/2">Plats</th>
+                <th className="w-1/4">Temperatur</th>
+                <th className="w-1/4"></th>
               </tr>
             </thead>
             <tbody>
               {locations.map((row) => (
-                <tr key={row.id}>
-                  <td>
+                <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                  <td className="py-2">
                     <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
-                  <td>{row.temp}&deg;C</td>
-                  <td>
+                  <td className="py-2">{row.temp}&deg;C</td>
+                  <td className="py-2">
                     <i
                       className="fas fa-star uiIcon uiIconFavorited"
                       onClick={() => {
@@ -167,8 +83,8 @@ export default function Favorites({ userFavorites }) {
                 </tr>
               ))}
             </tbody>
-          </Table>
-        </Card>
+          </table>
+        </div>
       )}
     </>
   );

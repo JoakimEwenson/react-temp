@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Alert, Card, Table } from "react-bootstrap";
 import { Popup } from "react-map-gl";
 import ReactMapGL from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
@@ -104,9 +103,9 @@ export default function MapView({
 
   return (
     <>
-      {hasError ? <Alert variant="danger">{hasError}</Alert> : ""}
+      {hasError ? <div >{hasError}</div> : ""}
       {isLoading ? "Laddar..." : ""}
-      <Card className="my-3">
+      <div className="my-3">
         <ReactMapGL
           mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
           mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
@@ -133,7 +132,7 @@ export default function MapView({
             </Popup>
           ))}
         </ReactMapGL>
-        <Table borderless responsive>
+        <table className="container table-fixed">
           <thead>
             <tr>
               <th colSpan="3" className="text-center">
@@ -141,9 +140,9 @@ export default function MapView({
               </th>
             </tr>
             <tr>
-              <th>Plats</th>
-              <th>Avstånd</th>
-              <th>Temperatur</th>
+              <th className="w-1/2">Plats</th>
+              <th className="w-1/4">Avstånd</th>
+              <th className="w-1/4">Temperatur</th>
             </tr>
           </thead>
           <tbody>
@@ -157,8 +156,8 @@ export default function MapView({
               </tr>
             ))}
           </tbody>
-        </Table>
-      </Card>
+        </table>
+      </div>
     </>
   );
 }
