@@ -38,8 +38,6 @@ class Popups extends PureComponent {
 }
 
 export default function NearbyLocations({ lat, long, locationId, numResults, hasTimeStamp, showMarker = false }) {
-  const defaultMapWidth = "100%";
-  const defaultMapHeight = "65vh";
   const defaultLat = 62.10237936;
   const defaultLong = 14.5632154;
   const defaultZoom = 10;
@@ -50,15 +48,15 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
     latitude: Number(lat),
     longitude: Number(long),
   });
+  const [mapWidth, setMapWidth] = useState("fit");
+  const [mapHeight, setMapHeight] = useState("65vh");
   const [viewport, setViewport] = useState({
-    width: defaultMapWidth,
-    height: defaultMapHeight,
+    width: mapWidth,
+    height: mapHeight,
     latitude: coords.latitude ? coords.latitude : defaultLat,
     longitude: coords.longitude ? coords.longitude : defaultLong,
     zoom: defaultZoom,
   });
-
-  //console.log({ lat }, { long });
 
   // Get a list of locations
   async function getNearbyList(lat, long, num) {
@@ -81,7 +79,9 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
   useEffect(() => {
     setLoading(true);
     getNearbyList(lat, long, numResults);
-  }, [lat, long, locationId, numResults, hasTimeStamp]);
+
+    return () => {};
+  }, [lat, long, locationId, numResults, hasTimeStamp, mapWidth]);
 
   return (
     <>
@@ -94,14 +94,19 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
       )}
       {isLoading ? "Laddar..." : ""}
       <div className="container bg-white shadow-sm max-w-5xl my-3">
-        <div className="map_container">
+        <div className="map_container" id="mapContainer">
           <ReactMapGL
             mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
             mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
             {...viewport}
             onViewportChange={(nextViewport) => setViewport(nextViewport)}
+            onResize={(e) => {
+              console.log(e);
+              setMapWidth("100%");
+              setMapHeight("65vh");
+            }}
           >
-            <div className="p-0" style={{ position: "absolute", right: 0, zIndex: 99 }}>
+            <div className="p-0" style={{ position: "absolute", right: 0, zIndex: 42 }}>
               <NavigationControl showCompass={false} />
               {showMarker ? (
                 <GeolocateControl
@@ -115,13 +120,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
                       latitude: pos.coords.latitude,
                       longitude: pos.coords.longitude,
                     });
-                    setViewport({
-                      width: defaultMapWidth,
-                      height: defaultMapHeight,
-                      latitude: pos.coords.latitude ? pos.coords.latitude : defaultLat,
-                      longitude: pos.coords.longitude ? pos.coords.longitude : defaultLong,
-                      zoom: defaultZoom,
-                    });
+                    setViewport(viewport);
                     getNearbyList(pos.coords.latitude, pos.coords.longitude, numResults);
                   }}
                 />
