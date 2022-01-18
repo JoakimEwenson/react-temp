@@ -71,12 +71,12 @@ export default function NearbyList({ userFavorites, setUserFavorites }) {
       <>
         {isLoading ? <LoadingSpinner /> : ""}
         {hasError ? (
-          <div className="my-3">
+          <div className="container max-w-4xl my-3 mx-auto p-3 prose">
             GeoLocation Error: {hasError}
           </div>
         ) : !isLoading ? (
           <div className="my-3">
-            <table className="container">
+            <table className="container max-w-4xl my-3 mx-auto prose">
               <thead>
                 <tr>
                   <th>Plats</th>

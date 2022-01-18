@@ -2,7 +2,7 @@
 _Av Joakim Ewenson, augusti 2020_
 
 ### Beskrivning
-En simpel webbapp skriven i React med Bootstrap som stilmallsramverk. Syftet är att hämta temperaturer från nätverket av mätstationer på temperatur.nu.
+En simpel webbapp skriven i React med Tailwind CSS som stilmallsramverk. Syftet är att hämta temperaturer från nätverket av mätstationer på temperatur.nu.
 
 ### Funktioner
 * Lista över närliggande stationer

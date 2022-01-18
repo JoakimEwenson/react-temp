@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PageFooter() {
   return (
-    <footer className="fixed bottom-0 bg-gray-800 w-full text-center mt-64 p-1" style={{zIndex: 100}}>
+    <footer className="fixed bottom-0 bg-indigo-900 w-full text-center mt-64 pt-1 pb-3 md:pb-1" style={{zIndex: 100}}>
       <a
         href="https://github.com/JoakimEwenson/react-temp"
         className="text-white hover:text-gray-400"

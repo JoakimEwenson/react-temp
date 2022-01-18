@@ -3,8 +3,8 @@ import React from "react";
 export default function About() {
   document.title = "Om tjänsten";
   return (
-    <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl">Webbapp för Temperatur.nu skriven med React</h2>
+    <article className="container max-w-4xl my-3 mx-auto p-5 prose">
+      <h1 className="">Webbapp för temperatur.nu skriven med React</h1>
       <p className="text-muted">
         <em>
           Av <a href="https://www.ewenson.se">Joakim Ewenson</a>, augusti 2020
@@ -56,6 +56,6 @@ export default function About() {
         Vill du följa projektet rent tekniskt så hittar du repot på&nbsp;
         <a href="https://github.com/JoakimEwenson/react-temp/">github.com</a>.
       </p>
-    </div>
+    </article>
   );
 }

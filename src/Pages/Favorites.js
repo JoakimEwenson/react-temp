@@ -48,14 +48,14 @@ export default function Favorites({ userFavorites }) {
 
   return (
     <>
-      {hasErrors ? <div className="container max-w-5xl my-3">{hasErrors.message}</div> : ""}
+      {hasErrors ? <div className="container max-w-4xl my-3 mx-auto">{hasErrors.message}</div> : ""}
       {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <div className="container max-w-5xl my-3">
+        <div className="container max-w-4xl my-3 mx-auto">
           <div className="text-center">Du har ännu inte favoritmarkerat några mätstationer.</div>
         </div>
       ) : (
-        <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
+        <div className="container max-w-4xl my-3 p-3 mx-auto prose">
           <table className="container table-fixed">
             <thead>
               <tr>

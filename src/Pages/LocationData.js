@@ -51,14 +51,14 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
   return (
     <>
       {hasErrors && (
-        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
           {hasErrors.message}
         </div>
       )}
       {locationData?.temp ? (
         <>
           {isOldTimeStamp(locationData?.lastUpdate) ? (
-            <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl flex items-center justify-center">
+            <div className="mx-auto my-3 p-3 text-center border bg-red-600 rounded-xl w-fit text-white font-semibold max-w-4xl flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 mr-2"
@@ -78,7 +78,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
           ) : (
             ""
           )}
-          <div className="container bg-white shadow-sm max-w-5xl my-3 p-3">
+          <div className="container max-w-4xl my-3 mx-auto p-3">
             <div className="text-center">
               <div className="citytitle">{locationData?.title}</div>
               {locationData?.kommun && locationData?.lan && (
@@ -106,7 +106,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
               <div className="flex items-center justify-center mx-auto text-center">
                 {userHome === locationData?.id ? (
                   <svg
-                    className="uiIcon uiIconHouseSelected"
+                    className="uiIcon text-indigo-900"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                 )}
                 {userFavorites.includes(locationData?.id) ? (
                   <svg
-                    className="uiIcon uiIconFavorited"
+                    className="uiIcon text-yellow-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

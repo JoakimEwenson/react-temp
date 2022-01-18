@@ -86,15 +86,15 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
   return (
     <>
       {hasError ? (
-        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold shadow-sm max-w-5xl">
+        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
           {hasError}
         </div>
       ) : (
         ""
       )}
       {isLoading ? "Laddar..." : ""}
-      <div className="container bg-white shadow-sm max-w-5xl my-3">
-        <div className="map_container" id="mapContainer">
+      <div className="container max-w-4xl my-3 mx-auto p-3">
+        <div id="mapContainer">
           <ReactMapGL
             mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
             mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
@@ -132,33 +132,27 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             {showMarker ? <Markers data={coords} /> : ""}
           </ReactMapGL>
         </div>
-        <div className="py-10">
-          <table className="container table-auto">
-            <thead>
-              <tr>
-                <th colSpan="3" className="text-center py-3">
-                  Kartans mätstationer
-                </th>
+        <h3 className="pt-10 text-xl md:text-3xl">Kartans mätstationer</h3>
+        <table className="container max-w-4xl my-3 mx-auto prose">
+          <thead>
+            <tr>
+              <th className="w-1/2 text-left">Plats</th>
+              <th className="w-1/4 text-right">Avstånd</th>
+              <th className="w-1/4 text-right">Temperatur</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locationList.map((row) => (
+              <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                <td className="py-2 w-1/2">
+                  <Link to={`/plats/${row.id}`}>{row.title}</Link>
+                </td>
+                <td className="py-2 w-1/4 text-right">{row.dist} km</td>
+                <td className="py-2 w-1/4 text-right">{row.temp}&deg;C</td>
               </tr>
-              <tr>
-                <th className="w-1/2">Plats</th>
-                <th className="w-1/4">Avstånd</th>
-                <th className="w-1/4">Temperatur</th>
-              </tr>
-            </thead>
-            <tbody>
-              {locationList.map((row) => (
-                <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                  <td className="py-2">
-                    <Link to={`/plats/${row.id}`}>{row.title}</Link>
-                  </td>
-                  <td className="py-2">{row.dist} km</td>
-                  <td className="py-2">{row.temp}&deg;C</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
