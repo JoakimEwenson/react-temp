@@ -53,33 +53,33 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
     <>
       <div className="container mx-auto p-3">
         {hasErrors && (
-          <div className="mx-auto p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
+          <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
             {hasErrors.message}
           </div>
         )}
         {locationData?.temp ? (
           <>
-            {isOldTimeStamp(locationData?.lastUpdate) ? (
-              <div className="mx-auto p-3 text-center border bg-red-600 rounded-xl w-fit text-white font-semibold max-w-4xl flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Temperaturen har inte uppdaterats de senaste 30 minuterna.
-              </div>
-            ) : (
-              ""
-            )}
+              {isOldTimeStamp(locationData?.lastUpdate) ? (
+                <div className="mx-auto mb-3 p-3 text-center border bg-red-600 rounded-xl text-white font-semibold max-w-4xl flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Temperaturen har inte uppdaterats de senaste 30 minuterna.
+                </div>
+              ) : (
+                ""
+              )}
             <div className="container bg-white rounded-lg max-w-4xl mx-auto p-3">
               <div className="text-center">
                 <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
