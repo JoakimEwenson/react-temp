@@ -47,15 +47,15 @@ export default function Favorites({ userFavorites }) {
   }, [locationList, userFavorites]);
 
   return (
-    <>
-      {hasErrors ? <div className="container max-w-4xl my-3 mx-auto">{hasErrors.message}</div> : ""}
+    <div className="container mx-auto p-3">
+      {hasErrors ? <div className="container max-w-4xl mx-auto">{hasErrors.message}</div> : ""}
       {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <div className="container max-w-4xl my-3 mx-auto">
+        <div className="container max-w-4xl mx-auto">
           <div className="text-center">Du har ännu inte favoritmarkerat några mätstationer.</div>
         </div>
       ) : (
-        <div className="container max-w-4xl my-3 p-3 mx-auto prose">
+        <div className="container bg-white rounded-lg max-w-4xl p-3 mx-auto prose">
           <table className="container table-fixed">
             <thead>
               <tr>
@@ -72,13 +72,25 @@ export default function Favorites({ userFavorites }) {
                   </td>
                   <td className="py-2">{row.temp}&deg;C</td>
                   <td className="py-2">
-                    <i
-                      className="fas fa-star uiIcon uiIconFavorited"
+                    <svg
+                      className="w-5 h-5 mx-3 text-yellow-500 cursor-pointer"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
                         let tempFavs = removeFavorite(row.id);
                         setLocationList(tempFavs);
                       }}
-                    ></i>
+                      title="Ta bort från favoriter"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                      ></path>
+                    </svg>
                   </td>
                 </tr>
               ))}
@@ -86,6 +98,6 @@ export default function Favorites({ userFavorites }) {
           </table>
         </div>
       )}
-    </>
+    </div>
   );
 }

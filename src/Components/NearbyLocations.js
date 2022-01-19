@@ -84,16 +84,16 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
   }, [lat, long, locationId, numResults, hasTimeStamp, mapWidth]);
 
   return (
-    <>
+    <div className="container mx-auto p-3">
       {hasError ? (
-        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
+        <div className="mx-auto p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
           {hasError}
         </div>
       ) : (
         ""
       )}
       {isLoading ? "Laddar..." : ""}
-      <div className="container max-w-4xl my-3 mx-auto p-3">
+      <div className="bg-white rounded-lg container max-w-4xl mx-auto p-3">
         <div id="mapContainer">
           <ReactMapGL
             mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
@@ -153,6 +153,6 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }

@@ -50,16 +50,16 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
   }, [platsId]);
 
   return (
-    <>
+    <div className="container mx-auto p-3">
       {hasErrors && (
-        <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
+        <div className="mx-auto p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
           {hasErrors.message}
         </div>
       )}
       {locationData?.temp ? (
         <>
           {isOldTimeStamp(locationData?.lastUpdate) ? (
-            <div className="mx-auto my-3 p-3 text-center border bg-red-600 rounded-xl w-fit text-white font-semibold max-w-4xl flex items-center justify-center">
+            <div className="mx-auto p-3 text-center border bg-red-600 rounded-xl w-fit text-white font-semibold max-w-4xl flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 mr-2"
@@ -79,7 +79,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
           ) : (
             ""
           )}
-          <div className="container max-w-4xl my-3 mx-auto p-3">
+          <div className="container bg-white rounded-lg max-w-4xl mx-auto p-3">
             <div className="text-center">
               <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
               {locationData?.kommun && locationData?.lan && (
@@ -235,6 +235,6 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
       ) : (
         <LoadingSpinner />
       )}
-    </>
+    </div>
   );
 }

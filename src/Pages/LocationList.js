@@ -35,9 +35,9 @@ export default function LocationList({
   };
 
   return (
-    <>
-      {hasErrors ? <div className="my-3">{hasErrors.message}</div> : ""}
-      <div className="container max-w-4xl my-3 mx-auto p-3">
+    <div className="container mx-auto p-3">
+      {hasErrors ? <div className="container bg-white rounded-xl">{hasErrors.message}</div> : ""}
+      <div className="container bg-white rounded-lg max-w-4xl mx-auto p-3">
         <form onSubmit={submitHandler} className="my-3 align-items-center">
           <div>
             <input
@@ -133,7 +133,7 @@ export default function LocationList({
         </p>
       </div>
       {isLoading ? <LoadingSpinner /> : ""}
-      <div className="container max-w-4xl my-3 mx-auto p-3 prose">
+      <div className="container bg-white rounded-lg max-w-4xl my-3 mx-auto p-3 prose">
         <table className="container table-fixed">
           <thead>
             <tr>
@@ -145,15 +145,15 @@ export default function LocationList({
           <tbody>
             {locations.map((row) => (
               <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                <td className="py-2">
+                <td className="w-1/2 py-2">
                   <Link to={`/plats/${row.id}`}>{row.title}</Link>
                 </td>
-                <td className="py-2">{row.temp}&deg;C</td>
-                <td className="py-2">
+                <td className="w-1/4 py-2">{row.temp}&deg;C</td>
+                <td className="w-1/4 py-2 text-right">
                   {userFavorites.includes(row.id) ? (
                     <>
                       <svg
-                        className="favlistIcon uiIconFavorited"
+                        className="w-5 h-5 mx-3 cursor-pointer text-yellow-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -175,7 +175,7 @@ export default function LocationList({
                   ) : (
                     <>
                       <svg
-                        className="favlistIcon"
+                        className="w-5 h-5 mx-3 cursor-pointer"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -201,6 +201,6 @@ export default function LocationList({
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }
