@@ -18,6 +18,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
     try {
       const result = await apiCaller(`p=${loc}&verbose=true&amm=true`);
       const data = await result.json();
+      console.log(data);
       if (data?.stations?.length > 0) {
         setLocationData(data?.stations[0]);
         document.title = `${data?.stations[0]?.temp}°C vid ${data?.stations[0]?.title}`;
@@ -82,31 +83,29 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
             <div className="text-center">
               <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
               {locationData?.kommun && locationData?.lan && (
-                <div className="">
+                <h2 className="text-sm sm:text-base">
                   {locationData?.kommun} - {locationData?.lan}
-                </div>
+                </h2>
               )}
-              <h1 className="text-7xl sm:text-9xl font-bold font-mono drop-shadow-sm my-5" style={{ color: colorTemperature(locationData?.temp) }}>
+              <h1
+                className="text-7xl sm:text-9xl font-black font-mono drop-shadow-md my-5"
+                style={{ color: colorTemperature(locationData?.temp) }}
+              >
                 {locationData?.temp}°C
               </h1>
-              <p className="my-3">
-                <small className="">{locationData?.lastUpdate}</small>
-                <br />
-                <small className="">
-                  <span className="ammTooltip" title={locationData?.minTime}>
-                    min: {locationData?.min}°c
-                  </span>{" "}
-                  •{" "}
-                  <span className="ammTooltip" title={locationData?.maxTime}>
-                    max: {locationData?.max}°c
-                  </span>{" "}
-                  • medel: {locationData?.average}°c
-                </small>
+              <p className="text-xs my-3"><span className="font-semibold">Senast uppdaterat</span><br />{locationData?.lastUpdate}</p>
+              <p className="my-3 text-xs">
+                <span className="font-semibold" title={locationData?.amm?.minTime}>
+                  min:
+                </span>{" "}
+                {locationData?.amm?.min}°c •{" "}
+                <span className="font-semibold" title={locationData?.amm?.maxTime}>
+                  max:
+                </span>{" "}
+                {locationData?.amm?.max}°c • <span className="font-semibold">medel:</span> {locationData?.amm?.average}°c
               </p>
               <p className="text-xs my-1">
-                <small>
-                  <a href={locationData?.url}>{locationData?.sourceInfo}</a>
-                </small>
+                <a href={locationData?.url}>{locationData?.sourceInfo}</a>
               </p>
               <div className="flex items-center justify-center mx-auto text-center my-3">
                 {userHome === locationData?.id ? (

@@ -101,7 +101,6 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             {...viewport}
             onViewportChange={(nextViewport) => setViewport(nextViewport)}
             onResize={(e) => {
-              console.log(e);
               setMapWidth("100%");
               setMapHeight("65vh");
             }}
