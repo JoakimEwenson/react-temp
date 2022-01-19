@@ -145,7 +145,7 @@ export default function LocationList({
           <tbody>
             {locations.map((row) => (
               <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                <td className="w-1/2 py-2">
+                <td className="w-1/2 py-2 truncate">
                   <Link to={`/plats/${row.id}`}>{row.title}</Link>
                 </td>
                 <td className="w-1/4 py-2">{row.temp}&deg;C</td>

@@ -67,7 +67,7 @@ export default function Favorites({ userFavorites }) {
             <tbody>
               {locations.map((row) => (
                 <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                  <td className="py-2">
+                  <td className="py-2 truncate">
                     <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
                   <td className="py-2">{row.temp}&deg;C</td>

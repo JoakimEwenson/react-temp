@@ -142,7 +142,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             <tbody>
               {locationList.map((row) => (
                 <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                  <td className="py-2 w-1/2">
+                  <td className="py-2 w-1/2 truncate">
                     <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
                   <td className="py-2 w-1/4 text-right">{row.dist} km</td>
