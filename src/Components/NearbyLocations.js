@@ -86,9 +86,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
   return (
     <div className="container mx-auto p-3">
       {hasError ? (
-        <div className="mx-auto p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
-          {hasError}
-        </div>
+        <div className="mx-auto p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">{hasError}</div>
       ) : (
         ""
       )}
@@ -132,26 +130,28 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
           </ReactMapGL>
         </div>
         <h3 className="pt-10 text-xl md:text-3xl">Kartans mätstationer</h3>
-        <table className="container max-w-4xl my-3 mx-auto prose">
-          <thead>
-            <tr>
-              <th className="w-1/2 text-left">Plats</th>
-              <th className="w-1/4 text-right">Avstånd</th>
-              <th className="w-1/4 text-right">Temperatur</th>
-            </tr>
-          </thead>
-          <tbody>
-            {locationList.map((row) => (
-              <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                <td className="py-2 w-1/2">
-                  <Link to={`/plats/${row.id}`}>{row.title}</Link>
-                </td>
-                <td className="py-2 w-1/4 text-right">{row.dist} km</td>
-                <td className="py-2 w-1/4 text-right">{row.temp}&deg;C</td>
+        <div className="overflow-auto">
+          <table className="container max-w-4xl my-3 mx-auto prose">
+            <thead>
+              <tr>
+                <th className="w-1/2 text-left">Plats</th>
+                <th className="w-1/4 text-right">Avstånd</th>
+                <th className="w-1/4 text-right">Temperatur</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {locationList.map((row) => (
+                <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                  <td className="py-2 w-1/2">
+                    <Link to={`/plats/${row.id}`}>{row.title}</Link>
+                  </td>
+                  <td className="py-2 w-1/4 text-right">{row.dist} km</td>
+                  <td className="py-2 w-1/4 text-right">{row.temp}&deg;C</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
