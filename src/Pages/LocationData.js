@@ -80,19 +80,19 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
           )}
           <div className="container max-w-4xl my-3 mx-auto p-3">
             <div className="text-center">
-              <div className="citytitle">{locationData?.title}</div>
+              <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
               {locationData?.kommun && locationData?.lan && (
-                <div className="text-muted">
+                <div className="">
                   {locationData?.kommun} - {locationData?.lan}
                 </div>
               )}
-              <h1 className="temperature p-3" style={{ color: colorTemperature(locationData?.temp) }}>
+              <h1 className="text-7xl sm:text-9xl font-bold font-mono drop-shadow-sm my-5" style={{ color: colorTemperature(locationData?.temp) }}>
                 {locationData?.temp}°C
               </h1>
-              <p>
-                <small className="text-muted">{locationData?.lastUpdate}</small>
+              <p className="my-3">
+                <small className="">{locationData?.lastUpdate}</small>
                 <br />
-                <small className="text-muted">
+                <small className="">
                   <span className="ammTooltip" title={locationData?.minTime}>
                     min: {locationData?.min}°c
                   </span>{" "}
@@ -103,10 +103,15 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                   • medel: {locationData?.average}°c
                 </small>
               </p>
+              <p className="text-xs my-1">
+                <small>
+                  <a href={locationData?.url}>{locationData?.sourceInfo}</a>
+                </small>
+              </p>
               <div className="flex items-center justify-center mx-auto text-center my-3">
                 {userHome === locationData?.id ? (
                   <svg
-                    className="w-8 h-8 mx-3 text-indigo-900"
+                    className="w-8 h-8 mx-3 text-indigo-900 cursor-pointer"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +125,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                   </svg>
                 ) : (
                   <svg
-                    className="w-8 h-8 mx-3"
+                    className="w-8 h-8 mx-3 cursor-pointer"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 20 20"
@@ -136,7 +141,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                 )}
                 {userFavorites.includes(locationData?.id) ? (
                   <svg
-                    className="w-8 h-8 mx-3 text-yellow-500"
+                    className="w-8 h-8 mx-3 text-yellow-500 cursor-pointer"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -156,7 +161,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                   </svg>
                 ) : (
                   <svg
-                    className="w-8 h-8 mx-3"
+                    className="w-8 h-8 mx-3 cursor-pointer"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -177,7 +182,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                 )}
                 {isLoading ? (
                   <svg
-                    className="w-8 h-8 mx-3 uiIconRefreshing"
+                    className="w-8 h-8 mx-3 uiIconRefreshing cursor-pointer"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -192,7 +197,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                   </svg>
                 ) : (
                   <svg
-                    className="w-8 h-8 mx-3"
+                    className="w-8 h-8 mx-3 cursor-pointer"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -212,13 +217,6 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                 )}
               </div>
             </div>
-            <p className="align-text-bottom text-right m-1">
-              <small>
-                <a href={locationData?.url} className="text-muted">
-                  {locationData?.sourceInfo}
-                </a>
-              </small>
-            </p>
           </div>
           {hideMap ? (
             ""

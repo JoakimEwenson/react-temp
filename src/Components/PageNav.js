@@ -12,7 +12,7 @@ export default function PageNav() {
             <div className="flex-shrink-0 flex items-center">
               <Link
                 to="/"
-                className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
+                className="text-white hover:text-slate-200 px-3 py-2 rounded-md text-sm font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 <div className="flex items-center space-x-2">
@@ -43,7 +43,7 @@ export default function PageNav() {
               <div className="px-2 pt-2 pb-3 space-y-3">
                 <Link
                   to="/favoriter"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full flex items-center"
+                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full flex items-center"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -64,7 +64,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -91,7 +91,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/platslista"
-                  className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -112,7 +112,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/om"
-                  className="flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
                                     <svg
@@ -171,7 +171,7 @@ export default function PageNav() {
               <div className="flex space-x-4">
                 <Link
                   to="/favoriter"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/platslista"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +237,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/om"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

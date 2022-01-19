@@ -4,20 +4,20 @@ export default function About() {
   document.title = "Om tjänsten";
   return (
     <article className="container max-w-4xl my-3 mx-auto p-5 prose">
-      <h1 className="">Webbapp för temperatur.nu skriven med React</h1>
-      <p className="text-muted">
+      <h1 className="text-3xl sm:text-5xl">Webbapp för temperatur.nu skriven med React</h1>
+      <p className="text-xs -mt-5 sm:-mt-8">
         <em>
           Av <a href="https://www.ewenson.se">Joakim Ewenson</a>, augusti 2020
         </em>
       </p>
-      <h4 className="text-lg md:text-2xl font-bold mt-4 mb-2">Beskrivning</h4>
-      <p className="mb-2">
+      <h2 className="">Beskrivning</h2>
+      <p className="">
         En simpel webbapp skriven i React med syfte att hämta temperaturer från nätverket av mätstationer som rapporterar temperaturdata till tjänsten&nbsp;
         <a href="https://temperatur.nu/">temperatur.nu</a>.
       </p>
 
-      <h4 className="text-lg md:text-2xl font-bold mt-4 mb-2">Funktioner</h4>
-      <ul className="list-disc ml-4">
+      <h2 className="">Funktioner</h2>
+      <ul className="">
         <li>Lista över närliggande stationer</li>
         <li>Lista över samtliga stationer, sökbar i realtid</li>
         <li>Detaljerad vy över station och dess information</li>
@@ -28,14 +28,14 @@ export default function About() {
         <li>Karta på detaljvyn</li>
       </ul>
 
-      <h4 className="text-lg md:text-2xl font-bold mt-4 mb-2">Kommande</h4>
-      <ul className="list-disc ml-4">
+      <h2 className="">Kommande</h2>
+      <ul className="">
         <li>Kartvy</li>
       </ul>
 
-      <h4 className="text-lg md:text-2xl font-bold mt-4 mb-2">Teknik</h4>
+      <h2 className="">Teknik</h2>
       <ul className="list-disc ml-4">
-        <li>React</li>
+        <li><a href="https://reactjs.org/">React</a></li>
         <li>
           <a href="https://tailwindcss.com">Tailwind CSS</a>
         </li>
@@ -47,12 +47,12 @@ export default function About() {
         </li>
       </ul>
 
-      <h4 className="text-lg md:text-2xl font-bold mt-4 mb-2">Övrigt</h4>
-      <p className="mb-2">
+      <h2 className="">Övrigt</h2>
+      <p className="">
         Information om temperatur.nu och dess API finns på&nbsp;
         <a href="https://temperatur.nu/info/api/">temperatur.nu</a>.
       </p>
-      <p className="mb-2">
+      <p className="">
         Vill du följa projektet rent tekniskt så hittar du repot på&nbsp;
         <a href="https://github.com/JoakimEwenson/react-temp/">github.com</a>.
       </p>
