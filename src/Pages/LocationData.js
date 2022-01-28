@@ -89,7 +89,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                   </h2>
                 )}
                 <h1
-                  className="text-7xl sm:text-9xl font-black font-mono drop-shadow-md my-5"
+                  className="text-7xl sm:text-9xl font-bold font-mono drop-shadow-md my-5"
                   style={{ color: colorTemperature(locationData?.temp) }}
                 >
                   {locationData?.temp}°C
