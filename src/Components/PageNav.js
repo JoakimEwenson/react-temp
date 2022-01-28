@@ -30,17 +30,17 @@ export default function PageNav() {
                       d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                     ></path>
                   </svg>
-                  <span className="text-xl hidden sm:block">
-                    <b>temperatur.nu</b>
+                  <span className="text-lg sm:text-xl block">
+                    temperatur.nu
                   </span>
                 </div>
               </Link>
             </div>
             <div
-              className={"absolute top-16 right-0 bg-indigo-900 " + (isOpen ? "flex flex-col w-screen z-50" : "hidden")}
+              className={"absolute top-16 right-0 bg-indigo-900 " + (isOpen ? "flex flex-col w-screen h-screen sm:h-fit items-center sm:items-start z-50" : "hidden")}
               id="mobile-menu"
             >
-              <div className="px-2 pt-2 pb-3 space-y-3">
+              <div className="px-2 pt-2 pb-3 space-y-16 sm:space-y-5">
                 <Link
                   to="/favoriter"
                   className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full flex items-center"

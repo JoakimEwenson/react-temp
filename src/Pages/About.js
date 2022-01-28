@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="container mx-auto p-3">
       <div className="bg-white rounded-lg max-w-4xl mx-auto p-5">
-        <article className=" max-w-prose prose">
+        <article className="prose">
           <h1 className="text-3xl sm:text-5xl">Webbapp för temperatur.nu skriven med React</h1>
           <p className="text-xs -mt-5 sm:-mt-8">
             <em>

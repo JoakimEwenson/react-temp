@@ -90,68 +90,73 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
       ) : (
         ""
       )}
-      {isLoading ? "Laddar..." : ""}
       <div className="bg-white rounded-lg container max-w-4xl mx-auto p-3">
-        <div id="mapContainer" class="hidden">
-          <ReactMapGL
-            mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
-            mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
-            {...viewport}
-            onViewportChange={(nextViewport) => setViewport(nextViewport)}
-            onResize={(e) => {
-              setMapWidth("100%");
-              setMapHeight("65vh");
-            }}
-          >
-            <div className="p-0" style={{ position: "absolute", right: 0, zIndex: 42 }}>
-              <NavigationControl showCompass={false} />
-              {showMarker ? (
-                <GeolocateControl
-                  className="mt-2"
-                  showUserLocation={true}
-                  label="Hämta din position"
-                  positionOptions={{ enableHighAccuracy: true }}
-                  trackUserLocation={false}
-                  onGeolocate={(pos) => {
-                    setCoords({
-                      latitude: pos.coords.latitude,
-                      longitude: pos.coords.longitude,
-                    });
-                    setViewport(viewport);
-                    getNearbyList(pos.coords.latitude, pos.coords.longitude, numResults);
-                  }}
-                />
-              ) : (
-                ""
-              )}
+        {isLoading ? (
+          <div className="text-xl md:text-3xl">Hämtar närliggande stationer...</div>
+        ) : (
+          <>
+            <div id="mapContainer" class="hidden">
+              <ReactMapGL
+                mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
+                mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
+                {...viewport}
+                onViewportChange={(nextViewport) => setViewport(nextViewport)}
+                onResize={(e) => {
+                  setMapWidth("100%");
+                  setMapHeight("65vh");
+                }}
+              >
+                <div className="p-0" style={{ position: "absolute", right: 0, zIndex: 42 }}>
+                  <NavigationControl showCompass={false} />
+                  {showMarker ? (
+                    <GeolocateControl
+                      className="mt-2"
+                      showUserLocation={true}
+                      label="Hämta din position"
+                      positionOptions={{ enableHighAccuracy: true }}
+                      trackUserLocation={false}
+                      onGeolocate={(pos) => {
+                        setCoords({
+                          latitude: pos.coords.latitude,
+                          longitude: pos.coords.longitude,
+                        });
+                        setViewport(viewport);
+                        getNearbyList(pos.coords.latitude, pos.coords.longitude, numResults);
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {locationList ? <Popups data={locationList} /> : ""}
+                {showMarker ? <Markers data={coords} /> : ""}
+              </ReactMapGL>
             </div>
-            {locationList ? <Popups data={locationList} /> : ""}
-            {showMarker ? <Markers data={coords} /> : ""}
-          </ReactMapGL>
-        </div>
-        <h3 className="text-xl md:text-3xl">Närliggande mätstationer</h3>
-        <div className="overflow-auto">
-          <table className="container max-w-4xl my-3 mx-auto prose">
-            <thead>
-              <tr>
-                <th className="w-1/2 text-left">Plats</th>
-                <th className="w-1/4 text-right">Avstånd</th>
-                <th className="w-1/4 text-right">Temperatur</th>
-              </tr>
-            </thead>
-            <tbody>
-              {locationList.map((row) => (
-                <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                  <td className="py-2 w-1/2 truncate">
-                    <Link to={`/plats/${row.id}`}>{row.title}</Link>
-                  </td>
-                  <td className="py-2 w-1/4 text-right">{row.dist} km</td>
-                  <td className="py-2 w-1/4 text-right">{row.temp}&deg;C</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            <h3 className="text-xl md:text-3xl">Närliggande mätstationer</h3>
+            <div className="overflow-auto">
+              <table className="container max-w-4xl my-3 mx-auto prose">
+                <thead>
+                  <tr>
+                    <th className="w-1/2 text-left">Plats</th>
+                    <th className="w-1/4 text-right">Avstånd</th>
+                    <th className="w-1/4 text-right">Temperatur</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {locationList.map((row) => (
+                    <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                      <td className="py-2 w-1/2 truncate">
+                        <Link to={`/plats/${row.id}`}>{row.title}</Link>
+                      </td>
+                      <td className="py-2 w-1/4 text-right">{row.dist} km</td>
+                      <td className="py-2 w-1/4 text-right">{row.temp}&deg;C</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
