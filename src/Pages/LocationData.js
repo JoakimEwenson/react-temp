@@ -130,9 +130,8 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     </svg>
                   ) : (
                     <svg
-                      className="w-8 h-8 mx-3 cursor-pointer"
-                      fill="none"
-                      stroke="currentColor"
+                      className="w-8 h-8 mx-3 text-gray-300 cursor-pointer"
+                      fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => {
