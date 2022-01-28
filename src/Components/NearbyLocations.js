@@ -92,7 +92,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
       )}
       {isLoading ? "Laddar..." : ""}
       <div className="bg-white rounded-lg container max-w-4xl mx-auto p-3">
-        <div id="mapContainer">
+        <div id="mapContainer" class="hidden">
           <ReactMapGL
             mapboxApiAccessToken="pk.eyJ1IjoiamV3ZW5zb24iLCJhIjoiY2tkeWkxdDAxMndjaTJ0b2Rpc3p2a3pweSJ9.r_KppxmTaSixudgMmFpW7A"
             mapStyle="mapbox://styles/jewenson/ckbtk7ve70z1t1iqlcryenuzz"
@@ -129,7 +129,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             {showMarker ? <Markers data={coords} /> : ""}
           </ReactMapGL>
         </div>
-        <h3 className="pt-10 text-xl md:text-3xl">Kartans mätstationer</h3>
+        <h3 className="pt-10 text-xl md:text-3xl">Närliggande mätstationer</h3>
         <div className="overflow-auto">
           <table className="container max-w-4xl my-3 mx-auto prose">
             <thead>
