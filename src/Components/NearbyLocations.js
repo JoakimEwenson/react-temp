@@ -129,7 +129,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             {showMarker ? <Markers data={coords} /> : ""}
           </ReactMapGL>
         </div>
-        <h3 className="pt-10 text-xl md:text-3xl">Närliggande mätstationer</h3>
+        <h3 className="text-xl md:text-3xl">Närliggande mätstationer</h3>
         <div className="overflow-auto">
           <table className="container max-w-4xl my-3 mx-auto prose">
             <thead>
