@@ -4,8 +4,8 @@ export default function About() {
   document.title = "Om tjänsten";
   return (
     <div className="container mx-auto p-3">
-      <div className="bg-white rounded-lg max-w-4xl mx-auto p-5">
-        <article className="prose">
+      <div className="bg-white dark:bg-neutral-700 rounded-lg max-w-4xl mx-auto p-5">
+        <article className="prose dark:prose-invert">
           <h1 className="text-3xl sm:text-5xl">Webbapp för temperatur.nu skriven med React</h1>
           <p className="text-xs -mt-5 sm:-mt-8">
             <em>

@@ -5,7 +5,7 @@ export default function PageFooter() {
     <footer className="w-full text-center mt-32 mb-5">
       <a
         href="https://github.com/JoakimEwenson/react-temp"
-        className="text-indigo-900 hover:text-indigo-600"
+        className="text-indigo-900 dark:text-indigo-500 hover:text-indigo-600"
         target="_blank"
         rel="noreferrer"
       >
@@ -13,7 +13,7 @@ export default function PageFooter() {
       </a>
       <a
         href="https://twitter.com/JoakimEwenson"
-        className="text-indigo-900 hover:text-indigo-600"
+        className="text-indigo-900 dark:text-indigo-500 hover:text-indigo-600"
         target="_blank"
         rel="noreferrer"
       >
@@ -21,13 +21,13 @@ export default function PageFooter() {
       </a>
       <a
         href="https://www.linkedin.com/in/joakim-ewenson-a1586377/"
-        className="text-indigo-900 hover:text-indigo-600"
+        className="text-indigo-900 dark:text-indigo-500 hover:text-indigo-600"
         target="_blank"
         rel="noreferrer"
       >
         <i className="fab fa-linkedin-in h-6 w-6 mx-5"></i>
       </a>
-      <a href="https://www.ewenson.se" className="text-indigo-900 hover:text-indigo-600" target="_blank" rel="noreferrer">
+      <a href="https://www.ewenson.se" className="text-indigo-900 dark:text-indigo-500 hover:text-indigo-600" target="_blank" rel="noreferrer">
         <i className="fab fa-wordpress h-6 w-6 mx-5"></i>
       </a>
     </footer>

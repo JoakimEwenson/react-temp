@@ -76,7 +76,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
             ) : (
               ""
             )}
-            <div className="container bg-white rounded-lg max-w-4xl mx-auto p-3">
+            <div className="container bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-200 rounded-lg max-w-4xl mx-auto p-3">
               <div className="text-center">
                 <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
                 {locationData?.kommun && locationData?.lan && (
@@ -112,7 +112,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                 <div className="flex items-center justify-center mx-auto text-center my-3">
                   {userHome === locationData?.id ? (
                     <svg
-                      className="w-8 h-8 mx-3 text-indigo-900 cursor-pointer"
+                      className="w-8 h-8 mx-3 text-indigo-900 dark:text-indigo-500 cursor-pointer"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     </svg>
                   ) : (
                     <svg
-                      className="w-8 h-8 mx-3 text-gray-300 cursor-pointer"
+                      className="w-8 h-8 mx-3 text-neutral-300 dark:text-neutral-500 cursor-pointer"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +161,7 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
                     </svg>
                   ) : (
                     <svg
-                      className="w-8 h-8 mx-3 text-gray-300 cursor-pointer"
+                      className="w-8 h-8 mx-3 text-neutral-300 dark:text-neutral-500 cursor-pointer"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

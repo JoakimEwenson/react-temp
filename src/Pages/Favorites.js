@@ -51,27 +51,27 @@ export default function Favorites({ userFavorites }) {
       {hasErrors ? <div className="container max-w-4xl mx-auto">{hasErrors.message}</div> : ""}
       {isLoading ? <LoadingSpinner /> : ""}
       {locationList.length === 0 ? (
-        <div className="container max-w-4xl mx-auto">
+        <div className="container bg-white dark:bg-neutral-700 prose dark:prose-invert rounded-lg max-w-4xl p-3 mx-auto">
           <div className="text-center">Du har ännu inte favoritmarkerat några mätstationer.</div>
         </div>
       ) : (
-        <div className="container bg-white rounded-lg max-w-4xl p-3 mx-auto prose">
-          <table className="container table-fixed">
+        <div className="container bg-white dark:bg-neutral-700 rounded-lg max-w-4xl p-3 mx-auto">
+          <table className="container max-w-4xl prose dark:prose-invert">
             <thead>
               <tr>
-                <th className="w-1/2">Plats</th>
-                <th className="w-1/4">Temperatur</th>
-                <th className="w-1/4"></th>
+                <th className="w-1/2 text-left">Plats</th>
+                <th className="w-1/4 text-right">Temperatur</th>
+                <th className="w-1/4">&nbsp;</th>
               </tr>
             </thead>
             <tbody>
               {locations.map((row) => (
-                <tr key={row.id} className="border-bottom hover:bg-gray-100">
-                  <td className="py-2 truncate">
+                <tr key={row.id} className="hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                  <td className="w-1/2 py-2 truncate">
                     <Link to={`/plats/${row.id}`}>{row.title}</Link>
                   </td>
-                  <td className="py-2">{row.temp}&deg;C</td>
-                  <td className="py-2">
+                  <td className="w-1/4 py-2 text-right">{row.temp}&deg;C</td>
+                  <td className="w-1/4 py-2">
                     <svg
                       className="w-5 h-5 mx-3 text-yellow-500 cursor-pointer"
                       fill="none"

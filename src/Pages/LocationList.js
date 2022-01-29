@@ -36,14 +36,14 @@ export default function LocationList({
 
   return (
     <div className="container mx-auto p-3">
-      {hasErrors ? <div className="container bg-white rounded-xl">{hasErrors.message}</div> : ""}
-      <div className="container bg-white rounded-lg max-w-4xl mx-auto p-3">
+      {hasErrors ? <div className="container bg-white dark:bg-neutral-700 rounded-xl">{hasErrors.message}</div> : ""}
+      <div className="container bg-white dark:bg-neutral-700 prose dark:prose-invert rounded-lg max-w-4xl mx-auto p-3">
         <form onSubmit={submitHandler} className="my-3 align-items-center">
           <div>
             <input
               type="search"
               id="locationSearchBar"
-              className="border w-full rounded-md p-2"
+              className="border border-neutral-100 dark:border-neutral-600 w-full rounded-md p-2 bg-neutral-100 dark:bg-neutral-600"
               placeholder="Sök mätplats"
               onChange={changeHandler}
               disabled={isLoading}
@@ -133,8 +133,8 @@ export default function LocationList({
         </p>
       </div>
       {isLoading ? <LoadingSpinner /> : ""}
-      <div className="container bg-white rounded-lg max-w-4xl my-3 mx-auto p-3 prose">
-        <table className="container table-fixed">
+      <div className="container bg-white dark:bg-neutral-700 rounded-lg max-w-4xl my-3 mx-auto p-3 prose">
+        <table className="container max-w-4xl prose dark:prose-invert">
           <thead>
             <tr>
               <th className="w-1/2">Plats</th>
@@ -144,7 +144,7 @@ export default function LocationList({
           </thead>
           <tbody>
             {locations.map((row) => (
-              <tr key={row.id} className="border-bottom hover:bg-gray-100">
+              <tr key={row.id} className="hover:bg-neutral-100 dark:hover:bg-neutral-600">
                 <td className="w-1/2 py-2 truncate">
                   <Link to={`/plats/${row.id}`}>{row.title}</Link>
                 </td>

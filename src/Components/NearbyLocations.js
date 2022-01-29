@@ -90,7 +90,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
       ) : (
         ""
       )}
-      <div className="bg-white rounded-lg container max-w-4xl mx-auto p-3">
+      <div className="bg-white dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 rounded-lg container max-w-4xl mx-auto p-3">
         {isLoading ? (
           <div className="text-xl md:text-3xl">Hämtar närliggande stationer...</div>
         ) : (
@@ -134,7 +134,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             </div>
             <h3 className="text-xl md:text-3xl">Närliggande mätstationer</h3>
             <div className="overflow-auto">
-              <table className="container max-w-4xl my-3 mx-auto prose">
+              <table className="container max-w-4xl my-3 mx-auto prose dark:prose-invert">
                 <thead>
                   <tr>
                     <th className="w-1/2 text-left">Plats</th>
@@ -144,7 +144,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
                 </thead>
                 <tbody>
                   {locationList.map((row) => (
-                    <tr key={row.id} className="border-bottom hover:bg-gray-100">
+                    <tr key={row.id} className="hover:bg-neutral-100 dark:hover:bg-neutral-600">
                       <td className="py-2 w-1/2 truncate">
                         <Link to={`/plats/${row.id}`}>{row.title}</Link>
                       </td>

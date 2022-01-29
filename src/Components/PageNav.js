@@ -5,19 +5,19 @@ export default function PageNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-indigo-900">
+    <nav className="">
       <div className="mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-1 flex items-center justify-between sm:items-stretch sm:justify-between">
             <div className="flex-shrink-0 flex items-center">
               <Link
                 to="/"
-                className="text-white hover:text-slate-200 px-3 py-2 rounded-md text-sm font-medium"
+                className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 <div className="flex items-center space-x-2">
                   <svg
-                    className="h-8 w-8 text-white"
+                    className="h-8 w-8"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -30,20 +30,21 @@ export default function PageNav() {
                       d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                     ></path>
                   </svg>
-                  <span className="text-lg sm:text-xl block">
-                    temperatur.nu
-                  </span>
+                  <span className="text-lg sm:text-xl block">temperatur.nu</span>
                 </div>
               </Link>
             </div>
             <div
-              className={"absolute top-16 right-0 bg-indigo-900 " + (isOpen ? "flex flex-col w-screen h-screen sm:h-fit items-center sm:items-start z-50" : "hidden")}
+              className={
+                "absolute top-16 right-0 bg-neutral-100 dark:bg-neutral-800 " +
+                (isOpen ? "flex flex-col w-screen h-screen sm:h-fit items-center sm:items-start z-50" : "hidden")
+              }
               id="mobile-menu"
             >
               <div className="px-2 pt-2 pb-3 space-y-16 sm:space-y-5">
                 <Link
                   to="/favoriter"
-                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 pt-16 pb-2 sm:py-2 rounded-md text-sm font-bold w-full flex items-center"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -64,7 +65,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -87,11 +88,11 @@ export default function PageNav() {
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  Närliggande
+                  Nära
                 </Link>
                 <Link
                   to="/platslista"
-                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -105,17 +106,17 @@ export default function PageNav() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                      d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  Alla mätpunkter
+                  Sök
                 </Link>
                 <Link
                   to="/om"
-                  className="flex items-center text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
                   onClick={() => setIsOpen(false)}
                 >
-                                    <svg
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 mr-2"
                     fill="none"
@@ -137,7 +138,7 @@ export default function PageNav() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -171,7 +172,7 @@ export default function PageNav() {
               <div className="flex space-x-4">
                 <Link
                   to="/favoriter"
-                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +192,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -213,11 +214,11 @@ export default function PageNav() {
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  Närliggande
+                  Nära
                 </Link>
                 <Link
                   to="/platslista"
-                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -230,14 +231,14 @@ export default function PageNav() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                      d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  Alla mätpunkter
+                  Sök
                 </Link>
                 <Link
                   to="/om"
-                  className="text-slate-200 hover:text-white px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
