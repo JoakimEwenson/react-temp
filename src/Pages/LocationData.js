@@ -76,11 +76,11 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
             ) : (
               ""
             )}
-            <div className="container bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-200 rounded-lg max-w-4xl mx-auto p-3">
+            <div className="container bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-200 rounded-lg max-w-4xl mx-auto p-3 overflow-clip">
               <div className="text-center">
-                <h1 className="text-xl sm:text-3xl font-bold">{locationData?.title}</h1>
+                <h1 className="text-lg sm:text-2xl md:text-3xl font-bold">{locationData?.title}</h1>
                 {locationData?.kommun && locationData?.lan && (
-                  <h2 className="text-sm sm:text-base">
+                  <h2 className="text-xs sm:text-sm">
                     {locationData?.kommun} - {locationData?.lan}
                   </h2>
                 )}
