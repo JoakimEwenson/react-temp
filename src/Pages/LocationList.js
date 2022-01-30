@@ -134,7 +134,7 @@ export default function LocationList({
       </div>
       {isLoading ? <LoadingSpinner /> : ""}
       <div className="container bg-white dark:bg-neutral-700 rounded-lg max-w-4xl my-3 mx-auto p-3 overflow-auto">
-        <table className="container max-w-4xl prose dark:prose-invert">
+        <table className="container max-w-4xl prose dark:prose-invert text-xs md:text-base">
           <thead>
             <tr>
               <th className="w-1/2">Plats</th>

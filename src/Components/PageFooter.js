@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PageFooter() {
   return (
-    <footer className="w-full text-center mt-32 mb-5">
+    <footer className="w-full text-center mt-24 mb-5">
       <a
         href="https://github.com/JoakimEwenson/react-temp"
         className="text-indigo-900 dark:text-indigo-500 hover:text-indigo-600"

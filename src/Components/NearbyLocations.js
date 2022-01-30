@@ -134,7 +134,7 @@ export default function NearbyLocations({ lat, long, locationId, numResults, has
             </div>
             <h3 className="text-xl md:text-3xl">Närliggande mätstationer</h3>
             <div className="overflow-auto">
-              <table className="container max-w-4xl my-3 mx-auto prose dark:prose-invert">
+              <table className="container max-w-4xl my-3 mx-auto prose dark:prose-invert text-xs md:text-base">
                 <thead>
                   <tr>
                     <th className="w-1/2 text-left">Plats</th>
