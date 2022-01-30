@@ -55,7 +55,7 @@ export default function Favorites({ userFavorites }) {
           <div className="text-center">Du har ännu inte favoritmarkerat några mätstationer.</div>
         </div>
       ) : (
-        <div className="container bg-white dark:bg-neutral-700 rounded-lg max-w-4xl p-3 mx-auto overflow-hidden">
+        <div className="container bg-white dark:bg-neutral-700 rounded-lg max-w-4xl p-3 mx-auto overflow-auto">
           <table className="container max-w-4xl prose dark:prose-invert">
             <thead>
               <tr>

@@ -49,14 +49,14 @@ export default function LocationData({ userFavorites, setUserFavorites, userHome
     <>
       <div className="container mx-auto p-3">
         {hasErrors && (
-          <div className="mx-auto my-3 p-3 text-center border bg-red-600 text-white font-semibold max-w-4xl">
+          <div className="mx-auto my-3 p-3 text-center bg-red-600 text-white font-semibold max-w-4xl">
             {hasErrors.message}
           </div>
         )}
         {locationData?.temp ? (
           <>
             {isOldTimeStamp(locationData?.lastUpdate) ? (
-              <div className="mx-auto mb-3 p-3 text-center border bg-red-600 rounded-xl text-white font-semibold max-w-4xl flex items-center justify-center">
+              <div className="mx-auto mb-3 p-3 text-center bg-red-600 rounded-xl text-white font-semibold max-w-4xl flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 mr-2"
