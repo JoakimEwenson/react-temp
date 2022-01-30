@@ -12,7 +12,7 @@ export default function PageNav() {
             <div className="flex-shrink-0 flex items-center">
               <Link
                 to="/"
-                className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-medium"
+                className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-xs font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 <div className="flex items-center space-x-2">
@@ -44,7 +44,7 @@ export default function PageNav() {
               <div className="px-2 pt-2 pb-3 space-y-16 sm:space-y-5">
                 <Link
                   to="/favoriter"
-                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 pt-16 pb-2 sm:py-2 rounded-md text-sm font-bold w-full flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 pt-16 pb-2 sm:py-2 rounded-md text-sm font-bold w-full flex items-center uppercase"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -65,7 +65,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full uppercase"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -92,7 +92,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/platslista"
-                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full uppercase"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -113,7 +113,7 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/om"
-                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full"
+                  className="flex items-center text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold w-full uppercase"
                   onClick={() => setIsOpen(false)}
                 >
                   <svg
@@ -138,7 +138,7 @@ export default function PageNav() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-transparent"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -172,11 +172,11 @@ export default function PageNav() {
               <div className="flex space-x-4">
                 <Link
                   to="/favoriter"
-                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-xs font-bold flex items-center uppercase"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-4 w-4 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -192,11 +192,11 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/narliggande"
-                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-xs font-bold flex items-center uppercase"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-4 w-4 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -218,11 +218,11 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/platslista"
-                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-xs font-bold flex items-center uppercase"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-4 w-4 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -238,11 +238,11 @@ export default function PageNav() {
                 </Link>
                 <Link
                   to="/om"
-                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-sm font-bold flex items-center"
+                  className="text-indigo-900 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-500 px-3 py-2 rounded-md text-xs font-bold flex items-center uppercase"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-4 w-4 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
