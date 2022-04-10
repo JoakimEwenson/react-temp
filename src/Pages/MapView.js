@@ -4,13 +4,7 @@ import { Popup } from "react-map-gl";
 import ReactMapGL from "react-map-gl";
 import { colorTemperature, getRandomCli } from "../Utils/Common";
 
-export default function MapView({
-  lat,
-  long,
-  locationId,
-  numResults,
-  hasTimeStamp,
-}) {
+export default function MapView({ lat, long, locationId, numResults, hasTimeStamp }) {
   const defaultMapWidth = "100%";
   const defaultMapHeight = "75vh";
   const defaultLat = 62.10237936;
@@ -31,79 +25,28 @@ export default function MapView({
   async function getNearbyList(lat, long, num) {
     const CLI = getRandomCli(12);
     const APIURL = `https://api.temperatur.nu/tnu_1.15.php?lat=${lat}&lon=${long}&num=${num}&verbose=true&amm=true&cli=${CLI}`;
-    //console.log(APIURL);
+    console.log(APIURL);
 
-    let parser = new DOMParser();
-    let iconv = require("iconv-lite");
     let locationList = [];
+    console.log({ locationList });
+    setLocationList(locationList);
 
-    fetch(APIURL)
-      .then((response) => response.arrayBuffer())
-      .then((arrayBuffer) =>
-        iconv.decode(new Buffer(arrayBuffer), "utf-8").toString()
-      )
-      .then((str) => parser.parseFromString(str, "text/xml"))
-      .then((res) => {
-        let items = res.getElementsByTagName("item");
-        // Iterate results and input into string
-        for (let i = 0; i < items.length; i++) {
-          let row = {
-            id: items[i].getElementsByTagName("id")[0].childNodes[0]
-              ? items[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
-              : null,
-            title: items[i].getElementsByTagName("title")[0].childNodes[0]
-              ? items[i].getElementsByTagName("title")[0].childNodes[0]
-                  .nodeValue
-              : null,
-            temp: items[i].getElementsByTagName("temp")[0].childNodes[0]
-              ? items[i].getElementsByTagName("temp")[0].childNodes[0].nodeValue
-              : null,
-            lat: items[i].getElementsByTagName("lat")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lat")[0].childNodes[0].nodeValue
-              : null,
-            lon: items[i].getElementsByTagName("lon")[0].childNodes[0]
-              ? items[i].getElementsByTagName("lon")[0].childNodes[0].nodeValue
-              : null,
-            dist: items[i].getElementsByTagName("dist")[0].innerHTML
-              ? items[i].getElementsByTagName("dist")[0].innerHTML
-              : null,
-          };
-          locationList.push(row);
-        }
-        //console.log({ locationList });
-        setLocationList(locationList);
-        setViewport({
-          width: defaultMapWidth,
-          height: defaultMapHeight,
-          latitude: Number(locationList[0].lat)
-            ? Number(locationList[0].lat)
-            : defaultLat,
-          longitude: Number(locationList[0].lon)
-            ? Number(locationList[0].lon)
-            : defaultLong,
-          zoom: defaultZoom,
-        });
-      })
-      .catch((err) => {
-        setError(err);
-        console.error(`Error: ${err}`);
-      });
     setLoading(false);
+    setError(null);
   }
 
   useEffect(() => {
     setLoading(true);
     if (lat && long && numResults) {
       getNearbyList(lat, long, numResults);
-    }
-    else {
-      getNearbyList(defaultLat, defaultLong, 10)
+    } else {
+      getNearbyList(defaultLat, defaultLong, 10);
     }
   }, [lat, long, locationId, numResults, hasTimeStamp]);
 
   return (
     <>
-      {hasError ? <div >{hasError}</div> : ""}
+      {hasError ? <div>{hasError}</div> : ""}
       {isLoading ? "Laddar..." : ""}
       <div className="my-3">
         <ReactMapGL
@@ -113,19 +56,13 @@ export default function MapView({
           onViewportChange={(nextViewport) => setViewport(nextViewport)}
         >
           {locationList.reverse().map((loc) => (
-            <Popup
-              closeButton={false}
-              key={loc.id}
-              latitude={parseFloat(loc.lat)}
-              longitude={parseFloat(loc.lon)}
-            >
+            <Popup closeButton={false} key={loc.id} latitude={parseFloat(loc.lat)} longitude={parseFloat(loc.lon)}>
               <div className="p-1 text-center">
-                <small><Link to={`/plats/${loc.id}`}>{loc.title}</Link></small>
+                <small>
+                  <Link to={`/plats/${loc.id}`}>{loc.title}</Link>
+                </small>
                 <br />
-                <span
-                  className="temperatureSmall"
-                  style={{ color: colorTemperature(loc.temp) }}
-                >
+                <span className="temperatureSmall" style={{ color: colorTemperature(loc.temp) }}>
                   {loc.temp}&deg;C
                 </span>
               </div>

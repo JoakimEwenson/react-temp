@@ -52,6 +52,14 @@ function App() {
         <Route exact path="/">
           {userHome ? <Redirect to={`/plats/${userHome}`} /> : <About />}
         </Route>
+        <Route exact path="/extra/:platsId">
+          <LocationData
+            userFavorites={userFavorites}
+            setUserFavorites={setUserFavorites}
+            userHome={userHome}
+            setUserHome={setUserHome}
+          />
+        </Route>
         <Route exact path="/favoriter">
           <Favorites userFavorites={userFavorites} setUserFavorites={setUserFavorites} />
         </Route>
@@ -74,11 +82,12 @@ function App() {
           />
         </Route>
         <Route exact path="/plats/:platsId">
-          <LocationData
+          <LocationData 
             userFavorites={userFavorites}
             setUserFavorites={setUserFavorites}
             userHome={userHome}
             setUserHome={setUserHome}
+            hideMap={true}
           />
         </Route>
         <Route exact path="/om">
