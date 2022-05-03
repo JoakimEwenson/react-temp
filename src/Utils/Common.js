@@ -13,41 +13,48 @@ export function getRandomCli(length) {
 
 // Check and color grade temperature results
 export function colorTemperature(temperature) {
-  const tempResult = parseInt(temperature);
+  const tempResult = temperature;
   // Set default color
   let textColor = "#3a3a3a";
 
   // Check temperature and set color based on results
-  if (tempResult < 0) {
-    textColor = "#bfe2fc";
-  }
-  if (tempResult < -6) {
-    textColor = "#7fc6f8";
-  }
-  if (tempResult < -12) {
-    textColor = "#3fa9f5";
-  }
-  if (tempResult < -18) {
+  if (tempResult < 0.0) {
     textColor = "#2a71cd";
   }
-  if (tempResult < -24) {
-    textColor = "#153996";
-  }
-  if (tempResult >= 0) {
-    textColor = "#f9c0c0";
-  }
-  if (tempResult > 6) {
-    textColor = "#f78181";
-  }
-  if (tempResult > 12) {
-    textColor = "#f44040";
-  }
-  if (tempResult > 18) {
+  if (tempResult > 0.0) {
     textColor = "#e80303";
   }
-  if (tempResult > 24) {
-    textColor = "#ab0202";
-  }
+
+  // if (tempResult < 0) {
+  //   textColor = "#bfe2fc";
+  // }
+  // if (tempResult < -6) {
+  //   textColor = "#7fc6f8";
+  // }
+  // if (tempResult < -12) {
+  //   textColor = "#3fa9f5";
+  // }
+  // if (tempResult < -18) {
+  //   textColor = "#2a71cd";
+  // }
+  // if (tempResult < -24) {
+  //   textColor = "#153996";
+  // }
+  // if (tempResult >= 0) {
+  //   textColor = "#f9c0c0";
+  // }
+  // if (tempResult > 6) {
+  //   textColor = "#f78181";
+  // }
+  // if (tempResult > 12) {
+  //   textColor = "#f44040";
+  // }
+  // if (tempResult > 18) {
+  //   textColor = "#e80303";
+  // }
+  // if (tempResult > 24) {
+  //   textColor = "#ab0202";
+  // }
 
   return textColor;
 }
